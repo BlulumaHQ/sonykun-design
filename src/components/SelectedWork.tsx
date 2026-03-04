@@ -3,6 +3,8 @@ import { projects } from "@/data/projects";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import ScrollReveal from "./ScrollReveal";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -14,15 +16,21 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 const SelectedWork = () => {
-  // Shuffle once on mount only
   const featured = useMemo(() => shuffleArray(projects.slice(0, 6)), []);
+  const { lang } = useLanguage();
+  const titleParts = translations.selectedWork.title[lang].split("\n");
 
   return (
     <section className="py-16 md:py-24">
       <div className="container-wide">
         <ScrollReveal>
           <h2 className="heading-section mb-10">
-            Selected<br />Work
+            {titleParts.map((part, i) => (
+              <span key={i}>
+                {part}
+                {i < titleParts.length - 1 && <br />}
+              </span>
+            ))}
           </h2>
         </ScrollReveal>
 
@@ -51,7 +59,6 @@ const SelectedWork = () => {
                     </p>
                   </div>
                 </div>
-                {/* Glass sweep effect on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500 overflow-hidden">
                   <div className="absolute inset-0 glass-sweep" />
                 </div>
@@ -65,7 +72,7 @@ const SelectedWork = () => {
             to="/work"
             className="nav-link text-base border-b border-secondary pb-1 hover:border-foreground hover:text-foreground transition-colors"
           >
-            View All Projects
+            {t(translations.selectedWork.viewAll, lang)}
           </Link>
         </div>
       </div>

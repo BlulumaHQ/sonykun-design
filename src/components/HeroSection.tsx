@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-
-const words = ["Branding", "Websites", "Marketing Design"];
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 const HeroSection = () => {
+  const { lang } = useLanguage();
+  const words = translations.hero.words[lang];
+
   return (
     <section className="min-h-[85vh] flex items-center pt-32 md:pt-36">
       <div className="container-wide">
@@ -12,7 +15,7 @@ const HeroSection = () => {
           <h1 className="heading-hero mb-6">
             {words.map((word, i) => (
               <motion.span
-                key={word}
+                key={`${lang}-${i}`}
                 className={`block ${i === 2 ? "text-secondary" : ""}`}
                 initial={{ opacity: 0, y: 50, filter: "blur(4px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -23,7 +26,6 @@ const HeroSection = () => {
             ))}
           </h1>
           
-          {/* Animated accent bar */}
           <motion.div
             className="w-16 h-1 mb-6"
             style={{ backgroundColor: "hsl(var(--secondary))" }}
@@ -38,8 +40,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.4 }}
           >
-            Personal portfolio of Sony Lin, a Vancouver-based designer
-            specializing in branding, website design, and marketing materials.
+            {t(translations.hero.subtitle, lang)}
           </motion.p>
           <motion.div
             className="flex flex-wrap gap-4"
@@ -48,16 +49,15 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 2.6 }}
           >
             <Button asChild size="lg" className="h-14 px-10 text-base font-medium magnetic-btn">
-              <Link to="/work">View Work</Link>
+              <Link to="/work">{t(translations.hero.cta1, lang)}</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-14 px-10 text-base font-medium border-foreground text-foreground hover:bg-foreground hover:text-background magnetic-btn">
-              <Link to="/contact">Start a Project</Link>
+              <Link to="/contact">{t(translations.hero.cta2, lang)}</Link>
             </Button>
           </motion.div>
         </div>
       </div>
 
-      {/* Animated geometric accents */}
       <motion.div
         className="hidden md:block absolute right-20 top-48 w-24 h-24 border border-secondary/10"
         initial={{ opacity: 0, rotate: 0 }}
