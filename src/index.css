@@ -85,7 +85,7 @@
   }
 
   .section-padding {
-    @apply py-24 md:py-32 lg:py-40;
+    @apply py-16 md:py-24;
   }
 
   .heading-hero {
@@ -127,6 +127,24 @@
     color: hsl(var(--primary));
   }
 
+  /* Nav link underline animation */
+  .nav-link-animated {
+    @apply relative;
+  }
+
+  .nav-link-animated::after {
+    content: '';
+    @apply absolute w-full h-[2px] bottom-0 left-0 origin-bottom-right;
+    background-color: hsl(var(--primary));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link-animated:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom-left;
+  }
+
   .project-card {
     @apply relative overflow-hidden cursor-pointer;
   }
@@ -140,17 +158,52 @@
   }
 
   .project-card-overlay {
-    @apply absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-6 md:p-8;
+    @apply absolute inset-0 bg-primary/0 transition-all duration-500 flex items-end p-6 md:p-8;
   }
 
   .project-card-info {
-    @apply translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500;
+    @apply translate-y-4 opacity-0 transition-all duration-500;
   }
 
   .dark-section {
     background-color: hsl(var(--navy));
     color: hsl(0 0% 100%);
   }
+
+  /* Magnetic button effect */
+  .magnetic-btn {
+    @apply relative overflow-hidden;
+  }
+
+  .magnetic-btn::before {
+    content: '';
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(90deg, transparent, hsl(var(--secondary) / 0.15), transparent);
+    transform: translateX(-100%);
+    transition: opacity 0.3s;
+  }
+
+  .magnetic-btn:hover::before {
+    @apply opacity-100;
+    animation: sweep 0.6s ease forwards;
+  }
+
+  /* Section divider animation */
+  .section-divider {
+    @apply w-full h-px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--border)),
+      hsl(var(--secondary) / 0.3),
+      hsl(var(--border)),
+      transparent
+    );
+  }
+}
+
+@keyframes sweep {
+  to { transform: translateX(100%); }
 }
 
 /* Smooth scrolling */
@@ -162,4 +215,15 @@ html {
 ::selection {
   background-color: hsl(var(--primary));
   color: hsl(0 0% 100%);
+}
+
+/* Subtle noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
