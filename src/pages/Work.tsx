@@ -6,8 +6,12 @@ import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollProgress from "@/components/ScrollProgress";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 const Work = () => {
+  const { lang } = useLanguage();
+
   return (
     <>
       <ScrollProgress />
@@ -16,7 +20,11 @@ const Work = () => {
         <section className="py-16 md:py-24">
           <div className="container-wide">
             <ScrollReveal>
-              <h1 className="heading-hero mb-12">Work</h1>
+              <h1 className="heading-hero mb-4">{t(translations.work.title, lang)}</h1>
+              {lang === "zh" && translations.work.intro.zh && (
+                <p className="text-body mb-8">{translations.work.intro.zh}</p>
+              )}
+              {lang === "en" && !translations.work.intro.en && <div className="mb-8" />}
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,8 @@ const ContactSection = () => {
     message: "",
   });
   const [focused, setFocused] = useState<string | null>(null);
+  const { lang } = useLanguage();
+  const ct = translations.contact;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,11 +33,15 @@ const ContactSection = () => {
         <div className="max-w-[680px] mx-auto">
           <ScrollReveal>
             <h2 className="heading-section mb-4">
-              Start a<br />Project
+              {t(ct.title, lang).split("\n").map((part, i, arr) => (
+                <span key={i}>
+                  {part}
+                  {i < arr.length - 1 && <br />}
+                </span>
+              ))}
             </h2>
             <p className="text-body mb-8">
-              If you are interested in working together or discussing a project,
-              please get in touch.
+              {t(ct.body, lang)}
             </p>
           </ScrollReveal>
 
@@ -46,7 +54,7 @@ const ContactSection = () => {
                     className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
                     animate={{ color: focused === "name" ? "hsl(var(--primary))" : undefined }}
                   >
-                    Name
+                    {t(ct.name, lang)}
                   </motion.label>
                   <input
                     id="name"
@@ -66,7 +74,7 @@ const ContactSection = () => {
                     className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
                     animate={{ color: focused === "email" ? "hsl(var(--primary))" : undefined }}
                   >
-                    Email
+                    {t(ct.email, lang)}
                   </motion.label>
                   <input
                     id="email"
@@ -88,7 +96,7 @@ const ContactSection = () => {
                   className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
                   animate={{ color: focused === "projectType" ? "hsl(var(--primary))" : undefined }}
                 >
-                  Project Type
+                  {t(ct.projectType, lang)}
                 </motion.label>
                 <select
                   id="projectType"
@@ -99,12 +107,12 @@ const ContactSection = () => {
                   onBlur={() => setFocused(null)}
                   className={`${inputClasses("projectType")} appearance-none`}
                 >
-                  <option value="">Select a project type</option>
-                  <option value="branding">Brand Identity Design</option>
-                  <option value="website">Website Design</option>
-                  <option value="ecommerce">Ecommerce Website</option>
-                  <option value="marketing">Marketing Graphics</option>
-                  <option value="other">Other</option>
+                  <option value="">{t(ct.selectProject, lang)}</option>
+                  <option value="branding">{t(ct.optBranding, lang)}</option>
+                  <option value="website">{t(ct.optWebsite, lang)}</option>
+                  <option value="ecommerce">{t(ct.optEcommerce, lang)}</option>
+                  <option value="marketing">{t(ct.optMarketing, lang)}</option>
+                  <option value="other">{t(ct.optOther, lang)}</option>
                 </select>
               </div>
 
@@ -114,7 +122,7 @@ const ContactSection = () => {
                   className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
                   animate={{ color: focused === "message" ? "hsl(var(--primary))" : undefined }}
                 >
-                  Message
+                  {t(ct.message, lang)}
                 </motion.label>
                 <textarea
                   id="message"
@@ -132,10 +140,10 @@ const ContactSection = () => {
 
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pt-1">
                 <p className="text-xs text-muted-foreground order-2 md:order-1">
-                  Typical response time: TBD
+                  {t(ct.responseTime, lang)}
                 </p>
                 <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
-                  Send Message
+                  {t(ct.submit, lang)}
                 </Button>
               </div>
             </form>

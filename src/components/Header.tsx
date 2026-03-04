@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.svg";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
-  { label: "Contact", href: "/contact" },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
+import { translations, t } from "@/i18n/translations";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { lang, toggle } = useLanguage();
+
+  const navLinks = [
+    { label: t(translations.nav.home, lang), href: "/" },
+    { label: t(translations.nav.work, lang), href: "/work" },
+    { label: t(translations.nav.services, lang), href: "/services" },
+    { label: t(translations.nav.contact, lang), href: "/contact" },
+  ];
 
   const handleNav = (href: string) => {
     setMenuOpen(false);
@@ -35,7 +38,7 @@ const Header = () => {
         <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <button
-              key={link.label}
+              key={link.href}
               onClick={() => handleNav(link.href)}
               className={`nav-link nav-link-animated ${
                 location.pathname === link.href ? "!text-foreground" : ""
@@ -44,18 +47,32 @@ const Header = () => {
               {link.label}
             </button>
           ))}
+          <button
+            onClick={toggle}
+            className="ml-2 text-sm font-medium px-3 py-1.5 border border-border rounded-lg hover:bg-muted transition-colors"
+          >
+            {lang === "en" ? "中文" : "EN"}
+          </button>
         </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block w-6 h-0.5 bg-foreground transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-        </button>
+        {/* Mobile: lang toggle + hamburger */}
+        <div className="md:hidden flex items-center gap-3">
+          <button
+            onClick={toggle}
+            className="text-xs font-medium px-2.5 py-1 border border-border rounded-md hover:bg-muted transition-colors"
+          >
+            {lang === "en" ? "中文" : "EN"}
+          </button>
+          <button
+            className="flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-foreground transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -64,7 +81,7 @@ const Header = () => {
           <div className="container-wide py-8 flex flex-col gap-6">
             {navLinks.map((link) => (
               <button
-                key={link.label}
+                key={link.href}
                 className="nav-link text-lg text-left"
                 onClick={() => handleNav(link.href)}
               >
