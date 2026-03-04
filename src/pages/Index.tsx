@@ -6,10 +6,17 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import ProcessSection from "@/components/ProcessSection";
 import ContactSection from "@/components/ContactSection";
+import PageLoader from "@/components/PageLoader";
+import ScrollToTop from "@/components/ScrollToTop";
+import ScrollProgress from "@/components/ScrollProgress";
+import CustomCursor from "@/components/CustomCursor";
 
 const Index = () => {
   return (
     <>
+      <PageLoader />
+      <CustomCursor />
+      <ScrollProgress />
       <Header />
       <main>
         <HeroSection />
@@ -20,6 +27,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 };
