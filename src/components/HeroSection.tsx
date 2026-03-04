@@ -6,7 +6,7 @@ const words = ["Branding", "Websites", "Marketing Design"];
 
 const HeroSection = () => {
   return (
-    <section className="min-h-[85vh] flex items-center pt-24">
+    <section className="min-h-[85vh] flex items-center pt-32 md:pt-36">
       <div className="container-wide">
         <div className="max-w-5xl">
           <h1 className="heading-hero mb-6">
@@ -22,6 +22,16 @@ const HeroSection = () => {
               </motion.span>
             ))}
           </h1>
+          
+          {/* Animated accent bar */}
+          <motion.div
+            className="w-16 h-1 mb-6"
+            style={{ backgroundColor: "hsl(var(--secondary))" }}
+            initial={{ scaleX: 0, originX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 2.3, ease: "easeOut" }}
+          />
+
           <motion.p
             className="text-subtitle max-w-xl mb-10"
             initial={{ opacity: 0, y: 20 }}
@@ -46,6 +56,22 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Animated geometric accents */}
+      <motion.div
+        className="hidden md:block absolute right-20 top-48 w-24 h-24 border border-secondary/10"
+        initial={{ opacity: 0, rotate: 0 }}
+        animate={{ opacity: 1, rotate: 45 }}
+        transition={{ duration: 1.5, delay: 2.8 }}
+        style={{ transform: "rotate(45deg)" }}
+      />
+      <motion.div
+        className="hidden md:block absolute right-36 top-72 w-3 h-3 rounded-full"
+        style={{ backgroundColor: "hsl(var(--secondary) / 0.3)" }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 3 }}
+      />
     </section>
   );
 };

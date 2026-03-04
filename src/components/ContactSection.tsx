@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 
 const ContactSection = () => {
@@ -9,15 +10,23 @@ const ContactSection = () => {
     projectType: "",
     message: "",
   });
+  const [focused, setFocused] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
+  const inputClasses = (field: string) =>
+    `w-full bg-transparent border border-secondary/20 rounded-xl px-4 py-3 text-base transition-all duration-300 outline-none ${
+      focused === field
+        ? "border-primary shadow-[0_0_0_3px_hsl(var(--primary)/0.08)]"
+        : "hover:border-secondary/40"
+    }`;
+
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-14 md:py-20">
       <div className="container-wide">
-        <div className="max-w-[720px] mx-auto">
+        <div className="max-w-[680px] mx-auto">
           <ScrollReveal>
             <h2 className="heading-section mb-4">
               Start a<br />Project
@@ -29,12 +38,16 @@ const ContactSection = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.15}>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1.5">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="relative">
+                  <motion.label
+                    htmlFor="name"
+                    className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
+                    animate={{ color: focused === "name" ? "hsl(var(--primary))" : undefined }}
+                  >
                     Name
-                  </label>
+                  </motion.label>
                   <input
                     id="name"
                     type="text"
@@ -42,13 +55,19 @@ const ContactSection = () => {
                     maxLength={100}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-transparent border-b-2 border-border py-2.5 text-base focus:outline-none focus:border-foreground transition-colors"
+                    onFocus={() => setFocused("name")}
+                    onBlur={() => setFocused(null)}
+                    className={inputClasses("name")}
                   />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">
+                <div className="relative">
+                  <motion.label
+                    htmlFor="email"
+                    className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
+                    animate={{ color: focused === "email" ? "hsl(var(--primary))" : undefined }}
+                  >
                     Email
-                  </label>
+                  </motion.label>
                   <input
                     id="email"
                     type="email"
@@ -56,21 +75,29 @@ const ContactSection = () => {
                     maxLength={255}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-transparent border-b-2 border-border py-2.5 text-base focus:outline-none focus:border-foreground transition-colors"
+                    onFocus={() => setFocused("email")}
+                    onBlur={() => setFocused(null)}
+                    className={inputClasses("email")}
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="projectType" className="block text-sm font-medium text-foreground mb-1.5">
+                <motion.label
+                  htmlFor="projectType"
+                  className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
+                  animate={{ color: focused === "projectType" ? "hsl(var(--primary))" : undefined }}
+                >
                   Project Type
-                </label>
+                </motion.label>
                 <select
                   id="projectType"
                   required
                   value={formData.projectType}
                   onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                  className="w-full bg-transparent border-b-2 border-border py-2.5 text-base focus:outline-none focus:border-foreground transition-colors appearance-none"
+                  onFocus={() => setFocused("projectType")}
+                  onBlur={() => setFocused(null)}
+                  className={`${inputClasses("projectType")} appearance-none`}
                 >
                   <option value="">Select a project type</option>
                   <option value="branding">Brand Identity Design</option>
@@ -82,9 +109,13 @@ const ContactSection = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">
+                <motion.label
+                  htmlFor="message"
+                  className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
+                  animate={{ color: focused === "message" ? "hsl(var(--primary))" : undefined }}
+                >
                   Message
-                </label>
+                </motion.label>
                 <textarea
                   id="message"
                   required
@@ -92,13 +123,18 @@ const ContactSection = () => {
                   rows={3}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-transparent border-b-2 border-border py-2.5 text-base focus:outline-none focus:border-foreground transition-colors resize-none"
-                  style={{ minHeight: "120px", maxHeight: "160px" }}
+                  onFocus={() => setFocused("message")}
+                  onBlur={() => setFocused(null)}
+                  className={`${inputClasses("message")} resize-none`}
+                  style={{ minHeight: "120px", maxHeight: "150px" }}
                 />
               </div>
 
-              <div className="flex justify-end">
-                <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pt-1">
+                <p className="text-xs text-muted-foreground order-2 md:order-1">
+                  Typical response time: TBD
+                </p>
+                <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
                   Send Message
                 </Button>
               </div>
