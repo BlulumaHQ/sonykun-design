@@ -1,10 +1,21 @@
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import ScrollReveal from "./ScrollReveal";
 
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 const SelectedWork = () => {
-  const featured = projects.slice(0, 6);
+  // Shuffle once on mount only
+  const featured = useMemo(() => shuffleArray(projects.slice(0, 6)), []);
 
   return (
     <section className="py-16 md:py-24">
@@ -20,7 +31,7 @@ const SelectedWork = () => {
             <ScrollReveal key={project.slug} delay={i * 0.08}>
               <Link
                 to={`/work/${project.slug}`}
-                className="group relative overflow-hidden cursor-pointer block aspect-[16/10]"
+                className="group relative overflow-hidden cursor-pointer block aspect-[16/10] tilt-card"
               >
                 <motion.img
                   src={project.image}
@@ -39,6 +50,10 @@ const SelectedWork = () => {
                       {project.industry} — {project.services.join(", ")}
                     </p>
                   </div>
+                </div>
+                {/* Glass sweep effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500 overflow-hidden">
+                  <div className="absolute inset-0 glass-sweep" />
                 </div>
               </Link>
             </ScrollReveal>
