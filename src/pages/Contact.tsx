@@ -10,7 +10,7 @@ const Contact = () => {
       <ScrollProgress />
       <Header />
       <main className="pt-28">
-        <ContactSection />
+        <ContactSection source="sonykun.ca contact page form" />
       </main>
       <Footer />
       <ScrollToTop />

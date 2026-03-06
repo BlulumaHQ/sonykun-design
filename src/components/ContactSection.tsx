@@ -124,7 +124,6 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 </motion.label>
                 <select
                   id="projectType"
-                  required
                   value={formData.projectType}
                   onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                   onFocus={() => setFocused("projectType")}
@@ -166,8 +165,8 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 <p className="text-xs text-muted-foreground order-2 md:order-1">
                   {t(ct.responseTime, lang)}
                 </p>
-                <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
-                  {t(ct.submit, lang)}
+                <Button type="submit" size="lg" disabled={submitting} className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
+                  {submitting ? "..." : t(ct.submit, lang)}
                 </Button>
               </div>
             </form>
