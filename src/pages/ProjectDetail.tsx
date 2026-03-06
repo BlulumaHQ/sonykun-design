@@ -32,7 +32,7 @@ const ProjectDetail = () => {
         <section className="w-full aspect-[16/9] md:aspect-[21/9] relative overflow-hidden">
           <img
             src={project.image}
-            alt={project.name}
+            alt={project.alt || project.name}
             className="w-full h-full object-cover"
           />
         </section>
@@ -105,7 +105,7 @@ const ProjectDetail = () => {
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
                       src={project.image}
-                      alt={`${project.name} gallery`}
+                      alt={`${project.alt || project.name} — gallery view`}
                       className="w-full h-full object-cover"
                     />
                   </div>

@@ -187,12 +187,12 @@ export const translations = {
     optMarketing: { en: "Marketing Graphics", zh: "行銷視覺設計" },
     optOther: { en: "Other", zh: "其他" },
     submit: { en: "Send Message", zh: "送出訊息" },
-    responseTime: { en: "Typical response time: TBD", zh: "通常回覆時間：待確認" },
+    responseTime: { en: "Typical response time: 1–2 business days", zh: "通常回覆時間：1–2 個工作天" },
   },
   work: {
     title: { en: "Work", zh: "作品集" },
     intro: {
-      en: "",
+      en: "A curated selection of selected design and web projects.",
       zh: "以下為部分專案展示。點擊可查看專案詳情。",
     },
   },
