@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  source?: string;
+}
+
+const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,11 +18,30 @@ const ContactSection = () => {
     message: "",
   });
   const [focused, setFocused] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const { lang } = useLanguage();
   const ct = translations.contact;
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    try {
+      const body = new FormData();
+      body.append("name", formData.name);
+      body.append("email", formData.email);
+      body.append("project_type", formData.projectType);
+      body.append("message", formData.message);
+      body.append("source", source);
+      await fetch("https://formspree.io/f/mdawoadr", {
+        method: "POST",
+        body,
+        headers: { Accept: "application/json" },
+      });
+      navigate("/thank-you");
+    } catch {
+      setSubmitting(false);
+    }
   };
 
   const inputClasses = (field: string) =>
