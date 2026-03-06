@@ -161,12 +161,15 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 />
               </div>
 
+              {error && (
+                <p className="text-sm text-destructive">{error}</p>
+              )}
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pt-1">
                 <p className="text-xs text-muted-foreground order-2 md:order-1">
                   {t(ct.responseTime, lang)}
                 </p>
-                <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
-                  {t(ct.submit, lang)}
+                <Button type="submit" size="lg" disabled={submitting} className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
+                  {submitting ? "Sending..." : t(ct.submit, lang)}
                 </Button>
               </div>
             </form>
