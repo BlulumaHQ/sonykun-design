@@ -70,12 +70,10 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
 
           <ScrollReveal delay={0.15}>
             <form
-              action="https://formspree.io/f/mdawoadr"
-              method="POST"
+              onSubmit={handleSubmit}
               className="space-y-4"
             >
               <input type="hidden" name="source" value={source} />
-              <input type="hidden" name="_next" value={`${window.location.origin}/thank-you`} />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
