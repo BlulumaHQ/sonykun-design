@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  source?: string;
+}
+
+const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,11 +18,30 @@ const ContactSection = () => {
     message: "",
   });
   const [focused, setFocused] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const { lang } = useLanguage();
   const ct = translations.contact;
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    try {
+      const body = new FormData();
+      body.append("name", formData.name);
+      body.append("email", formData.email);
+      body.append("project_type", formData.projectType);
+      body.append("message", formData.message);
+      body.append("source", source);
+      await fetch("https://formspree.io/f/mdawoadr", {
+        method: "POST",
+        body,
+        headers: { Accept: "application/json" },
+      });
+      navigate("/thank-you");
+    } catch {
+      setSubmitting(false);
+    }
   };
 
   const inputClasses = (field: string) =>
@@ -100,7 +124,6 @@ const ContactSection = () => {
                 </motion.label>
                 <select
                   id="projectType"
-                  required
                   value={formData.projectType}
                   onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                   onFocus={() => setFocused("projectType")}
@@ -142,8 +165,8 @@ const ContactSection = () => {
                 <p className="text-xs text-muted-foreground order-2 md:order-1">
                   {t(ct.responseTime, lang)}
                 </p>
-                <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
-                  {t(ct.submit, lang)}
+                <Button type="submit" size="lg" disabled={submitting} className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
+                  {submitting ? "..." : t(ct.submit, lang)}
                 </Button>
               </div>
             </form>
