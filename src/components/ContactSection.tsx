@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
@@ -11,8 +12,36 @@ interface ContactSectionProps {
 
 const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps) => {
   const [focused, setFocused] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
   const { lang } = useLanguage();
   const ct = translations.contact;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    try {
+      const res = await fetch("https://formspree.io/f/mdawoadr", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        form.reset();
+        navigate("/thank-you");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const inputClasses = (field: string) =>
     `w-full bg-transparent border border-secondary/20 rounded-xl px-4 py-3 text-base transition-all duration-300 outline-none ${
