@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import ScrollReveal from "./ScrollReveal";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
+import { Button } from "@/components/ui/button";
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -16,7 +17,7 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 const SelectedWork = () => {
-  const featured = useMemo(() => shuffleArray(projects.slice(0, 6)), []);
+  const featured = useMemo(() => shuffleArray(projects).slice(0, 4), []);
   const { lang } = useLanguage();
   const titleParts = translations.selectedWork.title[lang].split("\n");
 
@@ -43,7 +44,7 @@ const SelectedWork = () => {
               >
                 <motion.img
                   src={project.image}
-                  alt={project.name}
+                  alt={project.alt}
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
                   whileHover={{ scale: 1.05, rotate: 0.5 }}
@@ -67,14 +68,15 @@ const SelectedWork = () => {
           ))}
         </div>
 
-        <div className="mt-10 text-center">
-          <Link
-            to="/work"
-            className="nav-link text-base border-b border-secondary pb-1 hover:border-foreground hover:text-foreground transition-colors"
-          >
-            {t(translations.selectedWork.viewAll, lang)}
-          </Link>
-        </div>
+        <ScrollReveal delay={0.2}>
+          <div className="mt-10 text-center">
+            <Link to="/work">
+              <Button size="lg" variant="outline" className="h-12 px-10 text-base font-medium rounded-xl">
+                {t(translations.selectedWork.viewAll, lang)}
+              </Button>
+            </Link>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
