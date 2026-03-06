@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ScrollReveal from "./ScrollReveal";
@@ -11,38 +10,9 @@ interface ContactSectionProps {
 }
 
 const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    projectType: "",
-    message: "",
-  });
   const [focused, setFocused] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
   const { lang } = useLanguage();
   const ct = translations.contact;
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const body = new FormData();
-      body.append("name", formData.name);
-      body.append("email", formData.email);
-      body.append("project_type", formData.projectType);
-      body.append("message", formData.message);
-      body.append("source", source);
-      await fetch("https://formspree.io/f/mdawoadr", {
-        method: "POST",
-        body,
-        headers: { Accept: "application/json" },
-      });
-      navigate("/thank-you");
-    } catch {
-      setSubmitting(false);
-    }
-  };
 
   const inputClasses = (field: string) =>
     `w-full bg-transparent border border-secondary/20 rounded-xl px-4 py-3 text-base transition-all duration-300 outline-none ${
@@ -70,7 +40,14 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
           </ScrollReveal>
 
           <ScrollReveal delay={0.15}>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              action="https://formspree.io/f/mdawoadr"
+              method="POST"
+              className="space-y-4"
+            >
+              <input type="hidden" name="source" value={source} />
+              <input type="hidden" name="_next" value={`${window.location.origin}/thank-you`} />
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
                   <motion.label
@@ -82,11 +59,10 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                   </motion.label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
                     required
                     maxLength={100}
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     onFocus={() => setFocused("name")}
                     onBlur={() => setFocused(null)}
                     className={inputClasses("name")}
@@ -102,11 +78,10 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                   </motion.label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     maxLength={255}
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     onFocus={() => setFocused("email")}
                     onBlur={() => setFocused(null)}
                     className={inputClasses("email")}
@@ -124,8 +99,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 </motion.label>
                 <select
                   id="projectType"
-                  value={formData.projectType}
-                  onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                  name="project_type"
                   onFocus={() => setFocused("projectType")}
                   onBlur={() => setFocused(null)}
                   className={`${inputClasses("projectType")} appearance-none`}
@@ -149,11 +123,10 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 </motion.label>
                 <textarea
                   id="message"
+                  name="message"
                   required
                   maxLength={1000}
                   rows={3}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   onFocus={() => setFocused("message")}
                   onBlur={() => setFocused(null)}
                   className={`${inputClasses("message")} resize-none`}
@@ -165,8 +138,8 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 <p className="text-xs text-muted-foreground order-2 md:order-1">
                   {t(ct.responseTime, lang)}
                 </p>
-                <Button type="submit" size="lg" disabled={submitting} className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
-                  {submitting ? "..." : t(ct.submit, lang)}
+                <Button type="submit" size="lg" className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
+                  {t(ct.submit, lang)}
                 </Button>
               </div>
             </form>
