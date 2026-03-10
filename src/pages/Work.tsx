@@ -138,7 +138,7 @@ const Work = () => {
                 {lang === "zh" ? "精選案例" : "Featured Case Studies"}
               </h2>
             </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-16">
               {featuredProjects.map((project, i) => (
                 <ScrollReveal key={project.slug} delay={i * 0.08}>
                   <Link
