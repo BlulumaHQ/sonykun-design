@@ -203,7 +203,7 @@ const Work = () => {
                     {lang === "zh" ? "WordPress 專案" : "WordPress Projects"}
                   </h2>
                 </ScrollReveal>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   {wordpressProjects.map((project, i) => renderProjectCard(project, i, false))}
                 </div>
               </>
