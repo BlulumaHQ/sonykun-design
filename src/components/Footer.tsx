@@ -29,8 +29,21 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between gap-8">
           <div className="max-w-sm">
             <img src={logo} alt="Sonykun Design" className="h-14 md:h-[75px] mb-3" />
-            <p className="text-body text-sm">
+            <p className="text-body text-sm mb-3">
               {t(translations.footer.tagline, lang)}
+            </p>
+            <p className="text-sm text-muted-foreground">Vancouver, Canada</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Phone:{" "}
+              <a href="tel:7786535353" className="hover:text-foreground transition-colors">
+                (778) 653-5353
+              </a>
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Email:{" "}
+              <a href="mailto:support@sonykundesign.com" className="hover:text-foreground transition-colors">
+                support@sonykundesign.com
+              </a>
             </p>
           </div>
 
