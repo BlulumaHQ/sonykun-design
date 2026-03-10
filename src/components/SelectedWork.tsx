@@ -27,7 +27,7 @@ const SelectedWork = () => {
           </h2>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {featuredProjects.map((project, i) => (
             <ScrollReveal key={project.slug} delay={i * 0.08}>
               <Link
