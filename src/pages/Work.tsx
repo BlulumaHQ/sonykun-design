@@ -54,7 +54,7 @@ const Work = () => {
       : { to: "#" };
 
     const card = (
-      <div className="group relative overflow-hidden cursor-pointer block aspect-[16/10]">
+      <div className="group relative overflow-hidden cursor-pointer block aspect-[4/3] rounded-lg">
         <motion.img
           src={project.image}
           alt={project.alt}
@@ -138,12 +138,12 @@ const Work = () => {
                 {lang === "zh" ? "精選案例" : "Featured Case Studies"}
               </h2>
             </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-16">
               {featuredProjects.map((project, i) => (
                 <ScrollReveal key={project.slug} delay={i * 0.08}>
                   <Link
                     to={`/work/${project.slug}`}
-                    className="group relative overflow-hidden cursor-pointer block aspect-[16/10]"
+                    className="group relative overflow-hidden cursor-pointer block aspect-[4/3] rounded-lg"
                   >
                     <motion.img
                       src={project.image}
@@ -191,7 +191,7 @@ const Work = () => {
             </ScrollReveal>
 
             {/* Full Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
               {filteredProjects.map((project, i) => renderProjectCard(project, i))}
             </div>
 
@@ -203,7 +203,7 @@ const Work = () => {
                     {lang === "zh" ? "WordPress 專案" : "WordPress Projects"}
                   </h2>
                 </ScrollReveal>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   {wordpressProjects.map((project, i) => renderProjectCard(project, i, false))}
                 </div>
               </>

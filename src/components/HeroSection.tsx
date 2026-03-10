@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
@@ -24,18 +22,19 @@ const HeroSection = () => {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%)",
+              "linear-gradient(to right, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.2) 100%)",
           }}
         />
       </div>
 
       <div className="container-wide relative z-10">
         <div className="max-w-5xl">
-          <h1 className="heading-hero mb-6">
+          <h1 className="heading-hero mb-6" style={{ color: "hsl(0 0% 100%)" }}>
             {words.map((word, i) => (
               <motion.span
                 key={`${lang}-${i}`}
                 className={`block ${i === 2 ? "text-secondary" : ""}`}
+                style={i === 2 ? { color: "hsl(var(--secondary))" } : undefined}
                 initial={{ opacity: 0, y: 50, filter: "blur(4px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.7, delay: 1.9 + i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -55,25 +54,13 @@ const HeroSection = () => {
 
           <motion.p
             className="text-subtitle max-w-xl mb-10"
+            style={{ color: "hsl(0 0% 80%)" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 2.4 }}
           >
             {t(translations.hero.subtitle, lang)}
           </motion.p>
-          <motion.div
-            className="flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 2.6 }}
-          >
-            <Button asChild size="lg" className="h-14 px-10 text-base font-medium magnetic-btn">
-              <Link to="/work">{t(translations.hero.cta1, lang)}</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-14 px-10 text-base font-medium border-foreground text-foreground hover:bg-foreground hover:text-background magnetic-btn">
-              <Link to="/contact">{t(translations.hero.cta2, lang)}</Link>
-            </Button>
-          </motion.div>
         </div>
       </div>
     </section>
