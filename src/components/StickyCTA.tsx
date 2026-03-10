@@ -9,16 +9,15 @@ const StickyCTA = () => {
 
   return (
     <motion.div
-      className="fixed left-4 md:left-6 z-50"
+      className="fixed right-4 md:right-6 z-50"
       style={{ top: "60%" }}
-      initial={{ opacity: 0, x: -30 }}
+      initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 3 }}
     >
       <Link
         to="/contact"
         className="group flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm font-medium"
-        style={{ writingMode: "horizontal-tb" }}
       >
         <MessageSquare className="w-4 h-4 shrink-0" />
         <span className="hidden md:inline">{label}</span>
