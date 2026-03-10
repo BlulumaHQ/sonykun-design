@@ -3,14 +3,33 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
+import heroMockup from "@/assets/hero-mockup.jpg";
 
 const HeroSection = () => {
   const { lang } = useLanguage();
   const words = translations.hero.words[lang];
 
   return (
-    <section className="min-h-[85vh] flex items-center pt-32 md:pt-36">
-      <div className="container-wide">
+    <section className="relative min-h-[85vh] flex items-center pt-32 md:pt-36 overflow-hidden">
+      {/* Background mockup image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroMockup}
+          alt="Sonykun Design website displayed on laptop and smartphone in a modern studio environment"
+          className="w-full h-full object-cover object-center md:object-right"
+          loading="eager"
+        />
+        {/* Dark gradient overlay for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.25) 100%)",
+          }}
+        />
+      </div>
+
+      <div className="container-wide relative z-10">
         <div className="max-w-5xl">
           <h1 className="heading-hero mb-6">
             {words.map((word, i) => (
@@ -57,21 +76,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
-
-      <motion.div
-        className="hidden md:block absolute right-20 top-48 w-24 h-24 border border-secondary/10"
-        initial={{ opacity: 0, rotate: 0 }}
-        animate={{ opacity: 1, rotate: 45 }}
-        transition={{ duration: 1.5, delay: 2.8 }}
-        style={{ transform: "rotate(45deg)" }}
-      />
-      <motion.div
-        className="hidden md:block absolute right-36 top-72 w-3 h-3 rounded-full"
-        style={{ backgroundColor: "hsl(var(--secondary) / 0.3)" }}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 3 }}
-      />
     </section>
   );
 };
