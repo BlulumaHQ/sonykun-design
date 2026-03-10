@@ -1,23 +1,15 @@
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
 import ScrollReveal from "./ScrollReveal";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 import { Button } from "@/components/ui/button";
 
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
+// Only show featured case study projects on homepage
+const featuredProjects = projects.filter((p) => p.featured && p.caseStudy);
 
 const SelectedWork = () => {
-  const featured = useMemo(() => shuffleArray(projects).slice(0, 4), []);
   const { lang } = useLanguage();
   const titleParts = translations.selectedWork.title[lang].split("\n");
 
@@ -35,8 +27,8 @@ const SelectedWork = () => {
           </h2>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-          {featured.map((project, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          {featuredProjects.map((project, i) => (
             <ScrollReveal key={project.slug} delay={i * 0.08}>
               <Link
                 to={`/work/${project.slug}`}
@@ -52,11 +44,14 @@ const SelectedWork = () => {
                 />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-5">
                   <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                    <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
+                      View Case Study
+                    </span>
                     <h3 className="font-display text-xl font-bold text-primary-foreground mb-0.5">
                       {project.name}
                     </h3>
                     <p className="text-xs text-primary-foreground/70 line-clamp-1">
-                      {project.industry} — {project.services.join(", ")}
+                      {project.services.join(" + ")}
                     </p>
                   </div>
                 </div>
