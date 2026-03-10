@@ -1,15 +1,15 @@
-import friendlyDental from "@/assets/projects/friendly-dental.jpg";
-import liveAtHeadwater from "@/assets/projects/live-at-headwater.jpg";
+import oneParkHome from "@/assets/projects/one-park-home.jpg";
 import btnRealEstate from "@/assets/projects/btn-real-estate.jpg";
-import nueranutra from "@/assets/projects/nuera-nutra.jpg";
+import helenLam from "@/assets/projects/helen-lam.jpg";
+import presotea from "@/assets/projects/presotea.jpg";
+import littleMountainDental from "@/assets/projects/little-mountain-dental.jpg";
+import friendlyDental from "@/assets/projects/friendly-dental.jpg";
+import yangHealth from "@/assets/projects/yang-health.jpg";
+import unityTattoo from "@/assets/projects/unity-tattoo.jpg";
+import nueraNutra from "@/assets/projects/nuera-nutra.jpg";
 import vitaEnvironmental from "@/assets/projects/vita-environmental.jpg";
-import spaAlita from "@/assets/projects/spa-alita.jpg";
-import architectureStudio from "@/assets/projects/architecture-studio.jpg";
-import fashionBrand from "@/assets/projects/fashion-brand.jpg";
-import coffeeBrand from "@/assets/projects/coffee-brand.jpg";
-import restaurantIdentity from "@/assets/projects/restaurant-identity.jpg";
-import lawFirm from "@/assets/projects/law-firm.jpg";
-import creativeAgency from "@/assets/projects/creative-agency.jpg";
+import vancouverWineSchool from "@/assets/projects/vancouver-wine-school.jpg";
+import calinClub from "@/assets/projects/calin-club.jpg";
 
 export type ProjectCategory = "Web Design" | "Branding" | "Ecommerce" | "AI Automation";
 
@@ -20,160 +20,171 @@ export interface Project {
   services: string[];
   image: string;
   alt: string;
-  type: "client" | "concept";
+  type: "client" | "wordpress";
   description?: string;
   category: ProjectCategory[];
   year: number;
   featured?: boolean;
+  caseStudy?: boolean;
+  liveUrl?: string;
 }
 
 export const projects: Project[] = [
+  // ── Featured Case Studies ──
   {
-    slug: "friendly-dental",
-    name: "Friendly Dental",
-    industry: "Healthcare",
-    services: ["Brand Identity", "Website Design", "Marketing Graphics"],
-    image: friendlyDental,
-    alt: "Brand identity and website design for Friendly Dental clinic",
+    slug: "one-park-home",
+    name: "One Park Home",
+    industry: "Real Estate & Construction",
+    services: ["Corporate Website", "Marketing Design"],
+    image: oneParkHome,
+    alt: "Corporate website design for One Park Home real estate development",
     type: "client",
-    description: "Complete brand identity and digital presence for a modern dental clinic.",
-    category: ["Web Design", "Branding"],
+    description: "A digital presence that communicates trust, elegance, and architectural sophistication for a modern residential development brand.",
+    category: ["Web Design"],
     year: 2026,
     featured: true,
+    caseStudy: true,
+    liveUrl: "https://one-park-home.bluluma.com/",
   },
   {
-    slug: "live-at-headwater",
-    name: "Live at Headwater",
-    industry: "Real Estate",
-    services: ["Brand Identity", "Marketing Graphics"],
-    image: liveAtHeadwater,
-    alt: "Brand identity and marketing design for Live at Headwater residential development",
+    slug: "presotea",
+    name: "Presotea",
+    industry: "Food & Retail",
+    services: ["Corporate Website", "Marketing Design"],
+    image: presotea,
+    alt: "Corporate website and marketing design for Presotea bubble tea brand",
     type: "client",
-    description: "Premium residential development branding and marketing materials.",
-    category: ["Branding"],
+    description: "A vibrant digital platform reflecting the brand's youthful energy with strong visual consistency across marketing materials.",
+    category: ["Web Design"],
     year: 2026,
     featured: true,
+    caseStudy: true,
+    liveUrl: "https://presotea.bluluma.com/",
   },
   {
     slug: "btn-real-estate",
     name: "BTN Real Estate",
-    industry: "Real Estate",
-    services: ["Brand Identity", "Website Design"],
+    industry: "Real Estate & Construction",
+    services: ["Brand Logo", "Corporate Website", "Marketing Design"],
     image: btnRealEstate,
-    alt: "Corporate website and brand identity for BTN Real Estate",
+    alt: "Brand identity and corporate website design for BTN Real Estate",
     type: "client",
-    description: "Professional real estate brand identity and corporate website.",
+    description: "Complete brand identity system with a corporate website reflecting professionalism, expertise, and industry credibility.",
+    category: ["Web Design", "Branding"],
+    year: 2026,
+    featured: true,
+    caseStudy: true,
+    liveUrl: "https://btn.bluluma.com/",
+  },
+  // ── Standard Projects ──
+  {
+    slug: "helen-lam-real-estate",
+    name: "Helen Lam Real Estate",
+    industry: "Real Estate & Construction",
+    services: ["Corporate Website", "Marketing Design"],
+    image: helenLam,
+    alt: "Corporate website and marketing design for Helen Lam Real Estate",
+    type: "client",
+    category: ["Web Design"],
+    year: 2025,
+    liveUrl: "https://helenlam.ca/",
+  },
+  {
+    slug: "little-mountain-dental",
+    name: "Little Mountain Dental",
+    industry: "Medical & Healthcare",
+    services: ["Brand Logo", "Corporate Website", "Marketing Design"],
+    image: littleMountainDental,
+    alt: "Brand logo and website design for Little Mountain Dental clinic",
+    type: "client",
     category: ["Web Design", "Branding"],
     year: 2025,
+    liveUrl: "http://littlemountain.bluluma.com/",
+  },
+  {
+    slug: "friendly-dental",
+    name: "Friendly Dental",
+    industry: "Medical & Healthcare",
+    services: ["Brand Logo", "Corporate Website", "Marketing Design"],
+    image: friendlyDental,
+    alt: "Brand identity and website design for Friendly Dental clinic",
+    type: "client",
+    category: ["Web Design", "Branding"],
+    year: 2025,
+    liveUrl: "https://friendlydental.ca/",
+  },
+  {
+    slug: "yang-health",
+    name: "Yang Health Therapeutic Clinic",
+    industry: "Medical & Healthcare",
+    services: ["Brand Logo", "Corporate Website"],
+    image: yangHealth,
+    alt: "Brand logo and corporate website for Yang Health Therapeutic Clinic",
+    type: "client",
+    category: ["Web Design", "Branding"],
+    year: 2025,
+    liveUrl: "https://yang-health-therapeutic.bluluma.com/",
+  },
+  {
+    slug: "unity-tattoo",
+    name: "Unity Tattoo",
+    industry: "Medical & Healthcare",
+    services: ["Brand Logo", "Corporate Website"],
+    image: unityTattoo,
+    alt: "Brand logo and corporate website for Unity Tattoo studio",
+    type: "client",
+    category: ["Web Design", "Branding"],
+    year: 2024,
+    liveUrl: "https://unity-tattoo.bluluma.com/",
   },
   {
     slug: "nuera-nutra",
     name: "NuEra Nutra",
-    industry: "Health & Wellness",
-    services: ["Brand Identity", "Packaging", "Website Design"],
-    image: nueranutra,
-    alt: "Ecommerce website and packaging design for NuEra Nutra supplements",
+    industry: "Biotechnology & Environmental",
+    services: ["Corporate Website"],
+    image: nueraNutra,
+    alt: "Corporate website design for NuEra Nutra biotechnology company",
     type: "client",
-    description: "Health supplement brand identity, packaging design, and e-commerce platform.",
-    category: ["Ecommerce", "Branding"],
-    year: 2025,
-    featured: true,
+    category: ["Web Design"],
+    year: 2024,
+    liveUrl: "https://nueranutra.bluluma.com/",
   },
   {
     slug: "vita-environmental",
     name: "Vita Environmental",
-    industry: "Environmental",
-    services: ["Brand Identity", "Website Design", "Marketing Graphics"],
+    industry: "Biotechnology & Environmental",
+    services: ["Corporate Website"],
     image: vitaEnvironmental,
-    alt: "Website design and brand identity for Vita Environmental services",
+    alt: "Corporate website design for Vita Environmental services",
     type: "client",
-    description: "Environmental services company branding and digital presence.",
-    category: ["Web Design", "Branding"],
-    year: 2025,
-  },
-  {
-    slug: "spa-alita",
-    name: "Spa Alita",
-    industry: "Hospitality",
-    services: ["Brand Identity", "Marketing Graphics"],
-    image: spaAlita,
-    alt: "Luxury spa brand identity and marketing collateral for Spa Alita",
-    type: "client",
-    description: "Luxury spa brand identity and marketing collateral.",
-    category: ["Branding"],
+    category: ["Web Design"],
     year: 2024,
+    liveUrl: "https://vitaenv.com/",
   },
+  // ── WordPress Projects (bottom of Work page only) ──
   {
-    slug: "architecture-studio",
-    name: "Architecture Studio",
-    industry: "Architecture",
-    services: ["Brand Identity", "Website Design"],
-    image: architectureStudio,
-    alt: "Minimalist brand identity concept for an architecture firm",
-    type: "concept",
-    description: "Minimalist brand identity concept for an architecture firm.",
-    category: ["Web Design", "Branding"],
-    year: 2024,
-  },
-  {
-    slug: "fashion-brand",
-    name: "Fashion Brand",
-    industry: "Fashion",
-    services: ["Brand Identity", "Packaging"],
-    image: fashionBrand,
-    alt: "High-end fashion brand identity and packaging design concept",
-    type: "concept",
-    description: "High-end fashion brand identity and packaging concept.",
-    category: ["Branding"],
-    year: 2024,
-  },
-  {
-    slug: "coffee-brand",
-    name: "Coffee Brand",
-    industry: "Food & Beverage",
-    services: ["Brand Identity", "Packaging"],
-    image: coffeeBrand,
-    alt: "Artisan coffee brand identity and packaging design",
-    type: "concept",
-    description: "Artisan coffee brand identity and packaging design concept.",
-    category: ["Branding"],
+    slug: "vancouver-wine-school",
+    name: "Vancouver Wine School",
+    industry: "Education",
+    services: ["WordPress Website"],
+    image: vancouverWineSchool,
+    alt: "WordPress website design for Vancouver Wine School",
+    type: "wordpress",
+    category: ["Web Design"],
     year: 2023,
+    liveUrl: "https://vancouverwineschool.ca/",
   },
   {
-    slug: "restaurant-identity",
-    name: "Restaurant Identity",
-    industry: "Food & Beverage",
-    services: ["Brand Identity", "Marketing Graphics"],
-    image: restaurantIdentity,
-    alt: "Upscale restaurant brand identity and collateral design",
-    type: "concept",
-    description: "Upscale restaurant brand identity and collateral concept.",
-    category: ["Branding"],
+    slug: "calin-club",
+    name: "Calin Club",
+    industry: "Lifestyle",
+    services: ["WordPress Website"],
+    image: calinClub,
+    alt: "WordPress website design for Calin Club",
+    type: "wordpress",
+    category: ["Web Design"],
     year: 2023,
-  },
-  {
-    slug: "law-firm-branding",
-    name: "Law Firm Branding",
-    industry: "Legal",
-    services: ["Brand Identity", "Website Design"],
-    image: lawFirm,
-    alt: "Professional law firm brand identity and website concept",
-    type: "concept",
-    description: "Professional law firm brand identity concept.",
-    category: ["Web Design", "Branding"],
-    year: 2023,
-  },
-  {
-    slug: "creative-agency-identity",
-    name: "Creative Agency Identity",
-    industry: "Creative",
-    services: ["Brand Identity", "Website Design", "Marketing Graphics"],
-    image: creativeAgency,
-    alt: "Bold creative agency brand identity and website concept",
-    type: "concept",
-    description: "Bold creative agency brand identity concept.",
-    category: ["Web Design", "Branding"],
-    year: 2023,
+    liveUrl: "http://calinclub.ca/",
   },
 ];
 

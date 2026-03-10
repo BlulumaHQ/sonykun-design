@@ -9,6 +9,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
+import { ExternalLink } from "lucide-react";
 
 const CURRENT_YEAR = 2026;
 
@@ -17,24 +18,103 @@ const Work = () => {
   const [activeFilter, setActiveFilter] = useState<"All" | ProjectCategory>("All");
 
   const featuredProjects = useMemo(
-    () => projects.filter((p) => p.featured).slice(0, 3),
+    () => projects.filter((p) => p.featured && p.caseStudy),
     []
   );
 
-  const sortedProjects = useMemo(
-    () => [...projects].sort((a, b) => b.year - a.year),
+  // Standard client projects (not wordpress)
+  const clientProjects = useMemo(
+    () =>
+      [...projects]
+        .filter((p) => p.type === "client")
+        .sort((a, b) => b.year - a.year),
+    []
+  );
+
+  // WordPress projects at the bottom
+  const wordpressProjects = useMemo(
+    () => projects.filter((p) => p.type === "wordpress"),
     []
   );
 
   const filteredProjects = useMemo(
     () =>
       activeFilter === "All"
-        ? sortedProjects
-        : sortedProjects.filter((p) => p.category.includes(activeFilter)),
-    [activeFilter, sortedProjects]
+        ? clientProjects
+        : clientProjects.filter((p) => p.category.includes(activeFilter)),
+    [activeFilter, clientProjects]
   );
 
   const filters: ("All" | ProjectCategory)[] = ["All", ...projectCategories];
+
+  const renderProjectCard = (project: typeof projects[0], i: number, showBadge = true) => {
+    const isCaseStudy = project.caseStudy;
+    const linkProps = isCaseStudy
+      ? { to: `/work/${project.slug}` }
+      : { to: "#" };
+
+    const card = (
+      <div className="group relative overflow-hidden cursor-pointer block aspect-[16/10]">
+        <motion.img
+          src={project.image}
+          alt={project.alt}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
+          whileHover={{ scale: 1.05, rotate: 0.5 }}
+          transition={{ duration: 0.7 }}
+        />
+        {showBadge && project.year >= CURRENT_YEAR && (
+          <span className="absolute top-3 right-3 bg-primary text-primary-foreground text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md z-10">
+            New
+          </span>
+        )}
+        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-5">
+          <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+            {isCaseStudy && (
+              <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
+                View Case Study
+              </span>
+            )}
+            {!isCaseStudy && project.liveUrl && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
+                Visit Site <ExternalLink className="w-3 h-3" />
+              </span>
+            )}
+            <h3 className="font-display text-xl font-bold text-primary-foreground mb-0.5">
+              {project.name}
+            </h3>
+            <p className="text-xs text-primary-foreground/70 line-clamp-1">
+              {project.industry} — {project.services.join(", ")}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+
+    if (isCaseStudy) {
+      return (
+        <ScrollReveal key={project.slug} delay={i * 0.06}>
+          <Link to={`/work/${project.slug}`}>{card}</Link>
+        </ScrollReveal>
+      );
+    }
+
+    if (project.liveUrl) {
+      return (
+        <ScrollReveal key={project.slug} delay={i * 0.06}>
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+            {card}
+          </a>
+        </ScrollReveal>
+      );
+    }
+
+    return (
+      <ScrollReveal key={project.slug} delay={i * 0.06}>
+        {card}
+      </ScrollReveal>
+    );
+  };
 
   return (
     <>
@@ -75,11 +155,14 @@ const Work = () => {
                     />
                     <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-5">
                       <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                        <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
+                          View Case Study
+                        </span>
                         <h3 className="font-display text-lg font-bold text-primary-foreground mb-0.5">
                           {project.name}
                         </h3>
                         <p className="text-xs text-primary-foreground/70 line-clamp-1">
-                          {project.industry} — {project.services.join(", ")}
+                          {project.services.join(" + ")}
                         </p>
                       </div>
                     </div>
@@ -109,40 +192,22 @@ const Work = () => {
 
             {/* Full Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-              {filteredProjects.map((project, i) => (
-                <ScrollReveal key={project.slug} delay={i * 0.06}>
-                  <Link
-                    to={`/work/${project.slug}`}
-                    className="group relative overflow-hidden cursor-pointer block aspect-[16/10]"
-                  >
-                    <motion.img
-                      src={project.image}
-                      alt={project.alt}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
-                      whileHover={{ scale: 1.05, rotate: 0.5 }}
-                      transition={{ duration: 0.7 }}
-                    />
-                    {/* NEW badge for current year projects */}
-                    {project.year >= CURRENT_YEAR && (
-                      <span className="absolute top-3 right-3 bg-primary text-primary-foreground text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md z-10">
-                        New
-                      </span>
-                    )}
-                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-5">
-                      <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                        <h3 className="font-display text-xl font-bold text-primary-foreground mb-0.5">
-                          {project.name}
-                        </h3>
-                        <p className="text-xs text-primary-foreground/70 line-clamp-1">
-                          {project.industry} — {project.services.join(", ")}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                </ScrollReveal>
-              ))}
+              {filteredProjects.map((project, i) => renderProjectCard(project, i))}
             </div>
+
+            {/* WordPress Projects */}
+            {(activeFilter === "All" || activeFilter === "Web Design") && wordpressProjects.length > 0 && (
+              <>
+                <ScrollReveal>
+                  <h2 className="text-lg font-display font-semibold mt-16 mb-6 text-foreground">
+                    {lang === "zh" ? "WordPress 專案" : "WordPress Projects"}
+                  </h2>
+                </ScrollReveal>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                  {wordpressProjects.map((project, i) => renderProjectCard(project, i, false))}
+                </div>
+              </>
+            )}
           </div>
         </section>
       </main>
