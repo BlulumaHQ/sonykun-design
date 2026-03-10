@@ -54,7 +54,7 @@ const Work = () => {
       : { to: "#" };
 
     const card = (
-      <div className="group relative overflow-hidden cursor-pointer block aspect-[16/10]">
+      <div className="group relative overflow-hidden cursor-pointer block aspect-[4/3] rounded-lg">
         <motion.img
           src={project.image}
           alt={project.alt}
