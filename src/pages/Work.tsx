@@ -143,7 +143,7 @@ const Work = () => {
                 <ScrollReveal key={project.slug} delay={i * 0.08}>
                   <Link
                     to={`/work/${project.slug}`}
-                    className="group relative overflow-hidden cursor-pointer block aspect-[16/10]"
+                    className="group relative overflow-hidden cursor-pointer block aspect-[4/3] rounded-lg"
                   >
                     <motion.img
                       src={project.image}
