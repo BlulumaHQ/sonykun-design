@@ -10,7 +10,6 @@ import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
-import StickyCTA from "@/components/StickyCTA";
 
 const Index = () => {
   return (
@@ -19,7 +18,6 @@ const Index = () => {
       <CustomCursor />
       <ScrollProgress />
       <Header />
-      <StickyCTA />
       <main>
         <HeroSection />
         <SelectedWork />
