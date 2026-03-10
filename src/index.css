@@ -90,7 +90,7 @@
 
   .heading-hero {
     font-family: var(--font-display);
-    @apply text-6xl sm:text-7xl md:text-8xl lg:text-[110px] font-extrabold leading-[0.95] tracking-tight;
+    @apply text-4xl sm:text-5xl md:text-7xl lg:text-[110px] font-extrabold leading-[0.95] tracking-tight;
     color: hsl(var(--primary));
   }
 
