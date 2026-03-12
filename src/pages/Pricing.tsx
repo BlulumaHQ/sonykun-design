@@ -42,53 +42,67 @@ const PricingCard = ({ title, price, features, highlighted, badge }: PricingCard
   </div>
 );
 
-const websitePlans = [
-  {
-    title: "Basic Website",
-    price: "$375",
-    features: ["Single page website", "Mobile friendly", "Contact form", "Free hosting available"],
-  },
-  {
-    title: "Business Website",
-    price: "$750",
-    features: ["Up to 7 pages", "Mobile optimized", "SEO friendly structure", "Free hosting available"],
-    highlighted: true,
-    badge: "Most Popular",
-  },
-  {
-    title: "Premium Website",
-    price: "$1,250",
-    features: ["Advanced layout design", "Custom styling", "Up to 10 pages"],
-  },
-  {
-    title: "Ecommerce Basic",
-    price: "$1,650",
-    features: ["Online store", "Payment integration", "Up to 10 products"],
-  },
-];
-
-const logoPlans = [
-  {
-    title: "Logo Basic",
-    price: "$375",
-    features: ["3 concepts", "3 revision rounds", "Vector files included"],
-  },
-  {
-    title: "Logo Growth",
-    price: "$650",
-    features: ["Logo design", "Color palette", "Typography recommendation", "Mini brand guide"],
-    highlighted: true,
-  },
-  {
-    title: "Logo Premium",
-    price: "$1,275",
-    features: ["Full brand identity system", "Logo suite", "Color system", "Typography system", "Brand guideline"],
-  },
-];
-
 const Pricing = () => {
   const { lang } = useLanguage();
   const isZh = lang === "zh";
+
+  const websitePlans = [
+    {
+      title: isZh ? "基本網站" : "Basic Website",
+      price: "$375",
+      features: isZh
+        ? ["單頁網站", "手機友好", "聯絡表單", "免費託管"]
+        : ["Single page website", "Mobile friendly", "Contact form", "Free hosting available"],
+    },
+    {
+      title: isZh ? "商業網站" : "Business Website",
+      price: "$750",
+      features: isZh
+        ? ["最多 7 頁", "手機優化", "SEO 友好結構", "免費託管"]
+        : ["Up to 7 pages", "Mobile optimized", "SEO friendly structure", "Free hosting available"],
+      highlighted: true,
+      badge: isZh ? "最受歡迎" : "Most Popular",
+    },
+    {
+      title: isZh ? "進階網站" : "Premium Website",
+      price: "$1,250",
+      features: isZh
+        ? ["進階版面設計", "客製樣式", "最多 10 頁"]
+        : ["Advanced layout design", "Custom styling", "Up to 10 pages"],
+    },
+    {
+      title: isZh ? "電商網站" : "Ecommerce Basic",
+      price: "$1,650",
+      features: isZh
+        ? ["線上商店", "付款整合", "最多 10 件商品"]
+        : ["Online store", "Payment integration", "Up to 10 products"],
+    },
+  ];
+
+  const logoPlans = [
+    {
+      title: "Logo Basic",
+      price: "$375",
+      features: isZh
+        ? ["3 個概念", "3 輪修改", "向量檔案"]
+        : ["3 concepts", "3 revision rounds", "Vector files included"],
+    },
+    {
+      title: "Logo Growth",
+      price: "$650",
+      features: isZh
+        ? ["Logo 設計", "色彩配置", "字體推薦", "迷你品牌指南"]
+        : ["Logo design", "Color palette", "Typography recommendation", "Mini brand guide"],
+      highlighted: true,
+    },
+    {
+      title: "Logo Premium",
+      price: "$1,275",
+      features: isZh
+        ? ["完整品牌識別系統", "Logo 套件", "色彩系統", "字體系統", "品牌規範"]
+        : ["Full brand identity system", "Logo suite", "Color system", "Typography system", "Brand guideline"],
+    },
+  ];
 
   const scrollToContact = () => {
     window.location.href = "/#contact-section";
@@ -141,7 +155,7 @@ const Pricing = () => {
                 <p className="text-3xl font-bold text-foreground mb-2">$0</p>
                 <p className="text-muted-foreground">
                   {isZh
-                    ? "您的網站將免費託管在我們的平台上。"
+                    ? "您的網站將免費架設於我們的平台上。"
                     : "Your website will be hosted on our platform at no cost."}
                 </p>
               </div>
