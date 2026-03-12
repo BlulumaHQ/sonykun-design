@@ -28,8 +28,8 @@ const TransparentPricing = () => {
             <p className="text-3xl font-bold text-foreground mb-2">$0</p>
             <p className="text-muted-foreground">
               {isZh
-                ? "您的網站可免費架設於我們的平台上，因此不需要支付任何每月主機費用。"
-                : "Your website can be hosted on our platform at no cost, so there is no required monthly hosting fee."}
+                ? "您的網站可免費架設於我們的平台上，因此不需要支付任何每月主機費用，除非您希望我們管理您的網站並協助處理更新或小幅修改。"
+                : "Your website can be hosted on our platform at no cost, so there is no required monthly hosting fee unless you want us to manage your website and handle updates or small revisions."}
             </p>
           </div>
 
