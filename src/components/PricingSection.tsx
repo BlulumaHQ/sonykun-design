@@ -7,22 +7,30 @@ interface PricingCardProps {
   price: string;
   features: string[];
   highlighted?: boolean;
+  badge?: string;
 }
 
-const PricingCard = ({ title, price, features, highlighted }: PricingCardProps) => (
+const PricingCard = ({ title, price, features, highlighted, badge }: PricingCardProps) => (
   <div
-    className={`rounded-2xl p-7 border flex flex-col h-full ${
+    className={`rounded-2xl p-7 border flex flex-col h-full relative ${
       highlighted
-        ? "border-secondary/30 bg-secondary/[0.03] shadow-sm"
+        ? "border-primary/30 bg-primary/[0.03] shadow-sm"
         : "border-border bg-background"
     }`}
   >
+    {badge && (
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+        <span className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full whitespace-nowrap">
+          {badge}
+        </span>
+      </div>
+    )}
     <h3 className="font-display text-lg font-bold text-foreground mb-1">{title}</h3>
     <p className="text-3xl font-bold text-foreground mb-5">{price}</p>
     <ul className="space-y-3 flex-1">
       {features.map((f) => (
         <li key={f} className="flex items-start gap-2.5 text-muted-foreground">
-          <Check className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
           <span>{f}</span>
         </li>
       ))}
@@ -51,6 +59,7 @@ const websitePlans = [
       "Free hosting available",
     ],
     highlighted: true,
+    badge: "Most Popular",
   },
   {
     title: "Premium Website",

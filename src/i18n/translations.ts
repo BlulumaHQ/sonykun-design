@@ -3,9 +3,12 @@ export type Lang = "en" | "zh";
 export const translations = {
   nav: {
     home: { en: "Home", zh: "首頁" },
+    pricing: { en: "Pricing", zh: "價格" },
     work: { en: "Work", zh: "作品集" },
     services: { en: "Services", zh: "服務內容" },
     contact: { en: "Contact", zh: "聯絡我" },
+    privacy: { en: "Privacy", zh: "隱私政策" },
+    terms: { en: "Terms", zh: "服務條款" },
   },
   hero: {
     words: {

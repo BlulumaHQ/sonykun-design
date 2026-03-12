@@ -20,7 +20,7 @@ const FinalCTA = () => {
           <Button
             size="lg"
             onClick={scrollToContact}
-            className="h-13 px-8 text-base font-semibold bg-white text-secondary hover:bg-white/90 rounded-xl"
+            className="h-13 px-8 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl"
           >
             <Eye className="w-5 h-5 mr-2" />
             Get Free Preview
@@ -29,7 +29,7 @@ const FinalCTA = () => {
             <Button
               size="lg"
               variant="outline"
-              className="h-13 px-8 text-base font-semibold border-secondary-foreground/30 text-secondary-foreground hover:bg-secondary-foreground/10 rounded-xl w-full sm:w-auto"
+              className="h-13 px-8 text-base font-semibold border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto"
             >
               <Phone className="w-5 h-5 mr-2" />
               Call / Text Sony
