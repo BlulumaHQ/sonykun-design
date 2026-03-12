@@ -8,21 +8,25 @@ import oneParkHome from "@/assets/projects/one-park-home.jpg";
 const portfolioItems = [
   {
     name: "Friendly Dental",
+    description: "Modern dental clinic website with online booking",
     image: friendlyDental,
     url: "https://friendlydental.ca/",
   },
   {
     name: "BTN Real Estate Services",
+    description: "Professional real estate services website",
     image: btnRealEstate,
     url: "https://btn.bluluma.com/",
   },
   {
-    name: "One Park Home",
+    name: "KChen Construction Management",
+    description: "Construction management company website",
     image: oneParkHome,
     url: "https://one-park-home.bluluma.com/",
   },
   {
     name: "Little Mountain Dental",
+    description: "Family dental practice website",
     image: littleMountainDental,
     url: "http://littlemountain.bluluma.com/",
   },
@@ -51,14 +55,14 @@ const PortfolioGrid = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="p-5 flex items-center justify-between">
-                <h3 className="font-display text-lg font-semibold text-foreground">
+              <div className="p-5">
+                <h3 className="font-display text-lg font-semibold text-foreground mb-1">
                   {project.name}
                 </h3>
+                <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
                 <Button
-                  variant="outline"
                   size="sm"
-                  className="rounded-lg gap-2 pointer-events-none"
+                  className="rounded-lg gap-2 pointer-events-none btn-cta"
                 >
                   Visit Website
                   <ExternalLink className="w-4 h-4" />

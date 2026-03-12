@@ -1,4 +1,6 @@
 import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface PricingCardProps {
   title: string;
@@ -11,7 +13,7 @@ const PricingCard = ({ title, price, features, highlighted }: PricingCardProps) 
   <div
     className={`rounded-2xl p-7 border flex flex-col h-full ${
       highlighted
-        ? "border-primary/30 bg-primary/[0.03] shadow-sm"
+        ? "border-secondary/30 bg-secondary/[0.03] shadow-sm"
         : "border-border bg-background"
     }`}
   >
@@ -20,7 +22,7 @@ const PricingCard = ({ title, price, features, highlighted }: PricingCardProps) 
     <ul className="space-y-3 flex-1">
       {features.map((f) => (
         <li key={f} className="flex items-start gap-2.5 text-muted-foreground">
-          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+          <Check className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
           <span>{f}</span>
         </li>
       ))}
@@ -44,8 +46,8 @@ const websitePlans = [
     price: "$750",
     features: [
       "Up to 7 pages",
-      "SEO-friendly structure",
       "Mobile optimized",
+      "SEO friendly structure",
       "Free hosting available",
     ],
     highlighted: true,
@@ -54,8 +56,8 @@ const websitePlans = [
     title: "Premium Website",
     price: "$1,250",
     features: [
-      "Custom design layout",
-      "Advanced branding presentation",
+      "Advanced layout design",
+      "Custom styling",
       "Up to 10 pages",
     ],
   },
@@ -70,41 +72,9 @@ const websitePlans = [
   },
 ];
 
-const logoPlans = [
-  {
-    title: "Logo Basic",
-    price: "$375",
-    features: [
-      "3 concepts",
-      "3 revision rounds",
-      "Vector files included",
-    ],
-  },
-  {
-    title: "Logo Growth",
-    price: "$650",
-    features: [
-      "Logo design",
-      "Color palette",
-      "Typography recommendation",
-      "Mini brand guide",
-    ],
-    highlighted: true,
-  },
-  {
-    title: "Logo Premium",
-    price: "$1,275",
-    features: [
-      "Full brand identity system",
-      "Logo suite",
-      "Color system",
-      "Typography system",
-      "Brand guideline",
-    ],
-  },
-];
-
 const PricingSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="section-padding">
       <div className="container-wide">
@@ -113,24 +83,23 @@ const PricingSection = () => {
           No surprises. Choose the package that fits your business.
         </p>
 
-        {/* Website Design Pricing */}
-        <h3 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
-          Website Design
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 max-w-5xl mx-auto">
           {websitePlans.map((plan) => (
             <PricingCard key={plan.title} {...plan} />
           ))}
         </div>
 
-        {/* Logo Design Pricing */}
-        <h3 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
-          Logo Design
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
-          {logoPlans.map((plan) => (
-            <PricingCard key={plan.title} {...plan} />
-          ))}
+        <div className="text-center">
+          <Button
+            size="lg"
+            onClick={() => {
+              navigate("/pricing");
+              setTimeout(() => window.scrollTo({ top: 0 }), 50);
+            }}
+            className="h-13 px-10 text-base font-semibold btn-cta rounded-xl"
+          >
+            View Full Pricing
+          </Button>
         </div>
       </div>
     </section>

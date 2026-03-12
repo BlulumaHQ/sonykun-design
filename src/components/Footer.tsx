@@ -1,17 +1,15 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "@/assets/logo.svg";
-import { useLanguage } from "@/i18n/LanguageContext";
-import { translations, t } from "@/i18n/translations";
 
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { lang } = useLanguage();
 
   const footerLinks = [
-    { label: t(translations.nav.work, lang), href: "/work" },
-    { label: t(translations.nav.services, lang), href: "/services" },
-    { label: t(translations.nav.contact, lang), href: "/contact" },
+    { label: "Home", href: "/" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Portfolio", href: "/work" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const handleNav = (href: string) => {
@@ -30,18 +28,18 @@ const Footer = () => {
           <div className="max-w-sm">
             <img src={logo} alt="Sonykun Design" className="h-14 md:h-[75px] mb-3" />
             <p className="text-body text-sm mb-3">
-              {t(translations.footer.tagline, lang)}
+              Affordable, professional website design for small businesses since 2005.
             </p>
             <p className="text-sm text-muted-foreground">Vancouver, Canada</p>
             <p className="text-sm text-muted-foreground mt-1">
               Phone:{" "}
-              <a href="tel:7786535353" className="hover:text-foreground transition-colors">
+              <a href="tel:7786535353" className="text-foreground hover:text-secondary transition-colors">
                 (778) 653-5353
               </a>
             </p>
             <p className="text-sm text-muted-foreground mt-1">
               Email:{" "}
-              <a href="mailto:support@sonykundesign.com" className="hover:text-foreground transition-colors">
+              <a href="mailto:support@sonykundesign.com" className="text-foreground hover:text-secondary transition-colors">
                 support@sonykundesign.com
               </a>
             </p>
@@ -52,7 +50,7 @@ const Footer = () => {
               <button
                 key={link.href}
                 onClick={() => handleNav(link.href)}
-                className="nav-link nav-link-animated"
+                className="text-sm font-medium text-foreground hover:text-secondary transition-colors uppercase tracking-wide"
               >
                 {link.label}
               </button>
@@ -62,7 +60,15 @@ const Footer = () => {
 
         <div className="mt-12 pt-6 border-t border-border">
           <p className="text-sm text-muted-foreground">
-            {t(translations.footer.copyright, lang)}
+            © {new Date().getFullYear()} Sonykun Design | Web Design by{" "}
+            <a
+              href="https://www.bluluma.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground hover:text-secondary transition-colors"
+            >
+              Bluluma.com
+            </a>
           </p>
         </div>
       </div>
