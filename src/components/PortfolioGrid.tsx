@@ -1,45 +1,40 @@
 import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/i18n/LanguageContext";
 import friendlyDental from "@/assets/projects/friendly-dental.jpg";
 import btnRealEstate from "@/assets/projects/btn-real-estate.jpg";
 import littleMountainDental from "@/assets/projects/little-mountain-dental.jpg";
 import oneParkHome from "@/assets/projects/one-park-home.jpg";
 
-const portfolioItems = [
-  {
-    name: "Friendly Dental",
-    description: "Modern dental clinic website with online booking",
-    image: friendlyDental,
-    url: "https://friendlydental.ca/",
-  },
-  {
-    name: "BTN Real Estate Services",
-    description: "Professional real estate services website",
-    image: btnRealEstate,
-    url: "https://btn.bluluma.com/",
-  },
-  {
-    name: "KChen Construction Management",
-    description: "Construction management company website",
-    image: oneParkHome,
-    url: "https://one-park-home.bluluma.com/",
-  },
-  {
-    name: "Little Mountain Dental",
-    description: "Family dental practice website",
-    image: littleMountainDental,
-    url: "http://littlemountain.bluluma.com/",
-  },
-];
+const portfolioItems = {
+  en: [
+    { name: "Friendly Dental", description: "Modern dental clinic website with online booking", image: friendlyDental, url: "https://friendlydental.ca/" },
+    { name: "BTN Real Estate Services", description: "Professional real estate services website", image: btnRealEstate, url: "https://btn.bluluma.com/" },
+    { name: "KChen Construction Management", description: "Construction management company website", image: oneParkHome, url: "https://one-park-home.bluluma.com/" },
+    { name: "Little Mountain Dental", description: "Family dental practice website", image: littleMountainDental, url: "http://littlemountain.bluluma.com/" },
+  ],
+  zh: [
+    { name: "Friendly Dental", description: "現代牙科診所網站，含線上預約功能", image: friendlyDental, url: "https://friendlydental.ca/" },
+    { name: "BTN Real Estate Services", description: "專業房地產服務網站", image: btnRealEstate, url: "https://btn.bluluma.com/" },
+    { name: "KChen Construction Management", description: "建築管理公司網站", image: oneParkHome, url: "https://one-park-home.bluluma.com/" },
+    { name: "Little Mountain Dental", description: "家庭牙科診所網站", image: littleMountainDental, url: "http://littlemountain.bluluma.com/" },
+  ],
+};
 
 const PortfolioGrid = () => {
+  const { lang } = useLanguage();
+  const isZh = lang === "zh";
+  const items = portfolioItems[lang];
+
   return (
     <section className="section-padding">
       <div className="container-wide">
-        <h2 className="heading-section mb-10 text-center">Recent Website Projects</h2>
+        <h2 className="heading-section mb-10 text-center">
+          {isZh ? "近期網站專案" : "Recent Website Projects"}
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {portfolioItems.map((project) => (
+          {items.map((project) => (
             <a
               key={project.name}
               href={project.url}
@@ -60,11 +55,8 @@ const PortfolioGrid = () => {
                   {project.name}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                <Button
-                  size="sm"
-                  className="rounded-lg gap-2 pointer-events-none btn-cta"
-                >
-                  Visit Website
+                <Button size="sm" className="rounded-lg gap-2 pointer-events-none btn-cta">
+                  {isZh ? "查看網站" : "Visit Website"}
                   <ExternalLink className="w-4 h-4" />
                 </Button>
               </div>
