@@ -1,32 +1,32 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import SelectedWork from "@/components/SelectedWork";
-import ServicesSection from "@/components/ServicesSection";
-import AboutSection from "@/components/AboutSection";
-import ProcessSection from "@/components/ProcessSection";
+import TransparentPricing from "@/components/TransparentPricing";
+import PortfolioGrid from "@/components/PortfolioGrid";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
-import PageLoader from "@/components/PageLoader";
+import FinalCTA from "@/components/FinalCTA";
+import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
-import ScrollProgress from "@/components/ScrollProgress";
-import CustomCursor from "@/components/CustomCursor";
 
 const Index = () => {
   return (
     <>
-      <PageLoader />
-      <CustomCursor />
-      <ScrollProgress />
       <Header />
       <main>
         <HeroSection />
-        <SelectedWork />
-        <ServicesSection />
-        <AboutSection />
-        <ProcessSection />
-        <ContactSection />
+        <TransparentPricing />
+        <PortfolioGrid />
+        <TestimonialsSection />
+        <PricingSection />
+        <div id="contact-section">
+          <ContactSection source="sonykun home form" />
+        </div>
+        <FinalCTA />
       </main>
       <Footer />
+      <FloatingContactButton />
       <ScrollToTop />
     </>
   );
