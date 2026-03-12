@@ -12,11 +12,6 @@ const TransparentPricing = () => {
           <h2 className="heading-section mb-4">
             {isZh ? "透明定價，無隱藏費用。" : "Transparent Pricing. No Hidden Fees."}
           </h2>
-          <p className="text-body text-lg mt-2">
-            {isZh
-              ? "如果您希望我們協助處理網站更新與小幅修改，則可選擇加購網站代管服務。"
-              : "Managed hosting is optional if you want us to handle updates and small revisions."}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
