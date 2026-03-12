@@ -12,11 +12,6 @@ const TransparentPricing = () => {
           <h2 className="heading-section mb-4">
             {isZh ? "透明定價，無隱藏費用。" : "Transparent Pricing. No Hidden Fees."}
           </h2>
-          <p className="text-body text-lg">
-            {isZh
-              ? "您的網站可免費架設於我們的平台上，因此不需要支付任何每月主機費用。"
-              : "Your website can be hosted on our platform at no cost, so there is no required monthly hosting fee."}
-          </p>
           <p className="text-body text-lg mt-2">
             {isZh
               ? "如果您希望我們協助處理網站更新與小幅修改，則可選擇加購網站代管服務。"
