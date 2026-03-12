@@ -58,7 +58,7 @@ const HeroSection = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-13 px-8 text-base font-semibold border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground rounded-xl w-full sm:w-auto"
+                  className="h-13 px-8 text-base font-semibold border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-xl w-full sm:w-auto"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   Call / Text Sony
