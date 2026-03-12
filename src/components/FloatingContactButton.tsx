@@ -37,7 +37,7 @@ const FloatingContactButton = () => {
 
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-4 py-3 rounded-full bg-secondary text-secondary-foreground shadow-lg hover:bg-secondary-hover transition-all text-sm font-semibold"
+        className="flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/80 transition-all text-sm font-semibold"
         aria-label="Call / Text Sony"
       >
         {open ? (
