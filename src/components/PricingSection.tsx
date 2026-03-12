@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface PricingCardProps {
   title: string;
@@ -38,58 +39,52 @@ const PricingCard = ({ title, price, features, highlighted, badge }: PricingCard
   </div>
 );
 
-const websitePlans = [
-  {
-    title: "Basic Website",
-    price: "$375",
-    features: [
-      "Single page website",
-      "Mobile friendly",
-      "Contact form",
-      "Free hosting available",
-    ],
-  },
-  {
-    title: "Business Website",
-    price: "$750",
-    features: [
-      "Up to 7 pages",
-      "Mobile optimized",
-      "SEO friendly structure",
-      "Free hosting available",
-    ],
-    highlighted: true,
-    badge: "Most Popular",
-  },
-  {
-    title: "Premium Website",
-    price: "$1,250",
-    features: [
-      "Advanced layout design",
-      "Custom styling",
-      "Up to 10 pages",
-    ],
-  },
-  {
-    title: "Ecommerce Basic",
-    price: "$1,650",
-    features: [
-      "Online store",
-      "Payment integration",
-      "Up to 10 products",
-    ],
-  },
-];
-
 const PricingSection = () => {
   const navigate = useNavigate();
+  const { lang } = useLanguage();
+  const isZh = lang === "zh";
+
+  const websitePlans = [
+    {
+      title: isZh ? "基本網站" : "Basic Website",
+      price: "$375",
+      features: isZh
+        ? ["單頁網站", "手機友好", "聯絡表單", "免費託管"]
+        : ["Single page website", "Mobile friendly", "Contact form", "Free hosting available"],
+    },
+    {
+      title: isZh ? "商業網站" : "Business Website",
+      price: "$750",
+      features: isZh
+        ? ["最多 7 頁", "手機優化", "SEO 友好結構", "免費託管"]
+        : ["Up to 7 pages", "Mobile optimized", "SEO friendly structure", "Free hosting available"],
+      highlighted: true,
+      badge: isZh ? "最受歡迎" : "Most Popular",
+    },
+    {
+      title: isZh ? "進階網站" : "Premium Website",
+      price: "$1,250",
+      features: isZh
+        ? ["進階版面設計", "客製樣式", "最多 10 頁"]
+        : ["Advanced layout design", "Custom styling", "Up to 10 pages"],
+    },
+    {
+      title: isZh ? "電商網站" : "Ecommerce Basic",
+      price: "$1,650",
+      features: isZh
+        ? ["線上商店", "付款整合", "最多 10 件商品"]
+        : ["Online store", "Payment integration", "Up to 10 products"],
+    },
+  ];
 
   return (
     <section className="section-padding">
       <div className="container-wide">
-        <h2 className="heading-section mb-4 text-center">Clear and Simple Pricing</h2>
+        <h2 className="heading-section mb-4 text-center">
+          {isZh ? "清晰簡單的定價" : "Clear and Simple Pricing"}
+        </h2>
         <p className="text-body text-center mb-12 max-w-xl mx-auto">
-          No surprises. Choose the package that fits your business.
+          {isZh ? "無額外費用。選擇適合您業務的方案。" : "No surprises. Choose the package that fits your business."}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 max-w-5xl mx-auto">
@@ -107,7 +102,7 @@ const PricingSection = () => {
             }}
             className="h-13 px-10 text-base font-semibold btn-cta rounded-xl"
           >
-            View Full Pricing
+            {isZh ? "查看完整定價" : "View Full Pricing"}
           </Button>
         </div>
       </div>

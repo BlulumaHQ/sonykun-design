@@ -1,16 +1,26 @@
 import { Shield, Server } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const TransparentPricing = () => {
+  const { lang } = useLanguage();
+  const isZh = lang === "zh";
+
   return (
     <section className="section-padding bg-muted">
       <div className="container-wide">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="heading-section mb-4">Transparent Pricing. No Hidden Fees.</h2>
+          <h2 className="heading-section mb-4">
+            {isZh ? "透明定價，無隱藏費用。" : "Transparent Pricing. No Hidden Fees."}
+          </h2>
           <p className="text-body text-lg">
-            Many business owners worry that a low-cost website comes with hidden monthly fees.
+            {isZh
+              ? "您的網站可免費架設於我們的平台上，因此不需要支付任何每月主機費用。"
+              : "Your website can be hosted on our platform at no cost, so there is no required monthly hosting fee."}
           </p>
           <p className="text-body text-lg mt-2">
-            At Sonykun Design, your website will be hosted on our secure hosting platform at no cost. You only pay for hosting if you want us to actively manage and maintain the website for you.
+            {isZh
+              ? "如果您希望我們協助處理網站更新與小幅修改，則可選擇加購網站代管服務。"
+              : "Managed hosting is optional if you want us to handle updates and small revisions."}
           </p>
         </div>
 
@@ -21,11 +31,15 @@ const TransparentPricing = () => {
               <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                 <Shield className="w-5 h-5 text-green-600" />
               </div>
-              <h3 className="font-display text-xl font-bold text-foreground">FREE Hosting</h3>
+              <h3 className="font-display text-xl font-bold text-foreground">
+                {isZh ? "免費託管" : "FREE Hosting"}
+              </h3>
             </div>
             <p className="text-3xl font-bold text-foreground mb-2">$0</p>
             <p className="text-muted-foreground">
-              Your website will be hosted on our platform at no cost.
+              {isZh
+                ? "您的網站將免費架設於我們的平台上。"
+                : "Your website will be hosted on our platform at no cost."}
             </p>
           </div>
 
@@ -35,21 +49,23 @@ const TransparentPricing = () => {
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                 <Server className="w-5 h-5 text-blue-600" />
               </div>
-              <h3 className="font-display text-xl font-bold text-foreground">Managed Hosting</h3>
+              <h3 className="font-display text-xl font-bold text-foreground">
+                {isZh ? "代管託管" : "Managed Hosting"}
+              </h3>
             </div>
             <p className="text-3xl font-bold text-foreground mb-1">
-              $12<span className="text-base font-normal text-muted-foreground">/month</span>
+              $12<span className="text-base font-normal text-muted-foreground">{isZh ? "/月" : "/month"}</span>
             </p>
-            <p className="text-sm text-muted-foreground mb-4">or $100/year</p>
+            <p className="text-sm text-muted-foreground mb-4">{isZh ? "或 $100/年" : "or $100/year"}</p>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-start gap-2">
-                <span className="text-secondary mt-0.5">•</span> Hosting management
+                <span className="text-secondary mt-0.5">•</span> {isZh ? "託管管理" : "Hosting management"}
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-secondary mt-0.5">•</span> Basic maintenance
+                <span className="text-secondary mt-0.5">•</span> {isZh ? "基本維護" : "Basic maintenance"}
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-secondary mt-0.5">•</span> Small revision support
+                <span className="text-secondary mt-0.5">•</span> {isZh ? "小幅修改支援" : "Small revision support"}
               </li>
             </ul>
           </div>

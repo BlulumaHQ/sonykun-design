@@ -12,12 +12,10 @@ const Header = () => {
 
   const navLinks = [
     { label: t(translations.nav.home, lang), href: "/" },
-    { label: t(translations.nav.pricing, lang), href: "/pricing" },
     { label: t(translations.nav.work, lang), href: "/work" },
     { label: t(translations.nav.services, lang), href: "/services" },
+    { label: t(translations.nav.pricing, lang), href: "/pricing" },
     { label: t(translations.nav.contact, lang), href: "/contact" },
-    { label: t(translations.nav.privacy, lang), href: "/privacy" },
-    { label: t(translations.nav.terms, lang), href: "/terms" },
   ];
 
   const handleNav = (href: string) => {
