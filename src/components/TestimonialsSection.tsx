@@ -1,23 +1,27 @@
-import { Star } from "lucide-react";
+import { Star, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const testimonials = [
   {
     quote:
-      "Working with Sony was very straightforward. We needed a simple, professional website and he delivered exactly that. The process was fast and communication was easy.",
+      "Working with Sony was very straightforward. We needed a simple professional website and he delivered exactly what we were looking for.",
     name: "Dr. Lee",
     company: "Friendly Dental",
+    url: "https://friendlydental.ca/",
   },
   {
     quote:
-      "Our old website looked outdated and Sony helped us modernize it quickly. The new site is cleaner and much easier for our customers to navigate.",
+      "Our old website looked outdated and Sony helped modernize it quickly. The new site looks far more professional.",
     name: "Kevin Chen",
     company: "KChen Construction",
+    url: "https://one-park-home.bluluma.com/",
   },
   {
     quote:
-      "I appreciated the transparency about pricing. There were no hidden costs and the website turned out better than we expected.",
+      "I appreciated the transparency about pricing. There were no hidden costs and the process was smooth.",
     name: "Michael Tran",
-    company: "Local Business Owner",
+    company: "Small Business Owner",
+    url: null,
   },
 ];
 
@@ -45,10 +49,21 @@ const TestimonialsSection = () => {
               <blockquote className="text-foreground leading-relaxed mb-6 flex-1">
                 "{t.quote}"
               </blockquote>
-              <div>
+              <div className="mb-4">
                 <p className="font-display font-semibold text-foreground">{t.name}</p>
                 <p className="text-sm text-muted-foreground">{t.company}</p>
               </div>
+              {t.url && (
+                <a href={t.url} target="_blank" rel="noopener noreferrer">
+                  <Button
+                    size="sm"
+                    className="rounded-lg gap-2 btn-cta w-full"
+                  >
+                    Visit Website
+                    <ExternalLink className="w-4 h-4" />
+                  </Button>
+                </a>
+              )}
             </div>
           ))}
         </div>

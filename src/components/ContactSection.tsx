@@ -46,7 +46,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
   const inputClasses = (field: string) =>
     `w-full bg-transparent border border-secondary/20 rounded-xl px-4 py-3 text-base transition-all duration-300 outline-none ${
       focused === field
-        ? "border-primary shadow-[0_0_0_3px_hsl(var(--primary)/0.08)]"
+        ? "border-secondary shadow-[0_0_0_3px_hsl(var(--secondary)/0.08)]"
         : "hover:border-secondary/40"
     }`;
 
@@ -69,10 +69,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
           </ScrollReveal>
 
           <ScrollReveal delay={0.15}>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input type="hidden" name="source" value={source} />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -80,7 +77,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                   <motion.label
                     htmlFor="name"
                     className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
-                    animate={{ color: focused === "name" ? "hsl(var(--primary))" : undefined }}
+                    animate={{ color: focused === "name" ? "hsl(var(--secondary))" : undefined }}
                   >
                     {t(ct.name, lang)}
                   </motion.label>
@@ -99,7 +96,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                   <motion.label
                     htmlFor="email"
                     className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
-                    animate={{ color: focused === "email" ? "hsl(var(--primary))" : undefined }}
+                    animate={{ color: focused === "email" ? "hsl(var(--secondary))" : undefined }}
                   >
                     {t(ct.email, lang)}
                   </motion.label>
@@ -120,7 +117,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 <motion.label
                   htmlFor="projectType"
                   className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
-                  animate={{ color: focused === "projectType" ? "hsl(var(--primary))" : undefined }}
+                  animate={{ color: focused === "projectType" ? "hsl(var(--secondary))" : undefined }}
                 >
                   {t(ct.projectType, lang)}
                 </motion.label>
@@ -144,7 +141,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 <motion.label
                   htmlFor="message"
                   className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider"
-                  animate={{ color: focused === "message" ? "hsl(var(--primary))" : undefined }}
+                  animate={{ color: focused === "message" ? "hsl(var(--secondary))" : undefined }}
                 >
                   {t(ct.message, lang)}
                 </motion.label>
@@ -168,7 +165,12 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
                 <p className="text-xs text-muted-foreground order-2 md:order-1">
                   {t(ct.responseTime, lang)}
                 </p>
-                <Button type="submit" size="lg" disabled={submitting} className="h-12 px-10 text-base font-medium w-full md:w-auto magnetic-btn order-1 md:order-2 rounded-xl">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={submitting}
+                  className="h-12 px-10 text-base font-medium w-full md:w-auto btn-cta order-1 md:order-2 rounded-xl"
+                >
                   {submitting ? "Sending..." : t(ct.submit, lang)}
                 </Button>
               </div>
