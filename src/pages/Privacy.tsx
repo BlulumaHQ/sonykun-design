@@ -189,7 +189,7 @@ const Privacy = () => {
                   </li>
                 </ul>
               </section>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
