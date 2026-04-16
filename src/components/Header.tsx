@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.svg";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { lang, toggle } = useLanguage();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { label: t(translations.nav.home, lang), href: "/" },
@@ -29,31 +38,67 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container-wide flex items-center justify-between h-24 md:h-28">
+    <motion.header
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-300 ${
+        scrolled
+          ? "bg-background/80 backdrop-blur-md border-border shadow-sm"
+          : "bg-background/95 backdrop-blur-sm border-transparent"
+      }`}
+    >
+      <div
+        className={`container-wide flex items-center justify-between transition-[height] duration-300 ${
+          scrolled ? "h-16 md:h-20" : "h-24 md:h-28"
+        }`}
+      >
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Sonykun Design" className="h-14 md:h-[75px]" />
+          <motion.img
+            src={logo}
+            alt="Sonykun Design"
+            className={`transition-[height] duration-300 ${scrolled ? "h-10 md:h-12" : "h-14 md:h-[75px]"}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
+          />
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-          {navLinks.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => handleNav(link.href)}
-              className={`nav-link nav-link-animated ${
-                location.pathname === link.href ? "!text-foreground" : ""
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
-          <button
+          {navLinks.map((link, i) => {
+            const isActive = location.pathname === link.href;
+            return (
+              <motion.button
+                key={link.href}
+                onClick={() => handleNav(link.href)}
+                className={`relative nav-link ${isActive ? "!text-foreground" : ""}`}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
+              >
+                <span className="relative">
+                  {link.label}
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-primary origin-left"
+                    initial={false}
+                    animate={{ scaleX: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  />
+                </span>
+              </motion.button>
+            );
+          })}
+          <motion.button
             onClick={toggle}
             className="ml-2 text-sm font-medium px-3 py-1.5 border border-border rounded-lg hover:bg-muted transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.4 }}
           >
             {lang === "en" ? "中文" : "EN"}
-          </button>
+          </motion.button>
         </nav>
 
         {/* Mobile: lang toggle + hamburger */}
@@ -77,22 +122,33 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <nav className="md:hidden bg-background border-t border-border">
-          <div className="container-wide py-8 flex flex-col gap-6">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                className="nav-link text-lg text-left"
-                onClick={() => handleNav(link.href)}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-        </nav>
-      )}
-    </header>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="md:hidden bg-background border-t border-border overflow-hidden"
+          >
+            <div className="container-wide py-8 flex flex-col gap-6">
+              {navLinks.map((link, i) => (
+                <motion.button
+                  key={link.href}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
+                  className="nav-link text-lg text-left"
+                  onClick={() => handleNav(link.href)}
+                >
+                  {link.label}
+                </motion.button>
+              ))}
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

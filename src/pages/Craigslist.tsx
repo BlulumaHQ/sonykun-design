@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
@@ -61,30 +62,59 @@ const Craigslist = () => {
         <section className="bg-background pt-32 pb-16 md:pt-40 md:pb-24">
           <div className="container-wide">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-foreground mb-3">
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-foreground mb-3"
+              >
                 {isZh ? "小型企業的平價網站設計" : "Affordable Website Design for Small Businesses"}
-              </h1>
-              <p className="font-display text-2xl sm:text-3xl font-bold text-secondary mb-6">
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="font-display text-2xl sm:text-3xl font-bold text-secondary mb-6"
+              >
                 {isZh ? "起價 $375" : "Starting at $375"}
-              </p>
-              <p className="text-lg text-muted-foreground mb-8">
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+                className="text-lg text-muted-foreground mb-8"
+              >
                 {isZh ? "付款前即時預覽。免費託管。" : "Live preview before you pay. Free hosting included."}
-              </p>
+              </motion.p>
 
-              <ul className="space-y-3 mb-10 max-w-md mx-auto text-left">
+              <motion.ul
+                initial="hidden"
+                animate="show"
+                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.5 } } }}
+                className="space-y-3 mb-10 max-w-md mx-auto text-left"
+              >
                 {trustBullets.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-foreground/80">
+                  <motion.li
+                    key={item}
+                    variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0 } }}
+                    className="flex items-center gap-3 text-foreground/80"
+                  >
                     <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
                     <span className="text-base">{item}</span>
-                  </li>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 1 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
                 <Button
                   size="lg"
                   onClick={scrollToContact}
-                  className="h-13 px-8 text-base font-semibold btn-cta rounded-xl"
+                  className="h-13 px-8 text-base font-semibold btn-cta btn-fill rounded-xl"
                 >
                   <Eye className="w-5 h-5 mr-2" />
                   {isZh ? "獲取免費網站預覽" : "Get Your Free Website Preview"}
@@ -99,7 +129,7 @@ const Craigslist = () => {
                     {isZh ? "聯絡 Sony" : "Call / Text Sony"}
                   </Button>
                 </a>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>

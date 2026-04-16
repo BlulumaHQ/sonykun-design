@@ -1,8 +1,14 @@
+import { motion, type Variants } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useLanguage } from "@/i18n/LanguageContext";
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+};
 
 const lastUpdated = new Date().toLocaleDateString("en-US", {
   year: "numeric",
@@ -33,8 +39,14 @@ const Privacy = () => {
               {isZh ? `最後更新：${lastUpdatedZh}` : `Last updated: ${lastUpdated}`}
             </p>
 
-            <div className="prose prose-slate max-w-none space-y-8">
-              <section>
+            <motion.div
+              className="prose prose-slate max-w-none space-y-8"
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+            >
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "1. 簡介" : "1. Introduction"}
                 </h2>
@@ -43,9 +55,9 @@ const Privacy = () => {
                     ? "Sonykun Design（以下簡稱「我們」）重視您的隱私。本隱私政策說明我們在您使用我們的網站和服務時，如何收集、使用和保護您的個人資訊。"
                     : "Sonykun Design (\"we\", \"us\", or \"our\") respects your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website and services."}
                 </p>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "2. 我們收集的資訊" : "2. Information We Collect"}
                 </h2>
@@ -59,9 +71,9 @@ const Privacy = () => {
                   <li>{isZh ? "付款資訊（透過安全的第三方支付處理器處理）" : "Payment information (processed through secure third-party payment processors)"}</li>
                   <li>{isZh ? "瀏覽器類型、IP 地址和瀏覽數據等使用資料" : "Usage data such as browser type, IP address, and browsing data"}</li>
                 </ul>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "3. 我們如何使用您的資訊" : "3. How We Use Your Information"}
                 </h2>
@@ -72,9 +84,9 @@ const Privacy = () => {
                   <li>{isZh ? "發送與專案相關的更新通知" : "To send project-related updates"}</li>
                   <li>{isZh ? "改善我們的網站和服務" : "To improve our website and services"}</li>
                 </ul>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "4. 付款處理" : "4. Payment Processing"}
                 </h2>
@@ -83,9 +95,9 @@ const Privacy = () => {
                     ? "付款透過安全的第三方支付處理器（如 Stripe）處理。我們不會在我們的伺服器上儲存您的信用卡號碼或完整的付款詳細資訊。所有付款交易均經過加密和安全處理。"
                     : "Payments are processed through secure third-party payment processors such as Stripe. We do not store your credit card numbers or full payment details on our servers. All payment transactions are encrypted and handled securely."}
                 </p>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "5. 第三方服務" : "5. Third-Party Services"}
                 </h2>
@@ -103,9 +115,9 @@ const Privacy = () => {
                     ? "這些服務有各自的隱私政策，管理其對您資訊的使用方式。"
                     : "These services have their own privacy policies governing their use of your information."}
                 </p>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "6. Cookies 與分析" : "6. Cookies & Analytics"}
                 </h2>
@@ -114,9 +126,9 @@ const Privacy = () => {
                     ? "我們的網站可能使用 cookies 和類似技術來改善您的瀏覽體驗並收集匿名使用數據。您可以透過瀏覽器設定控制 cookies。停用 cookies 可能會影響網站的部分功能。"
                     : "Our website may use cookies and similar technologies to improve your browsing experience and collect anonymous usage data. You can control cookies through your browser settings. Disabling cookies may affect some functionality of the website."}
                 </p>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "7. 資料安全" : "7. Data Security"}
                 </h2>
@@ -125,9 +137,9 @@ const Privacy = () => {
                     ? "我們採取合理的安全措施來保護您的個人資訊免受未經授權的存取、更改或破壞。然而，沒有任何網路傳輸方式能保證 100% 安全。"
                     : "We implement reasonable security measures to protect your personal information from unauthorized access, alteration, or destruction. However, no method of transmission over the internet is guaranteed to be 100% secure."}
                 </p>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "8. 資料保留" : "8. Data Retention"}
                 </h2>
@@ -136,9 +148,9 @@ const Privacy = () => {
                     ? "我們會在為您提供服務所需的期間內保留您的個人資訊，或根據法律要求保留。您可以隨時要求刪除您的資料。"
                     : "We retain your personal information for as long as necessary to provide our services to you, or as required by law. You may request deletion of your data at any time."}
                 </p>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "9. 您的權利" : "9. Your Rights"}
                 </h2>
@@ -151,9 +163,9 @@ const Privacy = () => {
                   <li>{isZh ? "要求刪除您的個人資料" : "Request deletion of your personal data"}</li>
                   <li>{isZh ? "退出行銷通訊" : "Opt out of marketing communications"}</li>
                 </ul>
-              </section>
+              </motion.section>
 
-              <section>
+              <motion.section variants={fadeUp}>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "10. 聯絡我們" : "10. Contact Us"}
                 </h2>
@@ -176,8 +188,8 @@ const Privacy = () => {
                     </a>
                   </li>
                 </ul>
-              </section>
-            </div>
+              </motion.section>
+            </motion.div>
           </div>
         </section>
       </main>

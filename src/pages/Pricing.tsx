@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
@@ -5,6 +6,13 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { Check, Shield, Server, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/i18n/LanguageContext";
+
+const fadeUpView = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+};
 
 interface PricingCardProps {
   title: string;
@@ -15,7 +23,12 @@ interface PricingCardProps {
 }
 
 const PricingCard = ({ title, price, features, highlighted, badge }: PricingCardProps) => (
-  <div
+  <motion.div
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-60px" }}
+    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+    whileHover={{ y: -4 }}
     className={`rounded-2xl p-7 border flex flex-col h-full relative ${
       highlighted
         ? "border-primary/30 bg-primary/[0.03] shadow-sm"
@@ -39,7 +52,7 @@ const PricingCard = ({ title, price, features, highlighted, badge }: PricingCard
         </li>
       ))}
     </ul>
-  </div>
+  </motion.div>
 );
 
 const Pricing = () => {
@@ -114,12 +127,12 @@ const Pricing = () => {
       <main className="pt-28 md:pt-32">
         <section className="section-padding">
           <div className="container-wide">
-            <h1 className="heading-section mb-4 text-center">
+            <motion.h1 {...fadeUpView} className="heading-section mb-4 text-center">
               {isZh ? "完整價格表" : "Full Pricing"}
-            </h1>
-            <p className="text-body text-center mb-12 max-w-xl mx-auto">
+            </motion.h1>
+            <motion.p {...fadeUpView} transition={{ ...fadeUpView.transition, delay: 0.1 }} className="text-body text-center mb-12 max-w-xl mx-auto">
               {isZh ? "我們所有服務的透明定價。" : "Transparent pricing for every service we offer."}
-            </p>
+            </motion.p>
 
             <h2 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
               {isZh ? "網站設計" : "Website Design"}
@@ -208,16 +221,16 @@ const Pricing = () => {
               </div>
             </div>
 
-            <div className="text-center">
+            <motion.div {...fadeUpView} className="text-center">
               <Button
                 size="lg"
                 onClick={scrollToContact}
-                className="h-13 px-10 text-base font-semibold btn-cta rounded-xl"
+                className="h-13 px-10 text-base font-semibold btn-cta btn-fill rounded-xl"
               >
                 <Eye className="w-5 h-5 mr-2" />
                 {isZh ? "獲取免費網站預覽" : "Get Your Free Website Preview"}
               </Button>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
