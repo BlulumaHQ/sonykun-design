@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -12,7 +13,13 @@ interface PricingCardProps {
 }
 
 const PricingCard = ({ title, price, features, highlighted, badge }: PricingCardProps) => (
-  <div
+  <motion.div
+    variants={{
+      hidden: { opacity: 0, y: 30 },
+      show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+    }}
+    whileHover={{ y: -6 }}
+    transition={{ type: "spring", stiffness: 300, damping: 22 }}
     className={`rounded-2xl p-7 border flex flex-col h-full relative ${
       highlighted
         ? "border-primary/30 bg-primary/[0.03] shadow-sm"
@@ -36,7 +43,7 @@ const PricingCard = ({ title, price, features, highlighted, badge }: PricingCard
         </li>
       ))}
     </ul>
-  </div>
+  </motion.div>
 );
 
 const PricingSection = () => {
@@ -80,18 +87,36 @@ const PricingSection = () => {
   return (
     <section className="section-padding">
       <div className="container-wide">
-        <h2 className="heading-section mb-4 text-center">
+        <motion.h2
+          className="heading-section mb-4 text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           {isZh ? "清晰簡單的定價" : "Clear and Simple Pricing"}
-        </h2>
-        <p className="text-body text-center mb-12 max-w-xl mx-auto">
+        </motion.h2>
+        <motion.p
+          className="text-body text-center mb-12 max-w-xl mx-auto"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           {isZh ? "無額外費用。選擇適合您業務的方案。" : "No surprises. Choose the package that fits your business."}
-        </p>
+        </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 max-w-5xl mx-auto">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
+        >
           {websitePlans.map((plan) => (
             <PricingCard key={plan.title} {...plan} />
           ))}
-        </div>
+        </motion.div>
 
         <div className="text-center">
           <Button
@@ -100,7 +125,7 @@ const PricingSection = () => {
               navigate("/pricing");
               setTimeout(() => window.scrollTo({ top: 0 }), 50);
             }}
-            className="h-13 px-10 text-base font-semibold btn-cta rounded-xl"
+            className="h-13 px-10 text-base font-semibold btn-cta btn-fill rounded-xl"
           >
             {isZh ? "查看完整定價" : "View Full Pricing"}
           </Button>

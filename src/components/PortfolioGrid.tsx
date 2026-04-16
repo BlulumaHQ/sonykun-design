@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/i18n/LanguageContext";
 import friendlyDental from "@/assets/projects/friendly-dental.jpg";
@@ -29,26 +30,49 @@ const PortfolioGrid = () => {
   return (
     <section className="section-padding">
       <div className="container-wide">
-        <h2 className="heading-section mb-10 text-center">
+        <motion.h2
+          className="heading-section mb-10 text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           {isZh ? "近期網站專案" : "Recent Website Projects"}
-        </h2>
+        </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.15 } } }}
+        >
           {items.map((project) => (
-            <a
+            <motion.a
               key={project.name}
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block overflow-hidden rounded-xl border border-border bg-background transition-shadow hover:shadow-lg"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+              }}
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+              className="group block overflow-hidden rounded-xl border border-border bg-background transition-shadow hover:shadow-xl"
             >
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden relative">
                 <img
                   src={project.image}
                   alt={`${project.name} website design`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:brightness-110"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 text-primary-foreground font-display font-semibold text-sm uppercase tracking-wider px-4 py-2 border border-primary-foreground/40 rounded-full">
+                    {isZh ? "查看網站" : "View Project"}
+                  </span>
+                </div>
               </div>
               <div className="p-5">
                 <h3 className="font-display text-lg font-semibold text-foreground mb-1">
@@ -60,9 +84,9 @@ const PortfolioGrid = () => {
                   <ExternalLink className="w-4 h-4" />
                 </Button>
               </div>
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
