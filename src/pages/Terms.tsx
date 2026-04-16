@@ -173,7 +173,7 @@ const Terms = () => {
                   </li>
                 </ul>
               </section>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
