@@ -252,6 +252,55 @@
   to { transform: translateX(200%); }
 }
 
+/* ===== Infinite horizontal marquee ===== */
+@keyframes marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll linear infinite;
+  will-change: transform;
+}
+
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.marquee-pause-hover:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ===== Animated CTA fill (left → right) ===== */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: hsl(var(--primary-hover));
+  transform: translateX(-101%);
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.btn-fill:hover::before {
+  transform: translateX(0);
+}
+
 html {
   scroll-behavior: smooth;
 }
