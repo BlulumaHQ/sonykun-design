@@ -1,8 +1,14 @@
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import { useLanguage } from "@/i18n/LanguageContext";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const lastUpdated = new Date().toLocaleDateString("en-US", {
   year: "numeric",
@@ -33,7 +39,13 @@ const Privacy = () => {
               {isZh ? `最後更新：${lastUpdatedZh}` : `Last updated: ${lastUpdated}`}
             </p>
 
-            <div className="prose prose-slate max-w-none space-y-8">
+            <motion.div
+              className="prose prose-slate max-w-none space-y-8"
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+            >
               <section>
                 <h2 className="font-display text-xl font-bold text-foreground mb-3">
                   {isZh ? "1. 簡介" : "1. Introduction"}
