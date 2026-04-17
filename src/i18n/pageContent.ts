@@ -1,6 +1,35 @@
 // Bilingual content for the rebuilt Home, Services, and Pricing pages.
 // Kept separate from translations.ts to avoid bloating the main file.
 
+import type { Lang } from "./translations";
+
+type Bi = { en: string; zh: string };
+type BiList = { en: readonly string[]; zh: readonly string[] };
+
+export interface ServiceCard {
+  title: Bi;
+  body: Bi;
+  price: Bi;
+  link: Bi;
+  href: string;
+  badge?: Bi;
+}
+export interface BundleCard {
+  title: Bi;
+  price: string;
+  save: Bi;
+  items: BiList;
+  badge?: Bi;
+}
+export interface PricingTierCard {
+  title: Bi;
+  price: string;
+  features: BiList;
+  badge?: Bi;
+  note?: Bi;
+}
+export type { Lang };
+
 export const homeContent = {
   hero: {
     eyebrow: { en: "Vancouver Web Designer", zh: "溫哥華網站設計師" },
