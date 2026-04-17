@@ -101,6 +101,9 @@ const Index = () => {
           </div>
         </section>
 
+        {/* IMAGE MARQUEE STRIP */}
+        <ImageMarquee />
+
         {/* HOW IT WORKS */}
         <section className="section-padding bg-muted">
           <div className="container-wide">
