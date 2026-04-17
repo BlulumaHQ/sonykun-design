@@ -38,9 +38,12 @@ const TestimonialsSection = () => {
   return (
     <section className="section-padding bg-muted">
       <div className="container-wide">
-        <h2 className="heading-section mb-10 text-center">
-          {isZh ? "客戶評價" : "What Our Clients Say"}
-        </h2>
+        <div className="text-center mb-12">
+          <span className="eyebrow">{isZh ? "客戶評價" : "Client Feedback"}</span>
+          <h2 className="heading-section">
+            {isZh ? "客戶評價" : "What Our Clients Say"}
+          </h2>
+        </div>
       </div>
 
       <Marquee speed={60} pauseOnHover>
