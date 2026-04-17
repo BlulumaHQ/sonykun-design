@@ -134,7 +134,8 @@ const Services = () => {
               <p className="text-body">{c.bundles.body[lang]}</p>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {c.bundles.cards.map((card, i) => {
+              {c.bundles.cards.map((rawCard, i) => {
+                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string } };
                 const highlighted = !!card.badge;
                 return (
                   <motion.div

@@ -137,7 +137,8 @@ const Index = () => {
               <h2 className="heading-section">{c.services.title[lang]}</h2>
             </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {c.services.cards.map((card, i) => {
+              {c.services.cards.map((rawCard, i) => {
+                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string } };
                 const Icon = serviceIcons[i];
                 return (
                   <motion.div

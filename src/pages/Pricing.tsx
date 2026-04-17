@@ -90,22 +90,25 @@ const Pricing = () => {
               {c.website.title[lang]}
             </motion.h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
-              {c.website.cards.map((card, i) => (
-                <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
-                  <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
-                  <p className="font-display text-4xl font-bold text-foreground mb-1">{card.price}</p>
-                  {card.note && <p className="text-xs text-muted-foreground mb-4 leading-snug">{card.note[lang]}</p>}
-                  {!card.note && <div className="mb-4" />}
-                  <ul className="space-y-2.5 flex-1">
-                    {card.features[lang].map((f, j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardShell>
-              ))}
+              {c.website.cards.map((rawCard, i) => {
+                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string }; note?: { en: string; zh: string } };
+                return (
+                  <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+                    <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
+                    <p className="font-display text-4xl font-bold text-foreground mb-1">{card.price}</p>
+                    {card.note && <p className="text-xs text-muted-foreground mb-4 leading-snug">{card.note[lang]}</p>}
+                    {!card.note && <div className="mb-4" />}
+                    <ul className="space-y-2.5 flex-1">
+                      {card.features[lang].map((f, j) => (
+                        <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardShell>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -118,8 +121,10 @@ const Pricing = () => {
               <p className="text-body">{c.bundles.body[lang]}</p>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-              {c.bundles.cards.map((card, i) => (
-                <CardShell key={i} delay={i * 0.1} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+              {c.bundles.cards.map((rawCard, i) => {
+                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string } };
+                return (
+                  <CardShell key={i} delay={i * 0.1} highlighted={!!card.badge} badge={card.badge?.[lang]}>
                   <h3 className="font-display text-xl font-bold text-foreground mb-2">{card.title[lang]}</h3>
                   <p className="font-display text-3xl font-bold text-foreground mb-1">{card.price}</p>
                   <p className="text-xs text-secondary font-semibold uppercase tracking-wider mb-5">{card.save[lang]}</p>
@@ -144,8 +149,10 @@ const Pricing = () => {
               {c.logo.title[lang]}
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-              {c.logo.cards.map((card, i) => (
-                <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+              {c.logo.cards.map((rawCard, i) => {
+                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string } };
+                return (
+                  <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
                   <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
                   <p className="font-display text-4xl font-bold text-foreground mb-5">{card.price}</p>
                   <ul className="space-y-2.5 flex-1">
