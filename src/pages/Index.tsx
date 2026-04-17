@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import ProjectMarquee from "@/components/ProjectMarquee";
 import TransparentPricing from "@/components/TransparentPricing";
 import PortfolioGrid from "@/components/PortfolioGrid";
+import DarkFeature from "@/components/DarkFeature";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
@@ -20,6 +21,7 @@ const Index = () => {
         <ProjectMarquee />
         <TransparentPricing />
         <PortfolioGrid />
+        <DarkFeature />
         <TestimonialsSection />
         <PricingSection />
         <div id="contact-section">

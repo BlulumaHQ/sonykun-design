@@ -7,9 +7,7 @@ const FinalCTA = () => {
   const { lang } = useLanguage();
   const isZh = lang === "zh";
 
-  const heading = isZh ? "準備好升級您的網站了嗎？" : "Ready to Upgrade Your Website?";
-  // Char-by-char reveal (works for CJK and Latin)
-  const chars = Array.from(heading);
+  const heading = isZh ? "準備好升級您的網站了嗎？" : "Interested in working together?";
 
   const scrollToContact = () => {
     const el = document.getElementById("contact-section");
@@ -17,67 +15,68 @@ const FinalCTA = () => {
   };
 
   return (
-    <section className="section-padding bg-[hsl(215,47%,12%)]">
-      <div className="container-wide text-center">
-        <motion.h2
-          className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.025 } } }}
-          aria-label={heading}
-        >
-          {chars.map((c, i) => (
-            <motion.span
-              key={i}
-              className="inline-block whitespace-pre"
-              variants={{
-                hidden: { opacity: 0, y: 16 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-              }}
-            >
-              {c === " " ? "\u00A0" : c}
-            </motion.span>
-          ))}
-        </motion.h2>
-
-        <motion.p
-          className="text-lg text-white/70 mb-8 max-w-xl mx-auto"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          {isZh
-            ? "付款前即可獲得即時網站預覽。先看設計，再做決定。"
-            : "Get a live website preview before making any payment. See the design first, then decide."}
-        </motion.p>
-
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.55 }}
-        >
-          <Button
-            size="lg"
-            onClick={scrollToContact}
-            className="h-13 px-8 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary-hover btn-fill rounded-xl"
+    <section className="charcoal-section section-padding">
+      <div className="container-wide">
+        <div className="max-w-3xl">
+          <motion.span
+            className="eyebrow !text-white/50"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.45 }}
           >
-            <Eye className="w-5 h-5 mr-2" />
-            {isZh ? "獲取免費網站預覽" : "Get Free Preview"}
-          </Button>
-          <a href="tel:7786535353">
+            {isZh ? "聯絡我" : "Let's Talk"}
+          </motion.span>
+
+          <motion.h2
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-bold leading-[1.05] tracking-tight mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {heading}
+          </motion.h2>
+
+          <motion.p
+            className="text-lg text-white/65 mb-10 max-w-xl leading-[1.7]"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            {isZh
+              ? "付款前即可獲得即時網站預覽。先看設計，再做決定。"
+              : "Get a live website preview before making any payment. See the design first, then decide."}
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row gap-3"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <Button
               size="lg"
-              className="h-13 px-8 text-base font-semibold bg-background text-foreground hover:bg-muted rounded-xl w-full sm:w-auto border border-border"
+              onClick={scrollToContact}
+              className="h-12 px-7 text-sm font-medium tracking-wide bg-white text-foreground hover:bg-white/90 rounded-full"
             >
-              <Phone className="w-5 h-5 mr-2" />
-              {isZh ? "聯絡 Sony" : "Call / Text Sony"}
+              <Eye className="w-4 h-4 mr-2" />
+              {isZh ? "獲取免費網站預覽" : "Get a Free Preview"}
             </Button>
-          </a>
-        </motion.div>
+            <a href="tel:7786535353">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 px-7 text-sm font-medium tracking-wide bg-transparent border-white/25 text-white hover:bg-white hover:text-foreground rounded-full w-full sm:w-auto"
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                {isZh ? "聯絡 Sony" : "Call / Text Sony"}
+              </Button>
+            </a>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

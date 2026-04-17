@@ -30,15 +30,18 @@ const PortfolioGrid = () => {
   return (
     <section className="section-padding">
       <div className="container-wide">
-        <motion.h2
-          className="heading-section mb-10 text-center"
+        <motion.div
+          className="text-center mb-14"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          {isZh ? "近期網站專案" : "Recent Website Projects"}
-        </motion.h2>
+          <span className="eyebrow">{isZh ? "近期作品" : "Selected Projects"}</span>
+          <h2 className="heading-section">
+            {isZh ? "近期網站專案" : "Recent Website Projects"}
+          </h2>
+        </motion.div>
 
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto"

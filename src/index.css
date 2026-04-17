@@ -5,14 +5,15 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 215 47% 18%;
+    --foreground: 0 0% 7%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 47% 18%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 47% 18%;
+    --popover-foreground: 0 0% 7%;
 
+    /* Primary: keep brand Navy for buttons / CTA / footer (hybrid). */
     --primary: 215 47% 18%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 215 47% 24%;
@@ -21,8 +22,11 @@
     --secondary-foreground: 0 0% 100%;
     --secondary-hover: 213 24% 37%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 213 21% 45%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 40%;
+
+    /* Editorial charcoal for dark sections. */
+    --charcoal: 0 0% 7%;
 
     --accent: 213 21% 45%;
     --accent-foreground: 0 0% 100%;
@@ -75,10 +79,19 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  p {
+    line-height: 1.7;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    color: hsl(var(--foreground));
+    letter-spacing: -0.02em;
   }
 }
 
@@ -87,36 +100,51 @@
     @apply mx-auto w-full max-w-[1400px] px-6 sm:px-8 md:px-12 lg:px-20;
   }
 
+  /* Editorial: generous whitespace between sections. */
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-20 md:py-32;
   }
 
   .heading-hero {
     font-family: var(--font-display);
-    @apply text-4xl sm:text-5xl md:text-7xl lg:text-[110px] font-extrabold leading-[0.95] tracking-tight;
-    color: hsl(var(--primary));
+    @apply text-[36px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-bold leading-[1.05] tracking-tight;
+    color: hsl(var(--foreground));
+    letter-spacing: -0.03em;
   }
 
   .heading-section {
     font-family: var(--font-display);
-    @apply text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight;
-    color: hsl(var(--primary));
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] tracking-tight;
+    color: hsl(var(--foreground));
+    letter-spacing: -0.025em;
   }
 
   .heading-subsection {
     font-family: var(--font-display);
-    @apply text-2xl sm:text-3xl font-semibold leading-tight;
-    color: hsl(var(--primary));
+    @apply text-2xl sm:text-3xl font-semibold leading-[1.15];
+    color: hsl(var(--foreground));
+    letter-spacing: -0.015em;
+  }
+
+  /* Small caps section label / eyebrow. */
+  .eyebrow {
+    @apply inline-block text-xs font-medium uppercase mb-4;
+    letter-spacing: 0.18em;
+    color: hsl(var(--muted-foreground));
   }
 
   .text-subtitle {
-    @apply text-lg sm:text-xl md:text-2xl leading-relaxed;
-    color: hsl(var(--secondary));
+    @apply text-lg sm:text-xl md:text-2xl;
+    line-height: 1.5;
+    color: hsl(var(--muted-foreground));
+    font-weight: 400;
   }
 
   .text-body {
-    @apply text-base sm:text-lg leading-relaxed;
+    @apply text-base sm:text-lg;
+    line-height: 1.7;
     color: hsl(var(--muted-foreground));
+    font-weight: 400;
   }
 
   .nav-link {
@@ -168,7 +196,18 @@
   }
 
   .dark-section {
-    background-color: hsl(var(--navy));
+    background-color: hsl(var(--charcoal));
+    color: hsl(0 0% 100%);
+  }
+
+  .charcoal-section {
+    background-color: hsl(var(--charcoal));
+    color: hsl(0 0% 100%);
+  }
+  .charcoal-section h1,
+  .charcoal-section h2,
+  .charcoal-section h3,
+  .charcoal-section h4 {
     color: hsl(0 0% 100%);
   }
 
