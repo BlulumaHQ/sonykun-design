@@ -15,34 +15,34 @@ const Craigslist = () => {
   const isZh = lang === "zh";
 
   const trustBullets = isZh
-    ? ["起價 $375", "付款前即時預覽", "免費託管", "無月費", "20+ 年經驗，自 2005 年起"]
-    : ["Starting at $375", "Live preview before payment", "Free hosting included", "No monthly fee required", "20+ years experience since 2005"];
+    ? ["起價 $349", "付款前即時預覽", "免費託管", "無月費", "20+ 年經驗，自 2005 年起"]
+    : ["Starting at $349", "Live preview before payment", "Free hosting included", "No monthly fee required", "20+ years experience since 2005"];
 
   const pricingSummary = [
     {
       title: isZh ? "基本網站" : "Basic Website",
-      price: "$375",
+      price: "$349",
       features: isZh
-        ? ["單頁網站", "手機友好", "聯絡表單"]
-        : ["Single page", "Mobile friendly", "Contact form"],
+        ? ["最多 5 頁", "手機友好", "聯絡表單"]
+        : ["Up to 5 pages", "Mobile friendly", "Contact form"],
     },
     {
       title: isZh ? "商業網站" : "Business Website",
-      price: "$750",
+      price: "$499",
       features: isZh
         ? ["最多 7 頁", "SEO 友好", "手機優化"]
         : ["Up to 7 pages", "SEO friendly", "Mobile optimized"],
     },
     {
       title: isZh ? "進階網站" : "Premium Website",
-      price: "$1,250",
+      price: "$875",
       features: isZh
         ? ["客製設計", "最多 10 頁"]
         : ["Custom design", "Up to 10 pages"],
     },
     {
       title: isZh ? "電商網站" : "Ecommerce",
-      price: "$1,650",
+      price: "$1,299+",
       features: isZh
         ? ["線上商店", "付款整合"]
         : ["Online store", "Payment integration"],
@@ -76,7 +76,7 @@ const Craigslist = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="font-display text-2xl sm:text-3xl font-bold text-secondary mb-6"
               >
-                {isZh ? "起價 $375" : "Starting at $375"}
+                {isZh ? "起價 $349" : "Starting at $349"}
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
