@@ -52,6 +52,7 @@ export default {
         navy: "hsl(var(--navy))",
         slate: "hsl(var(--slate))",
         "warm-white": "hsl(var(--warm-white))",
+        charcoal: "hsl(var(--charcoal))",
       },
       fontFamily: {
         display: ['Syne', 'sans-serif'],
