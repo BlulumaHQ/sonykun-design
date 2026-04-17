@@ -137,7 +137,8 @@ const Pricing = () => {
                     ))}
                   </ul>
                 </CardShell>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -164,7 +165,8 @@ const Pricing = () => {
                     ))}
                   </ul>
                 </CardShell>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
