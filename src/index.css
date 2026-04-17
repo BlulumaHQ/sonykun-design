@@ -149,13 +149,14 @@
 
   .nav-link {
     font-family: var(--font-body);
-    @apply text-sm font-medium tracking-wide uppercase;
-    color: hsl(var(--secondary));
-    transition: color 0.3s ease;
+    @apply text-[13px] font-medium;
+    color: hsl(var(--foreground));
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease;
   }
 
   .nav-link:hover {
-    color: hsl(var(--primary));
+    color: hsl(var(--foreground));
   }
 
   .nav-link-animated {
@@ -165,14 +166,29 @@
   .nav-link-animated::after {
     content: '';
     @apply absolute w-full h-[2px] bottom-0 left-0 origin-bottom-right;
-    background-color: hsl(var(--primary));
+    background-color: hsl(var(--foreground));
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
 
   .nav-link-animated:hover::after {
     transform: scaleX(1);
     transform-origin: bottom-left;
+  }
+
+  /* Editorial card with crisp hover. */
+  .card-editorial {
+    @apply border border-border bg-background rounded-md transition-all duration-300;
+  }
+  .card-editorial:hover {
+    @apply border-foreground;
+    transform: scale(1.02);
+  }
+
+  /* Dark CTA section background. */
+  .bg-charcoal {
+    background-color: hsl(var(--charcoal));
+    color: hsl(0 0% 100%);
   }
 
   .project-card {
