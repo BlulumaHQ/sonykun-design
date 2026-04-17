@@ -7,6 +7,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import PortfolioGrid from "@/components/PortfolioGrid";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqAccordion from "@/components/FaqAccordion";
+import ImageMarquee from "@/components/ImageMarquee";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Globe, Diamond, Package, Server } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
