@@ -1,235 +1,242 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
-import { Check, Shield, Server, Eye } from "lucide-react";
+import FaqAccordion from "@/components/FaqAccordion";
 import { Button } from "@/components/ui/button";
+import { Check, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { pricingContent, pageMeta } from "@/i18n/pageContent";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
-const fadeUpView = {
+const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
 };
 
-interface PricingCardProps {
-  title: string;
-  price: string;
-  features: string[];
+interface CardShellProps {
   highlighted?: boolean;
   badge?: string;
+  children: React.ReactNode;
+  delay?: number;
 }
 
-const PricingCard = ({ title, price, features, highlighted, badge }: PricingCardProps) => (
+const CardShell = ({ highlighted, badge, children, delay = 0 }: CardShellProps) => (
   <motion.div
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-60px" }}
-    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+    transition={{ duration: 0.5, delay }}
     whileHover={{ y: -4 }}
-    className={`rounded-2xl p-7 border flex flex-col h-full relative ${
-      highlighted
-        ? "border-primary/30 bg-primary/[0.03] shadow-sm"
-        : "border-border bg-background"
+    className={`relative rounded-2xl p-7 border flex flex-col h-full ${
+      highlighted ? "border-primary/40 bg-primary/[0.03] shadow-md" : "border-border bg-background"
     }`}
   >
     {badge && (
-      <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-        <span className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full whitespace-nowrap">
-          {badge}
-        </span>
-      </div>
+      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full whitespace-nowrap">
+        {badge}
+      </span>
     )}
-    <h3 className="font-display text-lg font-bold text-foreground mb-1">{title}</h3>
-    <p className="text-3xl font-bold text-foreground mb-5">{price}</p>
-    <ul className="space-y-3 flex-1">
-      {features.map((f) => (
-        <li key={f} className="flex items-start gap-2.5 text-muted-foreground">
-          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-          <span>{f}</span>
-        </li>
-      ))}
-    </ul>
+    {children}
   </motion.div>
 );
 
 const Pricing = () => {
   const { lang } = useLanguage();
-  const isZh = lang === "zh";
-
-  const websitePlans = [
-    {
-      title: isZh ? "基本網站" : "Basic Website",
-      price: "$375",
-      features: isZh
-        ? ["單頁網站", "手機友好", "聯絡表單", "免費託管"]
-        : ["Single page website", "Mobile friendly", "Contact form", "Free hosting available"],
-    },
-    {
-      title: isZh ? "商業網站" : "Business Website",
-      price: "$750",
-      features: isZh
-        ? ["最多 7 頁", "手機優化", "SEO 友好結構", "免費託管"]
-        : ["Up to 7 pages", "Mobile optimized", "SEO friendly structure", "Free hosting available"],
-      highlighted: true,
-      badge: isZh ? "最受歡迎" : "Most Popular",
-    },
-    {
-      title: isZh ? "進階網站" : "Premium Website",
-      price: "$1,250",
-      features: isZh
-        ? ["進階版面設計", "客製樣式", "最多 10 頁"]
-        : ["Advanced layout design", "Custom styling", "Up to 10 pages"],
-    },
-    {
-      title: isZh ? "電商網站" : "Ecommerce Basic",
-      price: "$1,650",
-      features: isZh
-        ? ["線上商店", "付款整合", "最多 10 件商品"]
-        : ["Online store", "Payment integration", "Up to 10 products"],
-    },
-  ];
-
-  const logoPlans = [
-    {
-      title: "Logo Basic",
-      price: "$375",
-      features: isZh
-        ? ["3 個概念", "3 輪修改", "向量檔案"]
-        : ["3 concepts", "3 revision rounds", "Vector files included"],
-    },
-    {
-      title: "Logo Growth",
-      price: "$650",
-      features: isZh
-        ? ["Logo 設計", "色彩配置", "字體推薦", "迷你品牌指南"]
-        : ["Logo design", "Color palette", "Typography recommendation", "Mini brand guide"],
-      highlighted: true,
-    },
-    {
-      title: "Logo Premium",
-      price: "$1,275",
-      features: isZh
-        ? ["完整品牌識別系統", "Logo 套件", "色彩系統", "字體系統", "品牌規範"]
-        : ["Full brand identity system", "Logo suite", "Color system", "Typography system", "Brand guideline"],
-    },
-  ];
-
-  const scrollToContact = () => {
-    window.location.href = "/#contact-section";
-  };
+  const c = pricingContent;
+  usePageMeta({
+    title: pageMeta.pricing.title,
+    description: pageMeta.pricing.description,
+    canonical: "https://sonykundesign.com/pricing",
+  });
 
   return (
     <>
       <Header />
-      <main className="pt-28 md:pt-32">
+      <main>
+        {/* HEADER */}
+        <section className="bg-background pt-36 pb-14 md:pt-44 md:pb-20">
+          <div className="container-wide text-center max-w-3xl">
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="eyebrow">
+              {c.header.eyebrow[lang]}
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="heading-hero mb-6"
+            >
+              {c.header.title[lang]}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.15 }}
+              className="text-subtitle"
+            >
+              {c.header.subtext[lang]}
+            </motion.p>
+          </div>
+        </section>
+
+        {/* WEBSITE DESIGN */}
+        <section className="pb-16 md:pb-24">
+          <div className="container-wide">
+            <motion.h2 {...fadeUp} className="heading-section text-center mb-12">
+              {c.website.title[lang]}
+            </motion.h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+              {c.website.cards.map((card, i) => (
+                <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
+                  <p className="font-display text-4xl font-bold text-foreground mb-1">{card.price}</p>
+                  {card.note && <p className="text-xs text-muted-foreground mb-4 leading-snug">{card.note[lang]}</p>}
+                  {!card.note && <div className="mb-4" />}
+                  <ul className="space-y-2.5 flex-1">
+                    {card.features[lang].map((f, j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardShell>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* BUNDLES */}
+        <section className="section-padding bg-muted">
+          <div className="container-wide">
+            <motion.div {...fadeUp} className="text-center max-w-2xl mx-auto mb-12">
+              <h2 className="heading-section mb-4">{c.bundles.title[lang]}</h2>
+              <p className="text-body">{c.bundles.body[lang]}</p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+              {c.bundles.cards.map((card, i) => (
+                <CardShell key={i} delay={i * 0.1} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+                  <h3 className="font-display text-xl font-bold text-foreground mb-2">{card.title[lang]}</h3>
+                  <p className="font-display text-3xl font-bold text-foreground mb-1">{card.price}</p>
+                  <p className="text-xs text-secondary font-semibold uppercase tracking-wider mb-5">{card.save[lang]}</p>
+                  <ul className="space-y-2.5 flex-1">
+                    {card.items[lang].map((it, j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                        <span className="block w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </CardShell>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* LOGO */}
         <section className="section-padding">
           <div className="container-wide">
-            <motion.h1 {...fadeUpView} className="heading-section mb-4 text-center">
-              {isZh ? "完整價格表" : "Full Pricing"}
-            </motion.h1>
-            <motion.p {...fadeUpView} transition={{ ...fadeUpView.transition, delay: 0.1 }} className="text-body text-center mb-12 max-w-xl mx-auto">
-              {isZh ? "我們所有服務的透明定價。" : "Transparent pricing for every service we offer."}
-            </motion.p>
-
-            <h2 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
-              {isZh ? "網站設計" : "Website Design"}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16 max-w-5xl mx-auto">
-              {websitePlans.map((plan) => (
-                <PricingCard key={plan.title} {...plan} />
+            <motion.h2 {...fadeUp} className="heading-section text-center mb-12">
+              {c.logo.title[lang]}
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+              {c.logo.cards.map((card, i) => (
+                <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
+                  <p className="font-display text-4xl font-bold text-foreground mb-5">{card.price}</p>
+                  <ul className="space-y-2.5 flex-1">
+                    {card.features[lang].map((f, j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardShell>
               ))}
             </div>
+          </div>
+        </section>
 
-            <h2 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
-              {isZh ? "Logo 設計" : "Logo Design"}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16 max-w-4xl mx-auto">
-              {logoPlans.map((plan) => (
-                <PricingCard key={plan.title} {...plan} />
-              ))}
-            </div>
-
-            <h2 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
-              {isZh ? "網站託管" : "Hosting"}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-16">
-              <div className="bg-background rounded-2xl p-8 border border-border">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-green-600" />
-                  </div>
-                  <h3 className="font-display text-xl font-bold text-foreground">
-                    {isZh ? "免費託管" : "FREE Hosting"}
-                  </h3>
-                </div>
-                <p className="text-3xl font-bold text-foreground mb-2">$0</p>
-                <p className="text-muted-foreground">
-                  {isZh
-                    ? "您的網站將免費架設於我們的平台上。"
-                    : "Your website will be hosted on our platform at no cost."}
-                </p>
-              </div>
-              <div className="bg-background rounded-2xl p-8 border border-primary/20 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                    <Server className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <h3 className="font-display text-xl font-bold text-foreground">
-                    {isZh ? "代管託管" : "Managed Hosting"}
-                  </h3>
-                </div>
-                <p className="text-3xl font-bold text-foreground mb-1">
-                  $12<span className="text-base font-normal text-muted-foreground">{isZh ? "/月" : "/month"}</span>
-                </p>
-                <p className="text-sm text-muted-foreground mb-4">{isZh ? "或 $100/年" : "or $100/year"}</p>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• {isZh ? "託管管理" : "Hosting management"}</li>
-                  <li>• {isZh ? "基本維護" : "Basic maintenance"}</li>
-                  <li>• {isZh ? "小幅修改支援" : "Small revision support"}</li>
+        {/* HOSTING */}
+        <section className="section-padding bg-muted">
+          <div className="container-wide">
+            <motion.h2 {...fadeUp} className="heading-section text-center mb-12">
+              {c.hosting.title[lang]}
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+              <CardShell>
+                <h3 className="font-display text-lg font-bold text-foreground mb-2">{c.hosting.free.title[lang]}</h3>
+                <p className="font-display text-4xl font-bold text-foreground mb-4">{c.hosting.free.price}</p>
+                <p className="text-sm text-muted-foreground leading-[1.7] flex-1">{c.hosting.free.body[lang]}</p>
+              </CardShell>
+              <CardShell highlighted delay={0.1}>
+                <h3 className="font-display text-lg font-bold text-foreground mb-2">{c.hosting.managed.title[lang]}</h3>
+                <p className="font-display text-2xl font-bold text-foreground mb-4">{c.hosting.managed.price[lang]}</p>
+                <ul className="space-y-2.5 mb-4 flex-1">
+                  {c.hosting.managed.features[lang].map((f, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
                 </ul>
-              </div>
+                <p className="text-xs text-secondary font-medium uppercase tracking-wider">{c.hosting.managed.note[lang]}</p>
+              </CardShell>
             </div>
+          </div>
+        </section>
 
-            <h2 className="font-display text-2xl font-bold text-foreground mb-6 text-center">
-              {isZh ? "附加服務" : "Add-ons"}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto mb-12">
-              <div className="rounded-2xl p-7 border border-border bg-background">
-                <h3 className="font-display text-lg font-bold text-foreground mb-1">
-                  {isZh ? "文案撰寫" : "Copywriting"}
-                </h3>
-                <p className="text-3xl font-bold text-foreground mb-3">
-                  $65<span className="text-base font-normal text-muted-foreground"> / {isZh ? "頁" : "page"}</span>
-                </p>
-                <p className="text-muted-foreground">
-                  {isZh ? "為您的網站頁面撰寫專業文案。" : "Professional copy for your website pages."}
-                </p>
-              </div>
-              <div className="rounded-2xl p-7 border border-border bg-background">
-                <h3 className="font-display text-lg font-bold text-foreground mb-1">
-                  {isZh ? "向量 Logo 修復" : "Vector Logo Fix"}
-                </h3>
-                <p className="text-3xl font-bold text-foreground mb-3">$100</p>
-                <p className="text-muted-foreground">
-                  {isZh
-                    ? "將您現有的 Logo 轉換為高品質向量格式。"
-                    : "Convert your existing logo to high-quality vector format."}
-                </p>
-              </div>
+        {/* ADD-ONS */}
+        <section className="section-padding">
+          <div className="container-wide">
+            <motion.h2 {...fadeUp} className="heading-section text-center mb-12">
+              {c.addons.title[lang]}
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+              {c.addons.cards.map((card, i) => (
+                <CardShell key={i} delay={i * 0.1}>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
+                  <p className="font-display text-3xl font-bold text-foreground mb-4">
+                    {typeof card.price === "string" ? card.price : card.price[lang]}
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-[1.7] flex-1">{card.body[lang]}</p>
+                </CardShell>
+              ))}
             </div>
+          </div>
+        </section>
 
-            <motion.div {...fadeUpView} className="text-center">
-              <Button
-                size="lg"
-                onClick={scrollToContact}
-                className="h-13 px-10 text-base font-semibold btn-cta btn-fill rounded-xl"
-              >
-                <Eye className="w-5 h-5 mr-2" />
-                {isZh ? "獲取免費網站預覽" : "Get Your Free Website Preview"}
-              </Button>
+        {/* FAQ */}
+        <section className="section-padding bg-muted">
+          <div className="container-wide">
+            <motion.div {...fadeUp} className="text-center mb-12">
+              <h2 className="heading-section">{c.faq.title[lang]}</h2>
+            </motion.div>
+            <FaqAccordion items={c.faq.items.map((item) => ({ q: item.q[lang], a: item.a[lang] }))} />
+          </div>
+        </section>
+
+        {/* BOTTOM CTA */}
+        <section className="charcoal-section section-padding">
+          <div className="container-wide text-center">
+            <motion.h2 {...fadeUp} className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-5">
+              {c.bottomCta.title[lang]}
+            </motion.h2>
+            <motion.p {...fadeUp} className="text-lg text-white/65 mb-9 max-w-xl mx-auto">
+              {c.bottomCta.body[lang]}
+            </motion.p>
+            <motion.div {...fadeUp}>
+              <Link to="/contact">
+                <Button size="lg" className="h-13 px-10 text-base font-semibold bg-white text-foreground hover:bg-white/90 rounded-full">
+                  {c.bottomCta.cta[lang]}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </section>
