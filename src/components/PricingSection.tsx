@@ -87,24 +87,21 @@ const PricingSection = () => {
   return (
     <section className="section-padding">
       <div className="container-wide">
-        <motion.h2
-          className="heading-section mb-4 text-center"
+        <motion.div
+          className="text-center mb-14"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          {isZh ? "清晰簡單的定價" : "Clear and Simple Pricing"}
-        </motion.h2>
-        <motion.p
-          className="text-body text-center mb-12 max-w-xl mx-auto"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          {isZh ? "無額外費用。選擇適合您業務的方案。" : "No surprises. Choose the package that fits your business."}
-        </motion.p>
+          <span className="eyebrow">{isZh ? "價格方案" : "Pricing"}</span>
+          <h2 className="heading-section mb-4">
+            {isZh ? "清晰簡單的定價" : "Clear and Simple Pricing"}
+          </h2>
+          <p className="text-body max-w-xl mx-auto">
+            {isZh ? "無額外費用。選擇適合您業務的方案。" : "No surprises. Choose the package that fits your business."}
+          </p>
+        </motion.div>
 
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10 max-w-5xl mx-auto"

@@ -22,7 +22,8 @@ const Services = () => {
 
           <div className="container-wide relative">
             <ScrollReveal>
-              <h1 className="heading-hero mb-12">{t(translations.services.title, lang)}</h1>
+              <span className="eyebrow">{lang === "zh" ? "服務內容" : "What I Do"}</span>
+              <h1 className="heading-hero mb-16">{t(translations.services.title, lang)}</h1>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

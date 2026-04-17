@@ -14,10 +14,11 @@ const SelectedWork = () => {
   const titleParts = translations.selectedWork.title[lang].split("\n");
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="section-padding">
       <div className="container-wide">
         <ScrollReveal>
-          <h2 className="heading-section mb-10">
+          <span className="eyebrow">Selected Work</span>
+          <h2 className="heading-section mb-12">
             {titleParts.map((part, i) => (
               <span key={i}>
                 {part}

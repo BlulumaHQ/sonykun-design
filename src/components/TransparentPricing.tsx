@@ -10,13 +10,14 @@ const TransparentPricing = () => {
     <section className="section-padding bg-muted">
       <div className="container-wide">
         <motion.div
-          className="max-w-3xl mx-auto text-center mb-12"
+          className="max-w-3xl mx-auto text-center mb-14"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="heading-section mb-4">
+          <span className="eyebrow">{isZh ? "託管方案" : "Hosting"}</span>
+          <h2 className="heading-section">
             {isZh ? "透明定價，無隱藏費用。" : "Transparent Pricing. No Hidden Fees."}
           </h2>
         </motion.div>

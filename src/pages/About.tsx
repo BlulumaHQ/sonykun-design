@@ -9,6 +9,13 @@ const About = () => {
       <main className="pt-20">
         <section className="section-padding">
           <div className="container-wide">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="eyebrow">About</span>
+            </motion.div>
             <motion.h1
               className="heading-hero mb-16"
               initial={{ opacity: 0, y: 30 }}

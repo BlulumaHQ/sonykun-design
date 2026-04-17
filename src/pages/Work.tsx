@@ -124,8 +124,9 @@ const Work = () => {
         <section className="py-16 md:py-24">
           <div className="container-wide">
             <ScrollReveal>
-              <h1 className="heading-hero mb-4">{t(translations.work.title, lang)}</h1>
-              <p className="text-body mb-12">
+              <span className="eyebrow">{lang === "zh" ? "作品集" : "Selected Work"}</span>
+              <h1 className="heading-hero mb-6">{t(translations.work.title, lang)}</h1>
+              <p className="text-body mb-16 max-w-2xl">
                 {lang === "zh"
                   ? "以下為精選的設計與網站專案作品。"
                   : "A curated selection of selected design and web projects."}
