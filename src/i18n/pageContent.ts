@@ -736,7 +736,7 @@ export const localBusinessJsonLd = {
   name: "Sonykun Design",
   description: "Professional website and logo design for small businesses in Vancouver, BC",
   url: "https://sonykundesign.com",
-  telephone: "(778) 653-5353",
+  telephone: "(604) 262-1168",
   email: "support@sonykundesign.com",
   address: {
     "@type": "PostalAddress",

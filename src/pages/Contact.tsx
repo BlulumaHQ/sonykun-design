@@ -17,8 +17,8 @@ const Contact = () => {
   const details = [
     {
       label: isZh ? "電話" : "Phone",
-      value: "(778) 653-5353",
-      href: "tel:7786535353",
+      value: "(604) 262-1168",
+      href: "tel:6042621168",
     },
     {
       label: isZh ? "電子郵件" : "Email",

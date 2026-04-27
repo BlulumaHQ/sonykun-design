@@ -11,14 +11,14 @@ const FloatingContactButton = () => {
           <p className="font-display font-semibold text-foreground mb-3 text-sm">Contact Sony</p>
           <div className="space-y-2">
             <a
-              href="tel:7786535353"
+              href="tel:6042621168"
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors text-foreground"
             >
               <Phone className="w-4 h-4" />
               <span className="text-sm font-medium">Call</span>
             </a>
             <a
-              href="sms:7786535353"
+              href="sms:6042621168"
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors text-foreground"
             >
               <MessageSquare className="w-4 h-4" />
