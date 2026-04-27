@@ -167,8 +167,8 @@ const Terms = () => {
                   </li>
                   <li>
                     {isZh ? "電話" : "Phone"}:{" "}
-                    <a href="tel:7786535353" className="text-foreground hover:text-primary transition-colors">
-                      (778) 653-5353
+                    <a href="tel:6042621168" className="text-foreground hover:text-primary transition-colors">
+                      (604) 262-1168
                     </a>
                   </li>
                 </ul>

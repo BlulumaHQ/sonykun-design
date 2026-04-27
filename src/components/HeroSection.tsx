@@ -81,7 +81,7 @@ const HeroSection = () => {
               <Eye className="w-4 h-4 mr-2" />
               {isZh ? "獲取免費網站預覽" : "Get a Free Website Preview"}
             </Button>
-            <a href="tel:7786535353">
+            <a href="tel:6042621168">
               <Button
                 size="lg"
                 variant="outline"
