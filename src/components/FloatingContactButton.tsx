@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Phone, Mail, MessageSquare, X } from "lucide-react";
+import { Phone, Mail, X } from "lucide-react";
 
 const FloatingContactButton = () => {
   const [open, setOpen] = useState(false);
@@ -18,13 +18,6 @@ const FloatingContactButton = () => {
               <span className="text-sm font-medium">Call</span>
             </a>
             <a
-              href="sms:6042621168"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors text-foreground"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span className="text-sm font-medium">Text</span>
-            </a>
-            <a
               href="mailto:support@sonykundesign.com"
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors text-foreground"
             >
@@ -38,14 +31,14 @@ const FloatingContactButton = () => {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/80 transition-all text-sm font-semibold"
-        aria-label="Call / Text Sony"
+        aria-label="Call Sony"
       >
         {open ? (
           <X className="w-5 h-5" />
         ) : (
           <>
             <Phone className="w-4 h-4" />
-            <span className="hidden sm:inline">Call / Text Sony</span>
+            <span className="hidden sm:inline">Call Sony</span>
           </>
         )}
       </button>

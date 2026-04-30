@@ -126,7 +126,7 @@ const Craigslist = () => {
                     className="h-13 px-8 text-base font-semibold border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-xl w-full sm:w-auto"
                   >
                     <Phone className="w-5 h-5 mr-2" />
-                    {isZh ? "聯絡 Sony" : "Call / Text Sony"}
+                    {isZh ? "致電 Sony" : "Call Sony"}
                   </Button>
                 </a>
               </motion.div>
