@@ -91,13 +91,20 @@ const Pricing = () => {
             </motion.h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {c.website.cards.map((rawCard, i) => {
-                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string }; note?: { en: string; zh: string } };
+                const card = rawCard as typeof rawCard & {
+                  badge?: { en: string; zh: string };
+                  note?: { en: string; zh: string };
+                  description?: { en: string; zh: string };
+                };
                 return (
                   <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
                     <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
                     <p className="font-display text-4xl font-bold text-foreground mb-1">{card.price}</p>
-                    {card.note && <p className="text-xs text-muted-foreground mb-4 leading-snug">{card.note[lang]}</p>}
-                    {!card.note && <div className="mb-4" />}
+                    {card.note && <p className="text-xs text-muted-foreground mb-3 leading-snug">{card.note[lang]}</p>}
+                    {card.description && (
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-4 mt-1">{card.description[lang]}</p>
+                    )}
+                    {!card.note && !card.description && <div className="mb-4" />}
                     <ul className="space-y-2.5 flex-1">
                       {card.features[lang].map((f, j) => (
                         <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
