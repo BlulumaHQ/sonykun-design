@@ -494,26 +494,38 @@ export const pricingContent = {
       {
         title: { en: "Basic Website", zh: "基本網站" },
         price: "$349",
+        description: {
+          en: "A simple and clean website to establish your online presence and make your business look professional.",
+          zh: "簡潔乾淨的網站，建立您的線上形象，讓業務看起來專業可靠。",
+        },
         features: {
-          en: ["Up to 5 pages", "Mobile friendly", "Contact form", "Free hosting available"],
-          zh: ["最多 5 頁", "手機友善", "聯絡表單", "提供免費主機"],
+          en: ["Up to 5 pages", "Mobile-friendly design", "Contact form", "Free hosting available", "Basic brand setup (logo + colours if needed)"],
+          zh: ["最多 5 頁", "手機友善設計", "聯絡表單", "提供免費主機", "基本品牌設定（如需要含 Logo 與配色）"],
         },
       },
       {
         title: { en: "Business Website", zh: "商業網站" },
         price: "$499",
+        description: {
+          en: "A complete business website designed to clearly present your services and help customers contact you.",
+          zh: "完整的商業網站，清楚呈現您的服務，讓客戶輕鬆聯絡您。",
+        },
         features: {
-          en: ["Up to 7 pages", "Mobile optimised", "SEO-friendly structure", "Contact form", "Free hosting available"],
-          zh: ["最多 7 頁", "手機優化", "SEO 友善結構", "聯絡表單", "提供免費主機"],
+          en: ["Up to 7 pages", "Mobile-optimised layout", "SEO-friendly structure", "Contact form", "Free hosting available", "Basic branding integration (logo, colours, consistency)"],
+          zh: ["最多 7 頁", "手機優化版面", "SEO 友善結構", "聯絡表單", "提供免費主機", "基本品牌整合（Logo、配色、一致性）"],
         },
         badge: { en: "Most Popular", zh: "最受歡迎" },
       },
       {
         title: { en: "Premium Website", zh: "進階網站" },
         price: "$875",
+        description: {
+          en: "A more refined website experience for businesses that want stronger presentation, better structure, and higher perceived value.",
+          zh: "更精緻的網站體驗，適合追求更強呈現、更佳結構與更高品牌價值的業務。",
+        },
         features: {
-          en: ["Up to 10 pages", "Advanced layout design", "Custom styling", "SEO-optimised structure", "Contact form"],
-          zh: ["最多 10 頁", "進階版面設計", "客製樣式", "SEO 優化結構", "聯絡表單"],
+          en: ["Up to 10 pages", "Advanced layout design", "Custom styling", "SEO-optimised structure", "Contact form", "Enhanced brand presentation"],
+          zh: ["最多 10 頁", "進階版面設計", "客製樣式", "SEO 優化結構", "聯絡表單", "強化品牌呈現"],
         },
       },
       {
@@ -523,12 +535,54 @@ export const pricingContent = {
           en: "Pricing varies based on number of products and features",
           zh: "價格依產品數量與功能而定",
         },
+        description: {
+          en: "Start selling online with a clean, simple e-commerce setup designed for small businesses.",
+          zh: "為小型企業打造的乾淨、簡單電商方案，輕鬆開始線上銷售。",
+        },
         features: {
-          en: ["Online store", "Payment integration", "Up to 10 products", "Mobile-friendly checkout"],
-          zh: ["線上商店", "金流整合", "最多 10 件商品", "手機友善結帳"],
+          en: ["Online store setup", "Payment integration", "Up to 10 products", "Mobile-friendly checkout", "Basic store branding"],
+          zh: ["線上商店建置", "金流整合", "最多 10 件商品", "手機友善結帳", "基本商店品牌設計"],
         },
       },
     ],
+  },
+  branding: {
+    title: { en: "Logo & Branding", zh: "Logo 與品牌" },
+    body: {
+      en: "Logo design today is faster and more accessible than ever. What matters is how your brand looks and works together with your website. Basic brand setup is included with website packages if you don't already have one.",
+      zh: "現在的 Logo 設計比以往更快、更容易取得。真正重要的是品牌與網站如何整體搭配。若您尚未擁有 Logo，網站方案已包含基本品牌設定。",
+    },
+    addonsLabel: { en: "Optional add-ons", zh: "可選加購" },
+    cards: [
+      {
+        title: { en: "Quick Logo", zh: "快速 Logo" },
+        price: "$49",
+        body: {
+          en: "Simple AI-assisted logo, clean and ready to use.",
+          zh: "AI 輔助的簡潔 Logo，乾淨即用。",
+        },
+      },
+      {
+        title: { en: "Business Logo", zh: "商業 Logo" },
+        price: "$129",
+        body: {
+          en: "Refined logo with better layout, colour and balance.",
+          zh: "更精緻的 Logo，具備更佳的版面、配色與平衡。",
+        },
+      },
+      {
+        title: { en: "Brand Upgrade", zh: "品牌升級" },
+        price: "$249",
+        body: {
+          en: "Multiple logo variations, brand direction, and visual consistency.",
+          zh: "多種 Logo 變體、品牌方向與視覺一致性。",
+        },
+      },
+    ],
+    closingLine: {
+      en: "You don't just need a website. You need something that helps your business look real, trustworthy, and easy to contact.",
+      zh: "您需要的不只是一個網站，而是能讓您的業務看起來真實、值得信任、容易聯絡的存在。",
+    },
   },
   bundles: {
     title: { en: "Website + Brand Bundles", zh: "網站 + 品牌套裝" },
