@@ -150,31 +150,34 @@ const Pricing = () => {
           </div>
         </section>
 
-        {/* LOGO */}
+        {/* LOGO & BRANDING */}
         <section className="section-padding">
           <div className="container-wide">
-            <motion.h2 {...fadeUp} className="heading-section text-center mb-12">
-              {c.logo.title[lang]}
-            </motion.h2>
+            <motion.div {...fadeUp} className="text-center max-w-2xl mx-auto mb-10">
+              <h2 className="heading-section mb-4">{c.branding.title[lang]}</h2>
+              <p className="text-body">{c.branding.body[lang]}</p>
+            </motion.div>
+            <motion.p
+              {...fadeUp}
+              className="text-center text-xs uppercase tracking-[0.18em] text-muted-foreground mb-6"
+            >
+              {c.branding.addonsLabel[lang]}
+            </motion.p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-              {c.logo.cards.map((rawCard, i) => {
-                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string } };
-                return (
-                  <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
+              {c.branding.cards.map((card, i) => (
+                <CardShell key={i} delay={i * 0.08}>
                   <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
-                  <p className="font-display text-4xl font-bold text-foreground mb-5">{card.price}</p>
-                  <ul className="space-y-2.5 flex-1">
-                    {card.features[lang].map((f, j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="font-display text-3xl font-bold text-foreground mb-3">{card.price}</p>
+                  <p className="text-sm text-muted-foreground leading-[1.7] flex-1">{card.body[lang]}</p>
                 </CardShell>
-                );
-              })}
+              ))}
             </div>
+            <motion.p
+              {...fadeUp}
+              className="text-center text-base md:text-lg text-muted-foreground italic max-w-2xl mx-auto mt-14 leading-relaxed"
+            >
+              "{c.branding.closingLine[lang]}"
+            </motion.p>
           </div>
         </section>
 
