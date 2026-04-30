@@ -1,4 +1,4 @@
-import { Eye, Phone } from "lucide-react";
+import { Eye, Phone, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -72,7 +72,17 @@ const FinalCTA = () => {
                 className="h-12 px-7 text-sm font-medium tracking-wide bg-transparent border-white/25 text-white hover:bg-white hover:text-foreground rounded-full w-full sm:w-auto"
               >
                 <Phone className="w-4 h-4 mr-2" />
-                {isZh ? "聯絡 Sony" : "Call / Text Sony"}
+                {isZh ? "致電 Sony" : "Call Sony"}
+              </Button>
+            </a>
+            <a href="sms:6042621168">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 px-7 text-sm font-medium tracking-wide bg-transparent border-white/25 text-white hover:bg-white hover:text-foreground rounded-full w-full sm:w-auto"
+              >
+                <MessageSquare className="w-4 h-4 mr-2" />
+                {isZh ? "傳簡訊給 Sony" : "Text Sony"}
               </Button>
             </a>
           </motion.div>
