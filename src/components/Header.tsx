@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.svg";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -9,7 +9,6 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const { lang, toggle } = useLanguage();
 
   useEffect(() => {
@@ -19,6 +18,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile menu + scroll to top on route change
+  useEffect(() => {
+    setMenuOpen(false);
+    window.scrollTo({ top: 0 });
+  }, [location.pathname]);
+
   const navLinks = [
     { label: t(translations.nav.home, lang), href: "/" },
     { label: t(translations.nav.work, lang), href: "/work" },
@@ -26,16 +31,6 @@ const Header = () => {
     { label: t(translations.nav.pricing, lang), href: "/pricing" },
     { label: t(translations.nav.contact, lang), href: "/contact" },
   ];
-
-  const handleNav = (href: string) => {
-    setMenuOpen(false);
-    if (location.pathname === href) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      navigate(href);
-      setTimeout(() => window.scrollTo({ top: 0 }), 50);
-    }
-  };
 
   return (
     <motion.header
@@ -69,25 +64,29 @@ const Header = () => {
           {navLinks.map((link, i) => {
             const isActive = location.pathname === link.href;
             return (
-              <motion.button
+              <motion.div
                 key={link.href}
-                onClick={() => handleNav(link.href)}
-                className={`relative nav-link ${isActive ? "!text-foreground" : ""}`}
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + i * 0.06, duration: 0.4 }}
               >
-                <span className="relative">
-                  {link.label}
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-primary origin-left"
-                    initial={false}
-                    animate={{ scaleX: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                  />
-                </span>
-              </motion.button>
+                <NavLink
+                  to={link.href}
+                  end={link.href === "/"}
+                  className={`group relative inline-block text-sm font-medium tracking-wide transition-colors ${
+                    isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
+                  }`}
+                >
+                  <span className="relative inline-block">
+                    {link.label}
+                    <span
+                      className={`pointer-events-none absolute -bottom-1 left-0 h-[2px] bg-primary transition-transform duration-300 ease-out origin-left w-full ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
+                  </span>
+                </NavLink>
+              </motion.div>
             );
           })}
           <motion.button
@@ -133,16 +132,20 @@ const Header = () => {
           >
             <div className="container-wide py-8 flex flex-col gap-6">
               {navLinks.map((link, i) => (
-                <motion.button
+                <motion.div
                   key={link.href}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}
-                  className="nav-link text-lg text-left"
-                  onClick={() => handleNav(link.href)}
                 >
-                  {link.label}
-                </motion.button>
+                  <Link
+                    to={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </motion.nav>
