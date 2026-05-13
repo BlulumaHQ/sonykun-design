@@ -1,9 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { ExternalLink, ArrowUpRight, MousePointer2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useIsMobile } from "@/hooks/use-mobile";
+
+export interface PortfolioPreviewTab {
+  id: string;
+  label: string;
+  /** Long full-page screenshot URL for this tab */
+  imageUrl?: string;
+  /** Optional URL to open externally for this preview */
+  openUrl?: string;
+}
 
 export interface PortfolioCardProps {
   name: string;
@@ -16,12 +24,16 @@ export interface PortfolioCardProps {
   isNew?: boolean;
   /** Optional explicit long screenshot URL (overrides liveUrl auto-capture) */
   longScreenshotUrl?: string;
+  /** Optional Before / Preview A / Preview B style tabs */
+  tabs?: PortfolioPreviewTab[];
+  /** Compact variant (slightly shorter preview) — used on homepage */
+  compact?: boolean;
 }
 
 /**
  * Build a long, full-page screenshot URL via thum.io (free, no API key).
  * `width/1200` keeps it crisp; `crop/4000` produces a tall vertical screenshot
- * suitable for the scrolling preview window.
+ * suitable for the manually-scrollable preview window.
  */
 const buildLongScreenshotUrl = (siteUrl?: string) => {
   if (!siteUrl) return undefined;
@@ -39,41 +51,32 @@ const PortfolioCard = ({
   fallbackImage,
   isNew,
   longScreenshotUrl,
+  tabs,
+  compact,
 }: PortfolioCardProps) => {
   const { lang } = useLanguage();
   const isZh = lang === "zh";
-  const isMobile = useIsMobile();
-  const cardRef = useRef<HTMLDivElement>(null);
+
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [activeTabId, setActiveTabId] = useState(tabs?.[0]?.id);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
-  const [autoScroll, setAutoScroll] = useState(false);
 
-  const screenshot = longScreenshotUrl ?? buildLongScreenshotUrl(liveUrl);
+  const activeTab = tabs?.find((t) => t.id === activeTabId);
+  const screenshot =
+    activeTab?.imageUrl ?? longScreenshotUrl ?? buildLongScreenshotUrl(liveUrl);
   const showLongImage = !!screenshot && !imgFailed;
+  const previewOpenUrl = activeTab?.openUrl ?? liveUrl;
 
-  // Mobile: trigger scroll animation when card enters view
+  // Reset scroll position to top whenever the active tab / image changes
   useEffect(() => {
-    if (!isMobile || !cardRef.current) return;
-    const el = cardRef.current;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAutoScroll(true);
-          // stop after one full pass to keep things calm
-          setTimeout(() => setAutoScroll(false), 9000);
-        }
-      },
-      { threshold: 0.5 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [isMobile]);
+    if (viewportRef.current) viewportRef.current.scrollTop = 0;
+    setImgLoaded(false);
+    setImgFailed(false);
+  }, [activeTabId, screenshot]);
 
   return (
-    <div
-      ref={cardRef}
-      className="group rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-1"
-    >
+    <div className="group rounded-2xl border border-border bg-card overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-xl">
       {/* Browser-style preview window */}
       <div className="relative bg-muted/40 border-b border-border">
         {/* Mac traffic-light bar */}
@@ -93,8 +96,32 @@ const PortfolioCard = ({
           )}
         </div>
 
-        {/* Fixed-height scroll window */}
-        <div className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden bg-background">
+        {/* Optional Before / Preview A / Preview B tab bar */}
+        {tabs && tabs.length > 1 && (
+          <div className="flex items-center gap-1 px-3 py-2 bg-background border-b border-border overflow-x-auto">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTabId(tab.id)}
+                className={`text-xs font-medium px-3 py-1.5 rounded-md transition-colors whitespace-nowrap ${
+                  activeTabId === tab.id
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-secondary/10 hover:text-foreground"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Manually scrollable, fixed-height preview viewport */}
+        <div
+          ref={viewportRef}
+          className={`portfolio-scroll-viewport relative bg-background ${
+            compact ? "h-[420px] md:h-[440px]" : "h-[460px] md:h-[500px]"
+          }`}
+        >
           {showLongImage ? (
             <img
               src={screenshot}
@@ -102,29 +129,33 @@ const PortfolioCard = ({
               loading="lazy"
               onLoad={() => setImgLoaded(true)}
               onError={() => setImgFailed(true)}
-              className={`w-full h-auto block transition-transform ease-linear ${
-                autoScroll
-                  ? "duration-[8000ms] -translate-y-[calc(100%-100%/1)]"
-                  : "group-hover:duration-[7000ms] duration-700 translate-y-0 group-hover:[transform:translateY(calc(-100%+400px))]"
-              }`}
-              style={{ willChange: "transform" }}
+              className="w-full h-auto block select-none"
+              draggable={false}
             />
           ) : fallbackImage ? (
             <img
               src={fallbackImage}
               alt={name}
               loading="lazy"
-              className="w-full h-full object-cover"
+              className="w-full h-auto block"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-              {isZh ? "預覽載入中…" : "Preview loading…"}
+            <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-sm">
+              {isZh ? "預覽即將上線" : "Screenshot coming soon."}
             </div>
           )}
 
           {/* Loading shimmer */}
           {showLongImage && !imgLoaded && (
-            <div className="absolute inset-0 animate-pulse bg-muted/60" />
+            <div className="absolute inset-0 animate-pulse bg-muted/60 pointer-events-none" />
+          )}
+
+          {/* Subtle scroll hint, fades on hover */}
+          {showLongImage && imgLoaded && (
+            <div className="pointer-events-none absolute bottom-3 right-3 hidden sm:flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium text-foreground/70 bg-background/80 backdrop-blur px-2.5 py-1 rounded-full border border-border opacity-90 group-hover:opacity-0 transition-opacity">
+              <MousePointer2 className="w-3 h-3" />
+              {isZh ? "可滾動預覽" : "Scroll preview"}
+            </div>
           )}
         </div>
       </div>
@@ -166,15 +197,21 @@ const PortfolioCard = ({
               </Link>
             </Button>
           )}
-          {liveUrl && (
+          {previewOpenUrl && (
             <Button
               asChild
               size="sm"
               variant={caseStudySlug ? "outline" : "default"}
               className="rounded-lg gap-1.5"
             >
-              <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-                {isZh ? "查看實際網站" : "View Live Website"}
+              <a href={previewOpenUrl} target="_blank" rel="noopener noreferrer">
+                {activeTab
+                  ? isZh
+                    ? `開啟${activeTab.label}`
+                    : `Open ${activeTab.label}`
+                  : isZh
+                    ? "查看實際網站"
+                    : "View Live Website"}
                 <ExternalLink className="w-4 h-4" />
               </a>
             </Button>
