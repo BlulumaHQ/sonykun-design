@@ -6,7 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import AnimatedRoutes from "@/components/AnimatedRoutes";
 import MobileBottomCTA from "@/components/MobileBottomCTA";
-import FloatingContactButton from "@/components/FloatingContactButton";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +17,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <AnimatedRoutes />
-          <FloatingContactButton />
           <MobileBottomCTA />
         </BrowserRouter>
       </LanguageProvider>
