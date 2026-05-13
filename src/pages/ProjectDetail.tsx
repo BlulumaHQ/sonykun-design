@@ -19,7 +19,7 @@ const ProjectDetail = () => {
   }
 
   // Fallback: redirect to work page
-  return <Navigate to="/work" replace />;
+  return <Navigate to="/portfolio" replace />;
 };
 
 export default ProjectDetail;

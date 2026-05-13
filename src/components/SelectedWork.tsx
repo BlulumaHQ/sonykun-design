@@ -32,32 +32,27 @@ const SelectedWork = () => {
           {featuredProjects.map((project, i) => (
             <ScrollReveal key={project.slug} delay={i * 0.08}>
               <Link
-                to={`/work/${project.slug}`}
-                className="group relative overflow-hidden cursor-pointer block aspect-[4/3] rounded-lg tilt-card"
+                to={`/case-study/${project.slug}`}
+                className="block rounded-lg overflow-hidden border border-border bg-card transition-shadow duration-300 hover:shadow-md"
               >
-                <motion.img
-                  src={project.image}
-                  alt={project.alt}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
-                  whileHover={{ scale: 1.05, rotate: 0.5 }}
-                  transition={{ duration: 0.7 }}
-                />
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-5">
-                  <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
-                      View Case Study
-                    </span>
-                    <h3 className="font-display text-xl font-bold text-primary-foreground mb-0.5">
-                      {project.name}
-                    </h3>
-                    <p className="text-xs text-primary-foreground/70 line-clamp-1">
-                      {project.services.join(" + ")}
-                    </p>
-                  </div>
+                <div className="aspect-[4/3] overflow-hidden bg-muted/40">
+                  <img
+                    src={project.image}
+                    alt={project.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500 overflow-hidden">
-                  <div className="absolute inset-0 glass-sweep" />
+                <div className="p-5">
+                  <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                    {lang === "zh" ? "查看案例" : "View Case Study"}
+                  </span>
+                  <h3 className="font-display text-xl font-bold text-foreground mb-1">
+                    {project.name}
+                  </h3>
+                  <p className="text-xs text-muted-foreground line-clamp-1">
+                    {project.services.join(" + ")}
+                  </p>
                 </div>
               </Link>
             </ScrollReveal>
@@ -66,7 +61,7 @@ const SelectedWork = () => {
 
         <ScrollReveal delay={0.2}>
           <div className="mt-10 text-center">
-            <Link to="/work">
+            <Link to="/case-study">
               <Button size="lg" variant="outline" className="h-12 px-10 text-base font-medium rounded-xl">
                 {t(translations.selectedWork.viewAll, lang)}
               </Button>

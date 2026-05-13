@@ -79,7 +79,7 @@ const Index = () => {
                     {c.hero.ctaPrimary[lang]}
                   </Button>
                 </Link>
-                <Link to="/work">
+                <Link to="/portfolio">
                   <Button
                     size="lg"
                     variant="outline"
@@ -185,7 +185,7 @@ const Index = () => {
           </div>
           <PortfolioGrid />
           <div className="container-wide pb-16 md:pb-20 -mt-6 text-center">
-            <Link to="/work">
+            <Link to="/portfolio">
               <Button
                 size="lg"
                 variant="outline"

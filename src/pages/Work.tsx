@@ -61,12 +61,14 @@ const Work = () => {
         <section className="py-16 md:py-24">
           <div className="mx-auto w-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
             <ScrollReveal>
-              <span className="eyebrow">{isZh ? "作品集" : "Selected Work"}</span>
-              <h1 className="heading-hero mb-6">{t(translations.work.title, lang)}</h1>
+              <span className="eyebrow">{isZh ? "作品集" : "Portfolio"}</span>
+              <h1 className="heading-hero mb-6">
+                {isZh ? "作品集" : "Portfolio"}
+              </h1>
               <p className="text-body mb-12 max-w-2xl">
                 {isZh
-                  ? "以下為精選的設計與網站專案作品。"
-                  : "A curated selection of selected design and web projects."}
+                  ? "依產業瀏覽過去的客戶網站作品。每個作品可直接預覽完整網站。"
+                  : "Browse client website projects by industry. Each card opens a full live preview."}
               </p>
             </ScrollReveal>
 

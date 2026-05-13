@@ -58,7 +58,7 @@ const PortfolioGrid = () => {
         </motion.div>
 
         <div className="mt-12 text-center">
-          <Link to="/work">
+          <Link to="/portfolio">
             <Button size="lg" variant="outline" className="h-12 px-10 text-base font-medium rounded-xl">
               {isZh ? "查看所有作品" : "View All Work"}
             </Button>
