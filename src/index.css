@@ -154,6 +154,7 @@
     @apply text-[34px] sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05];
     color: hsl(var(--foreground));
     letter-spacing: -0.03em;
+    white-space: pre-line;
   }
 
   .heading-section {
@@ -161,6 +162,7 @@
     @apply text-[28px] sm:text-[36px] md:text-[44px] lg:text-[48px] font-bold leading-[1.1];
     color: hsl(var(--foreground));
     letter-spacing: -0.02em;
+    white-space: pre-line;
   }
 
   .heading-subsection {
