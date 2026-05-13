@@ -73,6 +73,7 @@ export const projects: Project[] = [
   // ── Featured Case Studies ──
   {
     slug: "one-park-home",
+    portfolioCategory: "Construction",
     name: "One Park Home",
     industry: "Real Estate & Construction",
     services: ["Corporate Website", "Marketing Design"],
@@ -88,6 +89,7 @@ export const projects: Project[] = [
   },
   {
     slug: "presotea",
+    portfolioCategory: "Restaurant",
     name: "Presotea",
     industry: "Food & Retail",
     services: ["Corporate Website", "Marketing Design"],
@@ -103,6 +105,7 @@ export const projects: Project[] = [
   },
   {
     slug: "btn-real-estate",
+    portfolioCategory: "Realtor",
     name: "BTN Real Estate",
     industry: "Real Estate & Construction",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
@@ -119,6 +122,7 @@ export const projects: Project[] = [
   // ── Standard Projects ──
   {
     slug: "helen-lam-real-estate",
+    portfolioCategory: "Realtor",
     name: "Helen Lam Real Estate",
     industry: "Real Estate & Construction",
     services: ["Corporate Website", "Marketing Design"],
@@ -131,6 +135,7 @@ export const projects: Project[] = [
   },
   {
     slug: "little-mountain-dental",
+    portfolioCategory: "Dental",
     name: "Little Mountain Dental",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
@@ -143,6 +148,7 @@ export const projects: Project[] = [
   },
   {
     slug: "friendly-dental",
+    portfolioCategory: "Dental",
     name: "Friendly Dental",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
@@ -155,6 +161,7 @@ export const projects: Project[] = [
   },
   {
     slug: "yang-health",
+    portfolioCategory: "Medical",
     name: "Yang Health Therapeutic Clinic",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website"],
@@ -167,6 +174,7 @@ export const projects: Project[] = [
   },
   {
     slug: "unity-tattoo",
+    portfolioCategory: "Beauty",
     name: "Unity Tattoo",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website"],
@@ -179,6 +187,7 @@ export const projects: Project[] = [
   },
   {
     slug: "nuera-nutra",
+    portfolioCategory: "Medical",
     name: "NuEra Nutra",
     industry: "Biotechnology & Environmental",
     services: ["Corporate Website"],
@@ -191,6 +200,7 @@ export const projects: Project[] = [
   },
   {
     slug: "vita-environmental",
+    portfolioCategory: "Professional Services",
     name: "Vita Environmental",
     industry: "Biotechnology & Environmental",
     services: ["Corporate Website"],
@@ -204,6 +214,7 @@ export const projects: Project[] = [
   // ── WordPress Projects (bottom of Work page only) ──
   {
     slug: "vancouver-wine-school",
+    portfolioCategory: "Local Business",
     name: "Vancouver Wine School",
     industry: "Education",
     services: ["WordPress Website"],
@@ -216,6 +227,7 @@ export const projects: Project[] = [
   },
   {
     slug: "calin-club",
+    portfolioCategory: "Local Business",
     name: "Calin Club",
     industry: "Lifestyle",
     services: ["WordPress Website"],
