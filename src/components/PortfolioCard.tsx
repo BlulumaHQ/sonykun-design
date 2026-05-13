@@ -52,8 +52,8 @@ const PortfolioCard = ({
   const showLong = !!screenshot && !imgFailed;
 
   return (
-    <article className="portfolio-card border border-border bg-card overflow-hidden rounded-2xl shadow-sm">
-      {/* Square, manually scrollable preview — square corners on inner viewport so scrollbar isn't clipped */}
+    <article className="portfolio-card border border-border bg-card shadow-sm">
+      {/* Square, manually scrollable preview — no outer overflow/rounding so the scrollbar/arrows are never clipped */}
       <div className="portfolio-preview-box bg-background border-b border-border">
         {showLong ? (
           <img
