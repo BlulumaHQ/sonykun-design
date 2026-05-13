@@ -20,7 +20,7 @@ const CaseStudy = () => {
         <main className="pt-20 min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="heading-section mb-4">Project Not Found</h1>
-            <Link to="/work" className="nav-link border-b border-secondary pb-1">
+            <Link to="/case-study" className="nav-link border-b border-secondary pb-1">
               Back to Work
             </Link>
           </div>
@@ -119,10 +119,10 @@ const CaseStudy = () => {
         <section className="py-12">
           <div className="container-wide">
             <Link
-              to="/work"
+              to="/case-study"
               className="nav-link text-base border-b border-secondary pb-1 hover:border-foreground hover:text-foreground transition-colors"
             >
-              ← Back to Work
+              ← Back to Case Studies
             </Link>
           </div>
         </section>
