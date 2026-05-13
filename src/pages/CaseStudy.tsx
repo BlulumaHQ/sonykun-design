@@ -7,6 +7,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { caseStudies } from "@/data/caseStudies";
 import { ExternalLink } from "lucide-react";
+import ScrollablePreview from "@/components/ScrollablePreview";
 
 const CaseStudy = () => {
   const { slug } = useParams();
@@ -35,22 +36,17 @@ const CaseStudy = () => {
       <Header />
       <main className="pt-20">
         {/* Hero */}
-        <section className="w-full aspect-[16/9] md:aspect-[21/9] relative overflow-hidden">
-          <img
-            src={study.heroImage}
-            alt={study.heroAlt}
-            className="w-full h-full object-cover"
-          />
-          <div
-            className="absolute inset-0 flex items-end"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 60%)",
-            }}
-          >
-            <div className="container-wide pb-10 md:pb-16">
-              <h1 className="heading-hero text-white mb-2">{study.name}</h1>
-              <p className="text-lg text-white/70">{study.subtitle}</p>
+        <section className="pt-8 pb-4">
+          <div className="container-wide">
+            <h1 className="heading-hero mb-2">{study.name}</h1>
+            <p className="text-lg text-muted-foreground mb-8">{study.subtitle}</p>
+            <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-border shadow-sm">
+              <ScrollablePreview
+                src={study.heroImage}
+                alt={study.heroAlt}
+                shape="wide"
+                className="rounded-2xl"
+              />
             </div>
           </div>
         </section>
@@ -85,12 +81,11 @@ const CaseStudy = () => {
                     </h3>
                     <p className="text-body text-lg mb-6">{section.content}</p>
                     {section.image && (
-                      <div className="aspect-[16/10] overflow-hidden rounded-lg">
-                        <img
+                      <div className="rounded-lg overflow-hidden border border-border">
+                        <ScrollablePreview
                           src={section.image}
                           alt={section.imageAlt || ""}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
+                          shape="wide"
                         />
                       </div>
                     )}
