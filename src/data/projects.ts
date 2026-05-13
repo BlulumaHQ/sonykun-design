@@ -38,6 +38,28 @@ export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
   "Other",
 ];
 
+/** URL slug ↔ PortfolioCategory mapping for real route navigation. */
+export const portfolioCategorySlug: Record<PortfolioCategory, string> = {
+  Dental: "dental",
+  Realtor: "realtor",
+  Restaurant: "restaurant",
+  Construction: "construction",
+  Beauty: "beauty",
+  Medical: "medical",
+  "Local Business": "local-business",
+  "E-Commerce": "ecommerce",
+  "Professional Services": "professional-services",
+  Other: "other",
+};
+
+export const portfolioCategoryFromSlug = (slug?: string): PortfolioCategory | null => {
+  if (!slug) return null;
+  const entry = (Object.entries(portfolioCategorySlug) as [PortfolioCategory, string][]).find(
+    ([, s]) => s === slug
+  );
+  return entry ? entry[0] : null;
+};
+
 export const portfolioCategoryZh: Record<PortfolioCategory | "All", string> = {
   All: "全部",
   Dental: "牙科",
