@@ -4,6 +4,8 @@ import PageTransition from "./PageTransition";
 import Index from "@/pages/Index";
 import Work from "@/pages/Work";
 import ProjectDetail from "@/pages/ProjectDetail";
+import CaseStudyIndex from "@/pages/CaseStudyIndex";
+import CaseStudy from "@/pages/CaseStudy";
 import Services from "@/pages/Services";
 import Contact from "@/pages/Contact";
 import Pricing from "@/pages/Pricing";
@@ -23,6 +25,10 @@ const AnimatedRoutes = () => {
         <Route path="/" element={wrap(<Index />)} />
         <Route path="/work" element={wrap(<Work />)} />
         <Route path="/work/:slug" element={wrap(<ProjectDetail />)} />
+        <Route path="/portfolio" element={wrap(<Work />)} />
+        <Route path="/portfolio/:slug" element={wrap(<ProjectDetail />)} />
+        <Route path="/case-study" element={wrap(<CaseStudyIndex />)} />
+        <Route path="/case-study/:slug" element={wrap(<CaseStudy />)} />
         <Route path="/services" element={wrap(<Services />)} />
         <Route path="/contact" element={wrap(<Contact />)} />
         <Route path="/pricing" element={wrap(<Pricing />)} />
