@@ -52,11 +52,52 @@ export const portfolioCategoryZh: Record<PortfolioCategory | "All", string> = {
   Other: "其他",
 };
 
+export type ServiceCategory =
+  | "Website Design"
+  | "Corporate Website"
+  | "Marketing Design"
+  | "Branding Design"
+  | "Logo Design"
+  | "Social Media Design"
+  | "E-Commerce"
+  | "Landing Page"
+  | "SEO Setup"
+  | "AI Automation";
+
+export const SERVICE_CATEGORIES: ServiceCategory[] = [
+  "Website Design",
+  "Corporate Website",
+  "Marketing Design",
+  "Branding Design",
+  "Logo Design",
+  "Social Media Design",
+  "E-Commerce",
+  "Landing Page",
+  "SEO Setup",
+  "AI Automation",
+];
+
+export const serviceCategoryZh: Record<ServiceCategory | "All", string> = {
+  All: "全部",
+  "Website Design": "網站設計",
+  "Corporate Website": "企業網站",
+  "Marketing Design": "行銷設計",
+  "Branding Design": "品牌設計",
+  "Logo Design": "Logo 設計",
+  "Social Media Design": "社群媒體設計",
+  "E-Commerce": "電商網站",
+  "Landing Page": "Landing Page",
+  "SEO Setup": "SEO 設定",
+  "AI Automation": "AI 自動化",
+};
+
 export interface Project {
   slug: string;
   name: string;
   industry: string;
   services: string[];
+  /** Standardised filterable service tags (every project must have ≥1). */
+  serviceCategories: ServiceCategory[];
   image: string;
   alt: string;
   type: "client" | "wordpress";
