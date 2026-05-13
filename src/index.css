@@ -116,6 +116,15 @@
     line-height: 1.35;
     font-weight: 700;
   }
+  /* Prevent breaking inside Chinese words on hero/section headings */
+  html[lang^="zh"] .heading-hero,
+  html[lang^="zh"] .heading-section {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+    line-height: 1.32;
+    letter-spacing: 0.03em;
+  }
 
   /* Mobile: extra bottom padding so sticky CTA bar never covers content */
   @media (max-width: 767px) {
@@ -145,6 +154,7 @@
     @apply text-[34px] sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05];
     color: hsl(var(--foreground));
     letter-spacing: -0.03em;
+    white-space: pre-line;
   }
 
   .heading-section {
@@ -152,6 +162,7 @@
     @apply text-[28px] sm:text-[36px] md:text-[44px] lg:text-[48px] font-bold leading-[1.1];
     color: hsl(var(--foreground));
     letter-spacing: -0.02em;
+    white-space: pre-line;
   }
 
   .heading-subsection {
@@ -410,7 +421,9 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ── Portfolio scrollable preview viewport ── */
+/* ── Portfolio scrollable preview viewport ──
+   LOCKED: square aspect, manual scroll, square corners (so scrollbar
+   isn't clipped by rounded corners on the outer card). Do not change. */
 .portfolio-preview-box {
   aspect-ratio: 1 / 1;
   width: 100%;
@@ -419,6 +432,7 @@ body::before {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   position: relative;
+  border-radius: 0;
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--border)) transparent;
 }

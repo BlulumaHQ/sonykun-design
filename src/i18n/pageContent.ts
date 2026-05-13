@@ -34,8 +34,8 @@ export const homeContent = {
   hero: {
     eyebrow: { en: "Vancouver Web Designer", zh: "溫哥華網站設計師" },
     headline: {
-      en: "Get a Professional Website in 3 Business Days.",
-      zh: "3 個工作天內獲得專業網站。",
+      en: "Get a Professional Website\nin 3 Business Days.",
+      zh: "3 個工作天內\n獲得專業網站。",
     },
     subhead: {
       en: "You see your website preview before you pay — then we launch it. Websites starting at $349 CAD. No surprises, no hidden fees.",

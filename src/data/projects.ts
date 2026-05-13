@@ -52,11 +52,52 @@ export const portfolioCategoryZh: Record<PortfolioCategory | "All", string> = {
   Other: "其他",
 };
 
+export type ServiceCategory =
+  | "Website Design"
+  | "Corporate Website"
+  | "Marketing Design"
+  | "Branding Design"
+  | "Logo Design"
+  | "Social Media Design"
+  | "E-Commerce"
+  | "Landing Page"
+  | "SEO Setup"
+  | "AI Automation";
+
+export const SERVICE_CATEGORIES: ServiceCategory[] = [
+  "Website Design",
+  "Corporate Website",
+  "Marketing Design",
+  "Branding Design",
+  "Logo Design",
+  "Social Media Design",
+  "E-Commerce",
+  "Landing Page",
+  "SEO Setup",
+  "AI Automation",
+];
+
+export const serviceCategoryZh: Record<ServiceCategory | "All", string> = {
+  All: "全部",
+  "Website Design": "網站設計",
+  "Corporate Website": "企業網站",
+  "Marketing Design": "行銷設計",
+  "Branding Design": "品牌設計",
+  "Logo Design": "Logo 設計",
+  "Social Media Design": "社群媒體設計",
+  "E-Commerce": "電商網站",
+  "Landing Page": "Landing Page",
+  "SEO Setup": "SEO 設定",
+  "AI Automation": "AI 自動化",
+};
+
 export interface Project {
   slug: string;
   name: string;
   industry: string;
   services: string[];
+  /** Standardised filterable service tags (every project must have ≥1). */
+  serviceCategories: ServiceCategory[];
   image: string;
   alt: string;
   type: "client" | "wordpress";
@@ -77,6 +118,7 @@ export const projects: Project[] = [
     name: "One Park Home",
     industry: "Real Estate & Construction",
     services: ["Corporate Website", "Marketing Design"],
+    serviceCategories: ["Corporate Website", "Marketing Design"],
     image: oneParkHome,
     alt: "Corporate website design for One Park Home real estate development",
     type: "client",
@@ -93,6 +135,7 @@ export const projects: Project[] = [
     name: "Presotea",
     industry: "Food & Retail",
     services: ["Corporate Website", "Marketing Design"],
+    serviceCategories: ["Corporate Website", "Marketing Design"],
     image: presotea,
     alt: "Corporate website and marketing design for Presotea bubble tea brand",
     type: "client",
@@ -109,6 +152,7 @@ export const projects: Project[] = [
     name: "BTN Real Estate",
     industry: "Real Estate & Construction",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
+    serviceCategories: ["Logo Design", "Corporate Website", "Marketing Design", "Branding Design"],
     image: btnRealEstate,
     alt: "Brand identity and corporate website design for BTN Real Estate",
     type: "client",
@@ -126,6 +170,7 @@ export const projects: Project[] = [
     name: "Helen Lam Real Estate",
     industry: "Real Estate & Construction",
     services: ["Corporate Website", "Marketing Design"],
+    serviceCategories: ["Corporate Website", "Marketing Design"],
     image: helenLam,
     alt: "Corporate website and marketing design for Helen Lam Real Estate",
     type: "client",
@@ -139,6 +184,7 @@ export const projects: Project[] = [
     name: "Little Mountain Dental",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
+    serviceCategories: ["Logo Design", "Corporate Website", "Marketing Design", "Branding Design"],
     image: littleMountainDental,
     alt: "Brand logo and website design for Little Mountain Dental clinic",
     type: "client",
@@ -152,6 +198,7 @@ export const projects: Project[] = [
     name: "Friendly Dental",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
+    serviceCategories: ["Logo Design", "Corporate Website", "Marketing Design", "Branding Design"],
     image: friendlyDental,
     alt: "Brand identity and website design for Friendly Dental clinic",
     type: "client",
@@ -165,6 +212,7 @@ export const projects: Project[] = [
     name: "Yang Health Therapeutic Clinic",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website"],
+    serviceCategories: ["Logo Design", "Corporate Website", "Branding Design"],
     image: yangHealth,
     alt: "Brand logo and corporate website for Yang Health Therapeutic Clinic",
     type: "client",
@@ -178,6 +226,7 @@ export const projects: Project[] = [
     name: "Unity Tattoo",
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website"],
+    serviceCategories: ["Logo Design", "Corporate Website", "Branding Design"],
     image: unityTattoo,
     alt: "Brand logo and corporate website for Unity Tattoo studio",
     type: "client",
@@ -191,6 +240,7 @@ export const projects: Project[] = [
     name: "NuEra Nutra",
     industry: "Biotechnology & Environmental",
     services: ["Corporate Website"],
+    serviceCategories: ["Corporate Website"],
     image: nueraNutra,
     alt: "Corporate website design for NuEra Nutra biotechnology company",
     type: "client",
@@ -204,6 +254,7 @@ export const projects: Project[] = [
     name: "Vita Environmental",
     industry: "Biotechnology & Environmental",
     services: ["Corporate Website"],
+    serviceCategories: ["Corporate Website"],
     image: vitaEnvironmental,
     alt: "Corporate website design for Vita Environmental services",
     type: "client",
@@ -217,7 +268,8 @@ export const projects: Project[] = [
     portfolioCategory: "Local Business",
     name: "Vancouver Wine School",
     industry: "Education",
-    services: ["WordPress Website"],
+    services: ["Website Design"],
+    serviceCategories: ["Website Design"],
     image: vancouverWineSchool,
     alt: "WordPress website design for Vancouver Wine School",
     type: "wordpress",
@@ -230,7 +282,8 @@ export const projects: Project[] = [
     portfolioCategory: "Local Business",
     name: "Calin Club",
     industry: "Lifestyle",
-    services: ["WordPress Website"],
+    services: ["Website Design"],
+    serviceCategories: ["Website Design"],
     image: calinClub,
     alt: "WordPress website design for Calin Club",
     type: "wordpress",

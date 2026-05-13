@@ -2,8 +2,11 @@ import { motion } from "framer-motion";
 import PortfolioCard from "@/components/PortfolioCard";
 import { projects } from "@/data/projects";
 
-// Show 6 recent portfolio projects on the homepage
-const homepageProjects = projects.slice(0, 6);
+// Show 6 most recent portfolio projects on the homepage — same component
+// and structure as the full Portfolio page. No case-study grouping.
+const homepageProjects = [...projects]
+  .sort((a, b) => b.year - a.year)
+  .slice(0, 6);
 
 const PortfolioGrid = () => {
   return (
@@ -26,11 +29,8 @@ const PortfolioGrid = () => {
           >
             <PortfolioCard
               name={project.name}
-              industry={project.industry}
-              description={project.description}
               services={project.services}
               liveUrl={project.liveUrl}
-              caseStudySlug={project.caseStudy ? project.slug : undefined}
               fallbackImage={project.image}
             />
           </motion.div>
