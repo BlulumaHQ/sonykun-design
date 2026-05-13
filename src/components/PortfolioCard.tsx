@@ -21,8 +21,9 @@ export interface PortfolioCardProps {
 
 const buildLongScreenshotUrl = (siteUrl?: string) => {
   if (!siteUrl) return undefined;
-  const clean = siteUrl.replace(/^https?:\/\//, "");
-  return `https://image.thum.io/get/width/1200/crop/4000/noanimate/maxAge/24/https://${clean}`;
+  const clean = siteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  // thum.io full-page desktop capture (top-to-bottom, real site length).
+  return `https://image.thum.io/get/width/1200/fullpage/noanimate/maxAge/24/https://${clean}`;
 };
 
 /**
@@ -51,8 +52,8 @@ const PortfolioCard = ({
   const showLong = !!screenshot && !imgFailed;
 
   return (
-    <article className="portfolio-card border border-border bg-card overflow-hidden rounded-2xl shadow-sm">
-      {/* Square, manually scrollable preview — square corners on inner viewport so scrollbar isn't clipped */}
+    <article className="portfolio-card border border-border bg-card shadow-sm">
+      {/* Square, manually scrollable preview — no outer overflow/rounding so the scrollbar/arrows are never clipped */}
       <div className="portfolio-preview-box bg-background border-b border-border">
         {showLong ? (
           <img

@@ -435,15 +435,23 @@ body::before {
   border-radius: 0;
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--border)) transparent;
+  /* Slight top breathing room so any top arrow / start-of-image doesn't visually hit the card edge */
+  scroll-padding-top: 8px;
 }
 .portfolio-preview-box--wide {
   aspect-ratio: 16 / 10;
 }
-.portfolio-preview-box::-webkit-scrollbar { width: 6px; }
-.portfolio-preview-box::-webkit-scrollbar-track { background: transparent; }
+.portfolio-preview-box::-webkit-scrollbar { width: 8px; }
+.portfolio-preview-box::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0; /* keep scroll-thumb away from rounded card edges */
+}
 .portfolio-preview-box::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
   border-radius: 9999px;
+}
+.portfolio-preview-box::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
 }
 .portfolio-preview-box img {
   width: 100%;
