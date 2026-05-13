@@ -13,6 +13,45 @@ import calinClub from "@/assets/projects/calin-club.jpg";
 
 export type ProjectCategory = "Web Design" | "Branding" | "Ecommerce" | "AI Automation";
 
+export type PortfolioCategory =
+  | "Dental"
+  | "Realtor"
+  | "Restaurant"
+  | "Construction"
+  | "Beauty"
+  | "Medical"
+  | "Local Business"
+  | "E-Commerce"
+  | "Professional Services"
+  | "Other";
+
+export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
+  "Dental",
+  "Realtor",
+  "Restaurant",
+  "Construction",
+  "Beauty",
+  "Medical",
+  "Local Business",
+  "E-Commerce",
+  "Professional Services",
+  "Other",
+];
+
+export const portfolioCategoryZh: Record<PortfolioCategory | "All", string> = {
+  All: "全部",
+  Dental: "牙科",
+  Realtor: "房地產",
+  Restaurant: "餐飲",
+  Construction: "建築",
+  Beauty: "美容",
+  Medical: "醫療",
+  "Local Business": "本地商家",
+  "E-Commerce": "電子商務",
+  "Professional Services": "專業服務",
+  Other: "其他",
+};
+
 export interface Project {
   slug: string;
   name: string;
@@ -23,6 +62,7 @@ export interface Project {
   type: "client" | "wordpress";
   description?: string;
   category: ProjectCategory[];
+  portfolioCategory: PortfolioCategory;
   year: number;
   featured?: boolean;
   caseStudy?: boolean;
