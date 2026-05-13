@@ -1,15 +1,13 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PortfolioCard from "@/components/PortfolioCard";
 import { projects, projectCategories, type ProjectCategory } from "@/data/projects";
-import { motion } from "framer-motion";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { translations, t } from "@/i18n/translations";
-import { ExternalLink } from "lucide-react";
 
 const CURRENT_YEAR = 2026;
 
@@ -47,74 +45,20 @@ const Work = () => {
 
   const filters: ("All" | ProjectCategory)[] = ["All", ...projectCategories];
 
-  const renderProjectCard = (project: typeof projects[0], i: number, showBadge = true) => {
-    const isCaseStudy = project.caseStudy;
-    const linkProps = isCaseStudy
-      ? { to: `/work/${project.slug}` }
-      : { to: "#" };
-
-    const card = (
-      <div className="group relative overflow-hidden cursor-pointer block aspect-[4/3] rounded-lg">
-        <motion.img
-          src={project.image}
-          alt={project.alt}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
-          whileHover={{ scale: 1.05, rotate: 0.5 }}
-          transition={{ duration: 0.7 }}
-        />
-        {showBadge && project.year >= CURRENT_YEAR && (
-          <span className="absolute top-3 right-3 bg-primary text-primary-foreground text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md z-10">
-            New
-          </span>
-        )}
-        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/60 transition-all duration-500 flex items-end p-5">
-          <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            {isCaseStudy && (
-              <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
-                View Case Study
-              </span>
-            )}
-            {!isCaseStudy && project.liveUrl && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-primary-foreground/80 bg-white/20 px-2 py-0.5 rounded mb-2">
-                Visit Site <ExternalLink className="w-3 h-3" />
-              </span>
-            )}
-            <h3 className="font-display text-xl font-bold text-primary-foreground mb-0.5">
-              {project.name}
-            </h3>
-            <p className="text-xs text-primary-foreground/70 line-clamp-1">
-              {project.industry} — {project.services.join(", ")}
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-
-    if (isCaseStudy) {
-      return (
-        <ScrollReveal key={project.slug} delay={i * 0.06}>
-          <Link to={`/work/${project.slug}`}>{card}</Link>
-        </ScrollReveal>
-      );
-    }
-
-    if (project.liveUrl) {
-      return (
-        <ScrollReveal key={project.slug} delay={i * 0.06}>
-          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-            {card}
-          </a>
-        </ScrollReveal>
-      );
-    }
-
-    return (
-      <ScrollReveal key={project.slug} delay={i * 0.06}>
-        {card}
-      </ScrollReveal>
-    );
-  };
+  const renderProjectCard = (project: typeof projects[0], i: number, showBadge = true) => (
+    <ScrollReveal key={project.slug} delay={i * 0.06}>
+      <PortfolioCard
+        name={project.name}
+        industry={project.industry}
+        description={project.description}
+        services={project.services}
+        liveUrl={project.liveUrl}
+        caseStudySlug={project.caseStudy ? project.slug : undefined}
+        fallbackImage={project.image}
+        isNew={showBadge && project.year >= CURRENT_YEAR}
+      />
+    </ScrollReveal>
+  );
 
   return (
     <>
