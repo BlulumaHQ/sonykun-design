@@ -116,6 +116,15 @@
     line-height: 1.35;
     font-weight: 700;
   }
+  /* Prevent breaking inside Chinese words on hero/section headings */
+  html[lang^="zh"] .heading-hero,
+  html[lang^="zh"] .heading-section {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+    line-height: 1.32;
+    letter-spacing: 0.03em;
+  }
 
   /* Mobile: extra bottom padding so sticky CTA bar never covers content */
   @media (max-width: 767px) {
