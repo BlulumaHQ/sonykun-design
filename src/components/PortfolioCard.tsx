@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, ArrowUpRight, MousePointer2 } from "lucide-react";
+import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -66,22 +66,13 @@ const PortfolioCard = ({
 
   return (
     <article className="portfolio-card rounded-2xl border border-border bg-card overflow-hidden shadow-sm">
-      {/* Browser chrome */}
-      <div className="flex items-center gap-1.5 px-4 py-2.5 bg-secondary/5 border-b border-border">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-        {liveUrl && (
-          <span className="ml-3 hidden sm:block text-[11px] text-muted-foreground font-mono truncate">
-            {liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-          </span>
-        )}
-        {isNew && (
+      {isNew && (
+        <div className="flex items-center px-4 py-2 border-b border-border">
           <span className="ml-auto text-[10px] font-semibold uppercase tracking-wider bg-primary text-primary-foreground px-2 py-0.5 rounded">
             New
           </span>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Optional tab bar */}
       {tabs && tabs.length > 1 && (
@@ -128,12 +119,6 @@ const PortfolioCard = ({
           <div className="absolute inset-0 animate-pulse bg-muted/60 pointer-events-none" />
         )}
 
-        {showLongImage && imgLoaded && (
-          <div className="pointer-events-none sticky bottom-3 ml-auto mr-3 w-fit hidden sm:flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium text-foreground/70 bg-background/80 backdrop-blur px-2.5 py-1 rounded-full border border-border">
-            <MousePointer2 className="w-3 h-3" />
-            {isZh ? "可滾動預覽" : "Scroll preview"}
-          </div>
-        )}
       </div>
 
       {/* Meta */}
