@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import AnimatedRoutes from "@/components/AnimatedRoutes";
+import MobileBottomCTA from "@/components/MobileBottomCTA";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <AnimatedRoutes />
+          <MobileBottomCTA />
         </BrowserRouter>
       </LanguageProvider>
     </TooltipProvider>

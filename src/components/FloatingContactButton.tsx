@@ -1,46 +1,55 @@
-import { useState } from "react";
-import { Phone, Mail, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Phone, Mail, ArrowUp } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
+/**
+ * Mobile/tablet vertical floating CTA stack on the right side.
+ * Sits just above the bottom sticky CTA bar.
+ * Hidden on desktop (md+) where the standard header CTAs are sufficient.
+ */
 const FloatingContactButton = () => {
-  const [open, setOpen] = useState(false);
+  const { lang } = useLanguage();
+  const isZh = lang === "zh";
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const baseBtn =
+    "w-12 h-12 rounded-full bg-background/95 backdrop-blur border border-border shadow-lg flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all active:scale-95";
 
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-3">
-      {open && (
-        <div className="bg-background rounded-2xl shadow-xl border border-border p-4 w-56 animate-fade-up">
-          <p className="font-display font-semibold text-foreground mb-3 text-sm">Contact Sony</p>
-          <div className="space-y-2">
-            <a
-              href="tel:6042621168"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors text-foreground"
-            >
-              <Phone className="w-4 h-4" />
-              <span className="text-sm font-medium">Call</span>
-            </a>
-            <a
-              href="mailto:support@sonykundesign.com"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors text-foreground"
-            >
-              <Mail className="w-4 h-4" />
-              <span className="text-sm font-medium">Email</span>
-            </a>
-          </div>
-        </div>
-      )}
-
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/80 transition-all text-sm font-semibold"
-        aria-label="Call Sony"
+    <div
+      className="md:hidden fixed right-3 z-40 flex flex-col items-center gap-2.5"
+      style={{ bottom: "calc(80px + env(safe-area-inset-bottom, 0px))" }}
+    >
+      <a
+        href="tel:6042621168"
+        aria-label={isZh ? "致電 Sony" : "Call Sony"}
+        className={baseBtn}
       >
-        {open ? (
-          <X className="w-5 h-5" />
-        ) : (
-          <>
-            <Phone className="w-4 h-4" />
-            <span className="hidden sm:inline">Call Sony</span>
-          </>
-        )}
+        <Phone className="w-5 h-5" strokeWidth={1.8} />
+      </a>
+      <a
+        href="mailto:support@sonykundesign.com"
+        aria-label={isZh ? "聯絡 Sony" : "Email Sony"}
+        className={baseBtn}
+      >
+        <Mail className="w-5 h-5" strokeWidth={1.8} />
+      </a>
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label={isZh ? "回到頂部" : "Back to top"}
+        className={`${baseBtn} transition-opacity ${
+          showTop ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <ArrowUp className="w-5 h-5" strokeWidth={2} />
       </button>
     </div>
   );

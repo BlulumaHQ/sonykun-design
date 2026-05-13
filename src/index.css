@@ -93,6 +93,39 @@
     color: hsl(var(--foreground));
     letter-spacing: -0.02em;
   }
+
+  /* ===== Traditional Chinese typography refinement (Noto Sans TC) ===== */
+  html[lang^="zh"] body,
+  :lang(zh-Hant),
+  :lang(zh) {
+    font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', var(--font-body);
+    letter-spacing: 0.025em;
+  }
+  html[lang^="zh"] p {
+    line-height: 1.85;
+    letter-spacing: 0.03em;
+  }
+  html[lang^="zh"] h1,
+  html[lang^="zh"] h2,
+  html[lang^="zh"] h3,
+  html[lang^="zh"] h4,
+  html[lang^="zh"] h5,
+  html[lang^="zh"] h6 {
+    font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', var(--font-display);
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  /* Mobile: extra bottom padding so sticky CTA bar never covers content */
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    }
+    html[lang^="zh"] p {
+      line-height: 1.9;
+    }
+  }
 }
 
 @layer components {
