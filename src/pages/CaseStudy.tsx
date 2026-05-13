@@ -7,6 +7,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { Button } from "@/components/ui/button";
 import { caseStudies } from "@/data/caseStudies";
 import { ExternalLink } from "lucide-react";
+import ScrollablePreview from "@/components/ScrollablePreview";
 
 const CaseStudy = () => {
   const { slug } = useParams();
