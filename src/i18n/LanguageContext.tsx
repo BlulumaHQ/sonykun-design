@@ -28,6 +28,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     try {
       localStorage.setItem("sonykun-lang", lang);
     } catch {}
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
+    }
   }, [lang]);
 
   const setLang = (l: Lang) => setLangState(l);
