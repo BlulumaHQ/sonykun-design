@@ -9,7 +9,8 @@ const Footer = () => {
 
   const footerLinks = [
     { label: t(translations.nav.home, lang), href: "/" },
-    { label: t(translations.nav.work, lang), href: "/work" },
+    { label: t(translations.nav.workCaseStudy, lang), href: "/case-study" },
+    { label: t(translations.nav.workPortfolio, lang), href: "/portfolio" },
     { label: t(translations.nav.services, lang), href: "/services" },
     { label: t(translations.nav.pricing, lang), href: "/pricing" },
     { label: t(translations.nav.contact, lang), href: "/contact" },

@@ -31,7 +31,7 @@ const DarkFeature = () => {
               : "A digital presence for a modern residential development brand that communicates trust, elegance, and architectural sophistication through generous whitespace and refined hierarchy."}
           </p>
           <Link
-            to="/work/one-park-home"
+            to="/case-study/one-park-home"
             className="group inline-flex items-center gap-2 self-start text-sm font-medium uppercase tracking-[0.18em] text-white border-b border-white/30 pb-1 hover:border-white transition-colors"
           >
             {isZh ? "查看案例" : "View Case Study"}

@@ -165,7 +165,7 @@ const PortfolioCard = ({
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
           {caseStudySlug && (
             <Button asChild size="sm" className="rounded-lg gap-1.5">
-              <Link to={`/work/${caseStudySlug}`}>
+              <Link to={`/case-study/${caseStudySlug}`}>
                 {isZh ? "查看案例" : "View Case Study"}
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
