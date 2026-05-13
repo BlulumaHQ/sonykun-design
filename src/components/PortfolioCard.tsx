@@ -21,8 +21,9 @@ export interface PortfolioCardProps {
 
 const buildLongScreenshotUrl = (siteUrl?: string) => {
   if (!siteUrl) return undefined;
-  const clean = siteUrl.replace(/^https?:\/\//, "");
-  return `https://image.thum.io/get/width/1200/crop/4000/noanimate/maxAge/24/https://${clean}`;
+  const clean = siteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  // thum.io full-page desktop capture (top-to-bottom, real site length).
+  return `https://image.thum.io/get/width/1200/fullpage/noanimate/maxAge/24/https://${clean}`;
 };
 
 /**
