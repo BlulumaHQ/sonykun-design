@@ -133,6 +133,36 @@
     @apply mx-auto w-full max-w-[1400px] px-6 sm:px-8 md:px-12 lg:px-20;
   }
 
+  /* Portfolio asymmetrical layout: edge sidebar + centered content.
+     Show the sidebar only when the viewport is wide enough that it can sit
+     in the left margin without overlapping the centered content container.
+     Container max width is 1400px, so we need viewport >= ~1640px to fit a
+     180px sidebar with breathing room. Below that, we fall back to the inline
+     industry filter row above the grid. */
+  .portfolio-edge-sidebar-inner {
+    width: 180px;
+  }
+
+  @media (min-width: 1640px) {
+    .portfolio-edge-sidebar {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: clamp(24px, 4vw, 72px);
+      bottom: 0;
+      width: 180px;
+      pointer-events: none;
+    }
+    .portfolio-edge-sidebar-inner {
+      position: sticky;
+      top: 120px;
+      pointer-events: auto;
+    }
+    .portfolio-inline-filters {
+      display: none;
+    }
+  }
+
   /* Editorial: generous whitespace between sections. */
   .section-padding {
     @apply py-[60px] md:py-[80px] lg:py-[120px];
