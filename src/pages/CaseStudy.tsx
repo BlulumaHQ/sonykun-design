@@ -81,12 +81,11 @@ const CaseStudy = () => {
                     </h3>
                     <p className="text-body text-lg mb-6">{section.content}</p>
                     {section.image && (
-                      <div className="aspect-[16/10] overflow-hidden rounded-lg">
-                        <img
+                      <div className="rounded-lg overflow-hidden border border-border">
+                        <ScrollablePreview
                           src={section.image}
                           alt={section.imageAlt || ""}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
+                          shape="wide"
                         />
                       </div>
                     )}
