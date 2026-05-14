@@ -82,6 +82,13 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-image:
+      linear-gradient(hsl(0 0% 100% / 0.78), hsl(0 0% 100% / 0.78)),
+      url("/textures/section-bg.jpg");
+    background-attachment: fixed, fixed;
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
   }
 
   p {
