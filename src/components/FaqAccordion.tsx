@@ -11,12 +11,15 @@ interface FaqAccordionProps {
   items: FaqItem[];
 }
 
-const FaqAccordion = ({ items }: FaqAccordionProps) => {
-  const [open, setOpen] = useState<number | null>(0);
+interface ColumnProps {
+  items: { item: FaqItem; idx: number }[];
+}
 
+const FaqColumn = ({ items }: ColumnProps) => {
+  const [open, setOpen] = useState<number | null>(0);
   return (
-    <ul className="divide-y divide-border border-y border-border max-w-3xl mx-auto">
-      {items.map((item, i) => {
+    <ul className="divide-y divide-border border-y border-border">
+      {items.map(({ item }, i) => {
         const isOpen = open === i;
         return (
           <li key={i}>
@@ -43,7 +46,7 @@ const FaqAccordion = ({ items }: FaqAccordionProps) => {
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="text-muted-foreground leading-[1.7] pb-6 pr-10 max-w-2xl">{item.a}</p>
+                  <p className="text-muted-foreground leading-[1.7] pb-6 pr-10">{item.a}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -51,6 +54,28 @@ const FaqAccordion = ({ items }: FaqAccordionProps) => {
         );
       })}
     </ul>
+  );
+};
+
+const FaqAccordion = ({ items }: FaqAccordionProps) => {
+  const indexed = items.map((item, idx) => ({ item, idx }));
+  const mid = Math.ceil(indexed.length / 2);
+  const left = indexed.slice(0, mid);
+  const right = indexed.slice(mid);
+
+  if (right.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto">
+        <FaqColumn items={left} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0 max-w-6xl mx-auto">
+      <FaqColumn items={left} />
+      <FaqColumn items={right} />
+    </div>
   );
 };
 

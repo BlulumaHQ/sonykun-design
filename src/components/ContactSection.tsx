@@ -44,10 +44,10 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
   };
 
   const inputClasses = (field: string) =>
-    `w-full bg-transparent border border-secondary/20 rounded-xl px-4 py-3 text-base transition-all duration-300 outline-none ${
+    `w-full bg-transparent border-0 border-b rounded-none px-0 py-3 text-base transition-colors duration-300 outline-none ${
       focused === field
-        ? "border-secondary shadow-[0_0_0_3px_hsl(var(--secondary)/0.08)]"
-        : "hover:border-secondary/40"
+        ? "border-b-secondary"
+        : "border-b-border hover:border-b-secondary/50"
     }`;
 
   return (
