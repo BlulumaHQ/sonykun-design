@@ -134,8 +134,9 @@ const Index = () => {
         </section>
 
         {/* SERVICES OVERVIEW */}
-        <section className="section-padding">
-          <div className="container-wide">
+        <section className="section-padding relative overflow-hidden">
+          <span className="bg-word left-[-2vw] top-6 md:top-10" aria-hidden="true">SERVICE</span>
+          <div className="container-wide relative">
             <motion.div {...fadeUp} className="max-w-2xl mb-14">
               <span className="eyebrow">{c.services.eyebrow[lang]}</span>
               <h2 className="heading-section">{c.services.title[lang]}</h2>
@@ -151,21 +152,22 @@ const Index = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.5, delay: i * 0.08 }}
-                    className="relative rounded-2xl border border-border bg-background p-7 flex flex-col h-full hover:shadow-md transition-shadow"
+                    className="relative border-t border-border bg-transparent pt-8 pr-4 flex flex-col h-full transition-colors hover:border-secondary"
                   >
                     {card.badge && (
-                      <span className="absolute -top-3 left-7 bg-primary text-primary-foreground text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full">
+                      <span className="absolute -top-3 left-0 bg-secondary text-secondary-foreground text-[10px] font-medium uppercase tracking-[0.2em] px-2.5 py-1">
                         {card.badge[lang]}
                       </span>
                     )}
-                    <Icon className="w-7 h-7 text-primary mb-5" strokeWidth={1.5} />
-                    <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
-                    <p className="text-sm text-muted-foreground leading-[1.7] mb-5 flex-1">{card.body[lang]}</p>
-                    <p className="text-sm font-semibold text-foreground mb-3">{card.price[lang]}</p>
+                    <Icon className="w-6 h-6 text-secondary mb-5" strokeWidth={1.25} />
+                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">{card.title[lang]}</h3>
+                    <p className="text-sm text-muted-foreground leading-[1.75] mb-5 flex-1">{card.body[lang]}</p>
+                    <p className="text-sm font-medium text-foreground mb-3">{card.price[lang]}</p>
                     <Link
                       to={card.href}
-                      className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1.5"
+                      className="text-[11px] uppercase tracking-[0.2em] font-medium text-secondary hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
                     >
+                      <span className="marker-line" />
                       {card.link[lang]}
                     </Link>
                   </motion.div>
@@ -176,20 +178,21 @@ const Index = () => {
         </section>
 
         {/* PORTFOLIO PREVIEW */}
-        <section className="border-t border-border">
-          <div className="container-wide pt-16 md:pt-20">
+        <section className="relative overflow-hidden border-t border-border">
+          <span className="bg-word right-[-2vw] top-10" aria-hidden="true">PORTFOLIO</span>
+          <div className="container-wide pt-16 md:pt-24 relative">
             <motion.div {...fadeUp} className="text-center mb-2">
               <span className="eyebrow">{c.portfolio.eyebrow[lang]}</span>
               <h2 className="heading-section">{c.portfolio.title[lang]}</h2>
             </motion.div>
           </div>
           <PortfolioGrid />
-          <div className="container-wide pb-16 md:pb-20 -mt-6 text-center">
+          <div className="container-wide pb-16 md:pb-24 -mt-6 text-center">
             <Link to="/portfolio">
               <Button
                 size="lg"
                 variant="outline"
-                className="h-12 px-7 text-sm font-medium tracking-wide border-foreground/20 text-foreground hover:bg-foreground hover:text-background rounded-full"
+                className="h-12 px-7 text-[11px] uppercase tracking-[0.2em] font-medium border-foreground/20 text-foreground hover:bg-foreground hover:text-background rounded-none"
               >
                 {c.portfolio.cta[lang]}
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -197,6 +200,7 @@ const Index = () => {
             </Link>
           </div>
         </section>
+
 
         {/* BUNDLE BANNER (DARK) */}
         <section className="charcoal-section section-padding">
