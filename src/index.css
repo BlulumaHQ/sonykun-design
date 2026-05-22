@@ -179,11 +179,50 @@
     letter-spacing: -0.01em;
   }
 
-  /* Small caps section label / eyebrow. */
+  /* Small caps section label / eyebrow — editorial style w/ blue dot. */
   .eyebrow {
-    @apply inline-block text-[11px] font-medium uppercase mb-4;
-    letter-spacing: 0.12em;
-    color: hsl(0 0% 53%);
+    @apply inline-flex items-center gap-2 text-[11px] font-medium uppercase mb-4;
+    letter-spacing: 0.22em;
+    color: hsl(var(--secondary));
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: hsl(var(--secondary));
+  }
+
+  /* Oversized pale background word for editorial sections */
+  .bg-word {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: hsl(var(--secondary) / 0.06);
+    font-size: clamp(80px, 14vw, 220px);
+    white-space: nowrap;
+  }
+
+  /* Thin editorial divider */
+  .divider-thin {
+    width: 100%;
+    height: 1px;
+    background-color: hsl(var(--border));
+  }
+
+  /* Small blue marker line (editorial) */
+  .marker-line {
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background-color: hsl(var(--secondary));
+    vertical-align: middle;
+    margin-right: 10px;
   }
 
   .text-subtitle {
@@ -370,8 +409,6 @@
   overflow: hidden;
   width: 100%;
   position: relative;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
 .marquee-track {
@@ -440,25 +477,34 @@ body::before {
   overscroll-behavior: contain;
   position: relative;
   border-radius: 0;
-  scrollbar-width: thin;
-  scrollbar-color: hsl(var(--border)) transparent;
-  /* Slight top breathing room so any top arrow / start-of-image doesn't visually hit the card edge */
+  /* Hidden by default — revealed on hover for a clean editorial look */
+  scrollbar-width: none;
+  scrollbar-color: hsl(var(--secondary) / 0.6) transparent;
   scroll-padding-top: 8px;
+  transition: scrollbar-color 0.3s ease;
 }
 .portfolio-preview-box--wide {
   aspect-ratio: 16 / 10;
 }
-.portfolio-preview-box::-webkit-scrollbar { width: 8px; }
-.portfolio-preview-box::-webkit-scrollbar-track {
+.portfolio-preview-box::-webkit-scrollbar {
+  width: 6px;
   background: transparent;
-  margin: 6px 0; /* keep scroll-thumb away from rounded card edges */
 }
 .portfolio-preview-box::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: transparent;
   border-radius: 9999px;
+  transition: background-color 0.3s ease;
 }
-.portfolio-preview-box::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+/* Reveal scroll indicator only on hover / touch (mobile fallback) */
+.portfolio-card:hover .portfolio-preview-box,
+.portfolio-preview-box:focus-within,
+.portfolio-preview-box:active {
+  scrollbar-width: thin;
+}
+.portfolio-card:hover .portfolio-preview-box::-webkit-scrollbar-thumb,
+.portfolio-preview-box:focus-within::-webkit-scrollbar-thumb,
+.portfolio-preview-box:active::-webkit-scrollbar-thumb {
+  background: hsl(var(--secondary) / 0.6);
 }
 .portfolio-preview-box img {
   width: 100%;

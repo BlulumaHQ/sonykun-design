@@ -74,27 +74,28 @@ const Header = () => {
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-border shadow-sm"
-          : "bg-background/95 backdrop-blur-sm border-transparent"
+          ? "bg-background/90 backdrop-blur-sm border-b border-border/60"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div
         className={`container-wide flex items-center justify-between transition-[height] duration-300 ${
-          scrolled ? "h-16 md:h-20" : "h-24 md:h-28"
+          scrolled ? "h-14 md:h-16" : "h-20 md:h-24"
         }`}
       >
         <Link to="/" className="flex items-center">
           <motion.img
             src={logo}
             alt="Sonykun Design"
-            className={`transition-[height] duration-300 ${scrolled ? "h-10 md:h-12" : "h-14 md:h-[75px]"}`}
+            className={`transition-[height] duration-300 ${scrolled ? "h-8 md:h-10" : "h-10 md:h-12"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.5 }}
           />
         </Link>
+
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -117,7 +118,7 @@ const Header = () => {
                     onClick={() => setWorkOpen((v) => !v)}
                     aria-haspopup="menu"
                     aria-expanded={workOpen}
-                    className={`group relative inline-flex items-center gap-1 text-sm font-medium tracking-wide transition-colors ${
+                    className={`group relative inline-flex items-center gap-1 text-[11px] uppercase font-medium tracking-[0.2em] transition-colors ${
                       isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                     }`}
                   >
@@ -184,7 +185,7 @@ const Header = () => {
                 <NavLink
                   to={link.href}
                   end={link.href === "/"}
-                  className={`group relative inline-block text-sm font-medium tracking-wide transition-colors ${
+                  className={`group relative inline-block text-[11px] uppercase font-medium tracking-[0.2em] transition-colors ${
                     isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
