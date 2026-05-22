@@ -118,7 +118,7 @@ const Header = () => {
                     onClick={() => setWorkOpen((v) => !v)}
                     aria-haspopup="menu"
                     aria-expanded={workOpen}
-                    className={`group relative inline-flex items-center gap-1 text-sm font-medium tracking-wide transition-colors ${
+                    className={`group relative inline-flex items-center gap-1 text-[11px] uppercase font-medium tracking-[0.2em] transition-colors ${
                       isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                     }`}
                   >
@@ -185,7 +185,7 @@ const Header = () => {
                 <NavLink
                   to={link.href}
                   end={link.href === "/"}
-                  className={`group relative inline-block text-sm font-medium tracking-wide transition-colors ${
+                  className={`group relative inline-block text-[11px] uppercase font-medium tracking-[0.2em] transition-colors ${
                     isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
