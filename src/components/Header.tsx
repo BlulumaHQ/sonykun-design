@@ -82,14 +82,14 @@ const Header = () => {
     >
       <div
         className={`container-wide flex items-center justify-between transition-[height] duration-300 ${
-          scrolled ? "h-14 md:h-16" : "h-20 md:h-24"
+          scrolled ? "h-16 md:h-20" : "h-24 md:h-28"
         }`}
       >
         <Link to="/" className="flex items-center">
           <motion.img
             src={logo}
             alt="Sonykun Design"
-            className={`transition-[height] duration-300 w-auto ${scrolled ? "h-11 md:h-14" : "h-14 md:h-16"}`}
+            className={`transition-[height] duration-300 w-auto ${scrolled ? "h-14 md:h-16" : "h-16 md:h-20"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.5 }}
