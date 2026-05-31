@@ -27,7 +27,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between gap-10">
           <div className="max-w-sm">
             <Link to="/" className="inline-block">
-              <img src={logo} alt="Sonykun Design" className="h-12 md:h-14 mb-4" />
+              <img src={logo} alt="Sonykun Design" className="h-16 md:h-20 w-auto mb-4" />
             </Link>
             <p className="text-sm text-muted-foreground leading-[1.7] mb-4">
               {lang === "zh"

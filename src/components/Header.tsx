@@ -89,7 +89,7 @@ const Header = () => {
           <motion.img
             src={logo}
             alt="Sonykun Design"
-            className={`transition-[height] duration-300 ${scrolled ? "h-8 md:h-10" : "h-10 md:h-12"}`}
+            className={`transition-[height] duration-300 w-auto ${scrolled ? "h-11 md:h-14" : "h-14 md:h-16"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.5 }}
