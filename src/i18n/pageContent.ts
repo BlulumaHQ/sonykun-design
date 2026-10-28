@@ -106,10 +106,10 @@ export const homeContent = {
       {
         title: { en: "Website + Brand Bundle", zh: "網站 + 品牌套裝" },
         body: {
-          en: "Get your website and logo designed together and save. Our most popular option for businesses launching from scratch.",
-          zh: "網站與 Logo 一起設計，更划算。從零開始的客戶最常選擇的方案。",
+          en: "Your website and brand identity designed together as one integrated project. Our most popular option for businesses launching from scratch.",
+          zh: "網站與品牌識別作為一個整合專案一起設計。從零開始的客戶最常選擇的方案。",
         },
-        price: { en: "From $599 CAD — save $125", zh: "起價 $599 加幣 — 省 $125" },
+        price: { en: "From $599 CAD", zh: "起價 $599 加幣" },
         link: { en: "See bundle packages →", zh: "查看套裝方案 →" },
         href: "/pricing",
         badge: { en: "Best Value", zh: "最佳價值" },
@@ -120,7 +120,7 @@ export const homeContent = {
           en: "We handle all technical details — hosting, domain setup, transfers, and ongoing maintenance. You don't touch a thing.",
           zh: "主機、網域、轉移與維護所有技術細節由我們處理。您完全不需要動手。",
         },
-        price: { en: "Free hosting available · Managed from $15/mo", zh: "提供免費主機 · 代管自 $15/月起" },
+        price: { en: "Free hosting available · Managed $16.50/mo", zh: "提供免費主機 · 代管 $16.50/月" },
         link: { en: "Learn more →", zh: "了解更多 →" },
         href: "/pricing",
       },
@@ -135,8 +135,8 @@ export const homeContent = {
     eyebrow: { en: "Most Popular Package", zh: "最受歡迎方案" },
     title: { en: "Business Bundle — $899 CAD", zh: "商業套裝 — $899 加幣" },
     body: {
-      en: "Business Website (up to 7 pages) + Logo Growth package. Normally $1,149 — save $250. Everything you need to launch your business professionally.",
-      zh: "商業網站（最多 7 頁）+ Logo Growth 方案。原價 $1,149 — 省 $250。專業上線所需的一切。",
+      en: "A professional website and cohesive identity for your growing business — Business Website (up to 7 pages) with the Growth Logo package, designed together.",
+      zh: "為成長中的業務打造專業網站與一致的品牌識別 — 商業網站（最多 7 頁）搭配 Growth Logo 方案，整合設計。",
     },
     checklist: {
       en: [
@@ -324,14 +324,13 @@ export const servicesContent = {
   bundles: {
     title: { en: "Website + Brand Bundles", zh: "網站 + 品牌套裝" },
     body: {
-      en: "Get your website and logo designed together in one streamlined project. Bundles save you money and ensure your website and brand identity are designed to work together from the start.",
-      zh: "在一個專案中同時設計網站與 Logo。套裝幫您省錢，並確保網站與品牌從一開始就完美搭配。",
+      en: "Get your website and logo designed together in one streamlined project. Bundles are integrated packages that ensure your website and brand identity are designed to work together from the start.",
+      zh: "在一個專案中同時設計網站與 Logo。套裝是整合式方案，確保網站與品牌從一開始就完美搭配。",
     },
     cards: [
       {
         title: { en: "Starter Bundle", zh: "入門套裝" },
         price: "$599 CAD",
-        save: { en: "Save $125 (normally $724)", zh: "省 $125（原價 $724）" },
         items: {
           en: [
             "Basic Website (up to 5 pages)",
@@ -344,7 +343,6 @@ export const servicesContent = {
       {
         title: { en: "Business Bundle", zh: "商業套裝" },
         price: "$899 CAD",
-        save: { en: "Save $250 (normally $1,149)", zh: "省 $250（原價 $1,149）" },
         items: {
           en: [
             "Business Website (up to 7 pages)",
@@ -364,7 +362,6 @@ export const servicesContent = {
       {
         title: { en: "Brand Launch Bundle", zh: "品牌啟動套裝" },
         price: "$1,699 CAD",
-        save: { en: "Save $451 (normally $2,150)", zh: "省 $451（原價 $2,150）" },
         items: {
           en: [
             "Premium Website (up to 10 pages)",
@@ -417,10 +414,10 @@ export const servicesContent = {
         },
       },
       managed: {
-        title: { en: "Managed Hosting — $15/month or $135/year", zh: "代管主機 — $15/月 或 $135/年" },
+        title: { en: "Managed Website Hosting — $16.50/month or $165/year", zh: "代管網站主機 — $16.50/月 或 $165/年" },
         body: {
-          en: "Full hosting management, basic maintenance, and small revision support included.",
-          zh: "完整主機管理、基本維護與小幅修改支援。",
+          en: "Full hosting management, basic maintenance, and small revision support included. Save $33 annually with yearly billing.",
+          zh: "完整主機管理、基本維護與小幅修改支援。年繳每年省 $33。",
         },
       },
     },
@@ -456,15 +453,15 @@ export const servicesContent = {
       {
         q: { en: "Do you offer ongoing support after the site launches?", zh: "上線後有持續支援嗎？" },
         a: {
-          en: "Yes. Our Managed Hosting plan at $15/month includes basic maintenance and small revision support. For larger updates, we're always available to quote on a per-project basis.",
-          zh: "有。代管主機方案每月 $15，包含基本維護與小幅修改。較大更新可依專案個別報價。",
+          en: "Yes. Our Managed Hosting plan at $16.50/month ($165/year) includes basic maintenance and small revision support. For larger updates, we're always available to quote on a per-project basis.",
+          zh: "有。代管主機方案每月 $16.50（或每年 $165），包含基本維護與小幅修改。較大更新可依專案個別報價。",
         },
       },
       {
         q: { en: "What's the difference between the bundle packages and buying separately?", zh: "套裝與分開購買有什麼差別？" },
         a: {
-          en: "The bundles are the same services — just discounted when purchased together. The Business Bundle, for example, saves you $250 versus buying the Business Website and Logo Growth packages separately. Plus, designing both together means the branding and website look cohesive from the start.",
-          zh: "套裝就是相同服務 — 一起購買享折扣。例如商業套裝比分開買商業網站與 Logo Growth 省 $250。同時設計也讓品牌與網站從一開始就一致。",
+          en: "Bundles are integrated service packages, not just two services combined. Along with the website and logo packages, they include extra work to coordinate your brand colours, typography, and homepage presentation so your website and brand feel like one cohesive experience from the start.",
+          zh: "套裝是整合式服務方案，不只是兩項服務的組合。除了網站與 Logo 方案外，還包含協調品牌配色、字體與首頁呈現的額外工作，讓網站與品牌從一開始就是一致的整體體驗。",
         },
       },
     ],
@@ -586,12 +583,11 @@ export const pricingContent = {
   },
   bundles: {
     title: { en: "Website + Brand Bundles", zh: "網站 + 品牌套裝" },
-    body: { en: "Save when you combine a website and logo into one project.", zh: "網站與 Logo 一起購買享優惠。" },
+    body: { en: "Website and brand identity designed together as one integrated project.", zh: "網站與品牌識別作為一個整合專案一起設計。" },
     cards: [
       {
         title: { en: "Starter Bundle", zh: "入門套裝" },
         price: "$599 CAD",
-        save: { en: "Save $125", zh: "省 $125" },
         items: {
           en: ["Basic Website (up to 5 pages)", "Logo Basic (3 concepts, vector files)"],
           zh: ["基本網站（最多 5 頁）", "Logo Basic（3 個概念、向量檔）"],
@@ -600,7 +596,6 @@ export const pricingContent = {
       {
         title: { en: "Business Bundle", zh: "商業套裝" },
         price: "$899 CAD",
-        save: { en: "Save $250", zh: "省 $250" },
         items: {
           en: [
             "Business Website (up to 7 pages)",
@@ -620,7 +615,6 @@ export const pricingContent = {
       {
         title: { en: "Brand Launch Bundle", zh: "品牌啟動套裝" },
         price: "$1,699 CAD",
-        save: { en: "Save $451", zh: "省 $451" },
         items: {
           en: [
             "Premium Website (up to 10 pages)",
@@ -680,12 +674,16 @@ export const pricingContent = {
     },
     managed: {
       title: { en: "Managed Hosting", zh: "代管主機" },
-      price: { en: "$15/month or $135/year", zh: "$15/月 或 $135/年" },
+      price: { en: "$16.50/month or $165/year", zh: "$16.50/月 或 $165/年" },
       features: {
         en: ["Hosting management", "Basic maintenance", "Small revision support"],
         zh: ["主機管理", "基本維護", "小幅修改支援"],
       },
-      note: { en: "Save $45 with annual billing", zh: "年繳省 $45" },
+      note: { en: "Save $33 annually with yearly billing", zh: "年繳每年省 $33" },
+      ownership: {
+        en: "Upon final payment, you own your completed website and design assets. Your domain can be registered under your own account. Websites are initially deployed through Sonykun Design's hosting environment. If you decide to move to another provider, we can provide the complete website source files for migration to a compatible hosting environment. Third-party migration, setup, and ongoing maintenance are separate services.",
+        zh: "付清尾款後，完成的網站與設計素材歸您所有。網域可註冊在您自己的帳戶下。網站初期部署於 Sonykun Design 的主機環境。若您決定轉到其他供應商，我們可提供完整網站原始檔，以轉移至相容的主機環境。第三方轉移、設定與持續維護為另計服務。",
+      },
     },
   },
   addons: {
@@ -722,8 +720,8 @@ export const pricingContent = {
       {
         q: { en: "Are there any ongoing fees?", zh: "有任何持續費用嗎？" },
         a: {
-          en: "Free hosting is truly free — no monthly charges. Managed Hosting is $15/month or $135/year if you want us to handle maintenance and minor updates. There are no other mandatory recurring fees.",
-          zh: "免費主機是真的免費 — 沒有月費。若需要我們處理維護與小幅更新，可選擇代管主機 $15/月 或 $135/年。沒有其他強制性的持續費用。",
+          en: "Free hosting is truly free — no monthly charges. Managed Hosting is $16.50/month or $165/year (save $33 annually with yearly billing) if you want us to handle maintenance and minor updates. There are no other mandatory recurring fees.",
+          zh: "免費主機是真的免費 — 沒有月費。若需要我們處理維護與小幅更新，可選擇代管主機 $16.50/月 或 $165/年（年繳每年省 $33）。沒有其他強制性的持續費用。",
         },
       },
       {
