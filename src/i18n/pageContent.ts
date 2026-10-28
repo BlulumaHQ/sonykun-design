@@ -17,7 +17,7 @@ export interface ServiceCard {
 export interface BundleCard {
   title: Bi;
   price: string;
-  save: Bi;
+  subtitle: Bi;
   items: BiList;
   badge?: Bi;
 }
