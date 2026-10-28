@@ -99,7 +99,7 @@ const Terms = () => {
                 </h2>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                   <li>{isZh ? "我們的平台提供免費網站託管" : "Free website hosting is available on our platform"}</li>
-                  <li>{isZh ? "代管託管每月 $12 或每年 $100，包含基本維護和小幅修改支援" : "Managed hosting is available at $12/month or $100/year and includes basic maintenance and small revision support"}</li>
+                  <li>{isZh ? "代管託管每月 $16.50 或每年 $165，包含基本維護和小幅修改支援" : "Managed hosting is available at $16.50/month or $165/year and includes basic maintenance and small revision support"}</li>
                   <li>{isZh ? "客戶可以選擇將網站託管在自己的供應商上" : "Clients may choose to host their website with their own provider"}</li>
                   <li>{isZh ? "Sonykun Design 保留在未付費代管託管到期後停止託管服務的權利" : "Sonykun Design reserves the right to discontinue hosting for unpaid managed hosting accounts"}</li>
                 </ul>
