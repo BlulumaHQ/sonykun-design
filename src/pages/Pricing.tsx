@@ -134,7 +134,8 @@ const Pricing = () => {
                   <CardShell key={i} delay={i * 0.1} highlighted={!!card.badge} badge={card.badge?.[lang]}>
                   <h3 className="font-display text-xl font-bold text-foreground mb-2">{card.title[lang]}</h3>
                   <p className="font-display text-3xl font-bold text-foreground mb-1">{card.price}</p>
-                  <p className="text-xs text-secondary font-semibold uppercase tracking-wider mb-5">{card.save[lang]}</p>
+                  <p className="text-xs text-secondary font-semibold uppercase tracking-wider mb-2">{card.tagline[lang]}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-5">{card.subtitle[lang]}</p>
                   <ul className="space-y-2.5 flex-1">
                     {card.items[lang].map((it, j) => (
                       <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
@@ -157,20 +158,25 @@ const Pricing = () => {
               <h2 className="heading-section mb-4">{c.branding.title[lang]}</h2>
               <p className="text-body">{c.branding.body[lang]}</p>
             </motion.div>
-            <motion.p
-              {...fadeUp}
-              className="text-center text-xs uppercase tracking-[0.18em] text-muted-foreground mb-6"
-            >
-              {c.branding.addonsLabel[lang]}
-            </motion.p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-              {c.branding.cards.map((card, i) => (
-                <CardShell key={i} delay={i * 0.08}>
+              {c.branding.cards.map((rawCard, i) => {
+                const card = rawCard as typeof rawCard & { badge?: { en: string; zh: string } };
+                return (
+                <CardShell key={i} delay={i * 0.08} highlighted={!!card.badge} badge={card.badge?.[lang]}>
                   <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
-                  <p className="font-display text-3xl font-bold text-foreground mb-3">{card.price}</p>
-                  <p className="text-sm text-muted-foreground leading-[1.7] flex-1">{card.body[lang]}</p>
+                  <p className="font-display text-3xl font-bold text-foreground mb-1">{card.price} <span className="text-sm font-normal text-muted-foreground">CAD</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-4 mt-1">{card.subtitle[lang]}</p>
+                  <ul className="space-y-2.5 flex-1">
+                    {card.features[lang].map((f, j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardShell>
-              ))}
+                );
+              })}
             </div>
             <motion.p
               {...fadeUp}
@@ -207,6 +213,9 @@ const Pricing = () => {
                 <p className="text-xs text-secondary font-medium uppercase tracking-wider">{c.hosting.managed.note[lang]}</p>
               </CardShell>
             </div>
+            <motion.p {...fadeUp} className="text-sm text-muted-foreground leading-[1.7] max-w-3xl mx-auto mt-8 text-center">
+              {c.hosting.managed.ownership[lang]}
+            </motion.p>
           </div>
         </section>
 

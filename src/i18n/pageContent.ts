@@ -140,12 +140,12 @@ export const homeContent = {
     },
     checklist: {
       en: [
-        "Up to 7-page responsive website",
-        "Logo design with colour palette and typography",
-        "SEO-friendly structure",
-        "Free hosting included",
+        "Business Website package",
+        "Growth Logo package",
+        "Consistent brand colours and typography across the website",
+        "Mini brand style guide",
       ],
-      zh: ["最多 7 頁響應式網站", "Logo 設計含配色與字體", "SEO 友善結構", "包含免費主機"],
+      zh: ["商業網站方案", "Growth Logo 方案", "全站一致的品牌配色與字體", "迷你品牌風格指南"],
     },
     cta: { en: "Get This Bundle", zh: "選擇此套裝" },
   },

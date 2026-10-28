@@ -72,9 +72,9 @@ const TransparentPricing = () => {
               </h3>
             </div>
             <p className="text-3xl font-bold text-foreground mb-1">
-              $12<span className="text-base font-normal text-muted-foreground">{isZh ? "/月" : "/month"}</span>
+              $16.50<span className="text-base font-normal text-muted-foreground">{isZh ? "/月" : "/month"}</span>
             </p>
-            <p className="text-sm text-muted-foreground mb-4">{isZh ? "或 $100/年" : "or $100/year"}</p>
+            <p className="text-sm text-muted-foreground mb-4">{isZh ? "或 $165/年（省 $33）" : "or $165/year (save $33)"}</p>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="text-secondary mt-0.5">•</span> {isZh ? "託管管理" : "Hosting management"}

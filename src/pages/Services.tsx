@@ -155,7 +155,8 @@ const Services = () => {
                     )}
                     <h3 className="font-display text-xl font-bold text-foreground mb-2">{card.title[lang]}</h3>
                     <p className="font-display text-3xl font-bold text-foreground mb-1">{card.price}</p>
-                    <p className="text-xs text-secondary font-medium uppercase tracking-wider mb-5">{card.save[lang]}</p>
+                    <p className="text-xs text-secondary font-medium uppercase tracking-wider mb-2">{card.tagline[lang]}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-5">{card.subtitle[lang]}</p>
                     <ul className="space-y-2.5 flex-1">
                       {card.items[lang].map((it, j) => (
                         <li key={j} className="flex items-start gap-2.5 text-sm text-muted-foreground">
