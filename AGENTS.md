@@ -1,0 +1,4 @@
+# Architecture rules
+- Portfolio list and project detail routes use the read-only external `portfolio_feed` view filtered to `show_on` containing `sonykun`; keep the existing home and case-study data independent to avoid unrelated page changes.
+- Resolve `/portfolio/:category` against feed categories before project slugs, and paginate lists at 20 items through URL routes so deep links and browser history work.
+- Feed portfolio screenshots use the isolated reference viewport styles: manual desktop scrolling, non-scrollable touch card previews, and scrollable detail phone previews; do not alter legacy home preview styles.

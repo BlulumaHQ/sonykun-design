@@ -524,3 +524,31 @@ body::before {
   flex-direction: column;
 }
 
+
+/* CMS portfolio reference system; isolated from existing homepage cards. */
+.feed-portfolio-card { transition: transform 250ms ease; }
+.portfolio-screenshot { position: relative; width: 100%; overflow: hidden; background: hsl(var(--muted)); }
+.portfolio-screenshot--card { aspect-ratio: 4 / 5; border: 1px solid hsl(var(--border)); border-radius: 0.75rem; box-shadow: 0 1px 3px hsl(var(--foreground) / 0.08); transition: box-shadow 250ms ease; }
+.portfolio-screenshot--phone { aspect-ratio: 9 / 19; border-radius: 1.75rem; background: hsl(var(--background)); }
+.portfolio-screenshot-screen { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: hsl(var(--foreground) / 0.18) transparent; }
+.portfolio-screenshot-screen::-webkit-scrollbar { width: 3px; }
+.portfolio-screenshot-screen::-webkit-scrollbar-track { background: transparent; }
+.portfolio-screenshot-screen::-webkit-scrollbar-thumb { border-radius: 999px; background: hsl(var(--foreground) / 0.18); }
+.portfolio-scroll-hint { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); pointer-events: none; white-space: nowrap; border-radius: 999px; padding: 4px 10px; background: hsl(var(--background) / 0.9); color: hsl(var(--foreground)); font-size: 12px; line-height: 1.5; box-shadow: 0 2px 8px hsl(var(--foreground) / 0.12); opacity: 0; transition: opacity 200ms ease; }
+.feed-portfolio-arrow { transition: transform 250ms ease; }
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  .feed-portfolio-card:hover { transform: translateY(-4px); }
+  .feed-portfolio-card:hover .portfolio-screenshot--card { box-shadow: 0 16px 36px -12px hsl(var(--foreground) / 0.2); }
+  .feed-portfolio-card:hover .feed-portfolio-arrow { transform: translateX(4px); }
+  .feed-portfolio-card:hover .portfolio-scroll-hint, .portfolio-screenshot--phone:hover .portfolio-scroll-hint { opacity: 1; }
+  .feed-portfolio-card:hover .portfolio-screenshot-screen, .portfolio-screenshot--phone:hover .portfolio-screenshot-screen { scrollbar-color: hsl(var(--foreground) / 0.4) transparent; }
+  .feed-portfolio-card:hover .portfolio-screenshot-screen::-webkit-scrollbar-thumb, .portfolio-screenshot--phone:hover .portfolio-screenshot-screen::-webkit-scrollbar-thumb { background: hsl(var(--foreground) / 0.4); }
+}
+@media (pointer: coarse), (max-width: 767px) {
+  .portfolio-screenshot--card .portfolio-screenshot-screen { overflow: hidden; overscroll-behavior: auto; touch-action: pan-y; }
+  .portfolio-scroll-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .feed-portfolio-card, .portfolio-screenshot--card, .feed-portfolio-arrow, .portfolio-scroll-hint { transition: none; }
+  .feed-portfolio-card:hover, .feed-portfolio-card:hover .feed-portfolio-arrow { transform: none; }
+}
