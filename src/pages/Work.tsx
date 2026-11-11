@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import FeedPortfolioCard from "@/components/FeedPortfolioCard";
 import { PortfolioProjectContent } from "@/pages/ProjectDetail";
 import { Button } from "@/components/ui/button";
-import { feedCategories, paginatePortfolio, resolvePortfolioPath, usePortfolioFeed } from "@/lib/portfolioFeed";
+import { feedCategories, feedItemCategories, paginatePortfolio, resolvePortfolioPath, usePortfolioFeed } from "@/lib/portfolioFeed";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Work = () => {
@@ -16,7 +16,7 @@ const Work = () => {
   const resolved = resolvePortfolioPath(items, segment);
   const categories = feedCategories(items);
   const category = resolved.kind === "list" ? resolved.category : null;
-  const filtered = category ? items.filter((item) => item.category === category.name) : items;
+  const filtered = category ? items.filter((item) => feedItemCategories(item).includes(category.name)) : items;
   const pagination = paginatePortfolio(filtered, pageParam);
   const base = category ? `/portfolio/${category.slug}` : "/portfolio";
   const pageUrl = (page: number) => page === 1 ? base : `${base}/page/${page}`;

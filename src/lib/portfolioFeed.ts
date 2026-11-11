@@ -23,12 +23,13 @@ export interface FeedItem {
   services: string[] | null;
   project_year: string | null;
   category: string | null;
+  categories: string[] | null;
   homepage_full_url: string | null;
   gallery: GalleryItem[] | null;
 }
 
 export const categorySlug = (name: string) => name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const COLS = "id,title,slug,excerpt,featured_image_url,is_featured,sort_order,show_on,publish_date,live_url,services,project_year,category,homepage_full_url,gallery";
+const COLS = "id,title,slug,excerpt,featured_image_url,is_featured,sort_order,show_on,publish_date,live_url,services,project_year,category,categories,homepage_full_url,gallery";
 export const PORTFOLIO_PAGE_SIZE = 20;
 let feedPromise: Promise<FeedItem[]> | undefined;
 
@@ -69,10 +70,14 @@ export function usePortfolioFeed() {
   return { items, loading, error };
 }
 
+export function feedItemCategories(item: FeedItem): string[] {
+  return item.categories?.length ? [...new Set(item.categories)] : item.category ? [item.category] : [];
+}
+
 export function feedCategories(items: FeedItem[]) {
   const counts = new Map<string, number>();
   items.forEach((item) => {
-    if (item.category) counts.set(item.category, (counts.get(item.category) ?? 0) + 1);
+    feedItemCategories(item).forEach((name) => counts.set(name, (counts.get(name) ?? 0) + 1));
   });
   return [...counts].map(([name, count]) => ({ name, slug: categorySlug(name), count }))
     .sort((a, b) => a.name.localeCompare(b.name));
