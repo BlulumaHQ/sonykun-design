@@ -25,7 +25,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
     const form = e.currentTarget;
     const data = new FormData(form);
     try {
-      const res = await fetch("https://formspree.io/f/mdawoadr", {
+      const res = await fetch("/.netlify/functions/contact", {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
