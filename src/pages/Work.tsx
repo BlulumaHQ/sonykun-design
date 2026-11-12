@@ -7,6 +7,7 @@ import { PortfolioProjectContent } from "@/pages/ProjectDetail";
 import { Button } from "@/components/ui/button";
 import { feedCategories, feedItemCategories, paginatePortfolio, resolvePortfolioPath, usePortfolioFeed } from "@/lib/portfolioFeed";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { categoryZhLookup } from "@/lib/feedLabels";
 
 const Work = () => {
   const { category: segment, page: pageParam } = useParams();
@@ -15,27 +16,37 @@ const Work = () => {
   const zh = lang === "zh";
   const resolved = resolvePortfolioPath(items, segment);
   const categories = feedCategories(items);
+  const catLabel = categoryZhLookup(items);
   const category = resolved.kind === "list" ? resolved.category : null;
   const filtered = category ? items.filter((item) => feedItemCategories(item).includes(category.name)) : items;
   const pagination = paginatePortfolio(filtered, pageParam);
   const base = category ? `/portfolio/${category.slug}` : "/portfolio";
   const pageUrl = (page: number) => page === 1 ? base : `${base}/page/${page}`;
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, [segment, pageParam]);
-  const listTitle = resolved.kind === "list" ? (category ? category.name : "") : null;
+  const listTitle = resolved.kind === "list" ? (category ? catLabel(category.name, lang) : "") : null;
   useEffect(() => {
     if (listTitle === null || loading) return;
-    const pageSuffix = pagination.page > 1 ? ` — Page ${pagination.page}` : "";
-    const title = listTitle
-      ? `${listTitle} Website Design Portfolio${pageSuffix} | Sonykun Design`
-      : `Website Design Portfolio${pageSuffix} | Sonykun Design Vancouver`;
-    const description = listTitle
-      ? `Browse ${filtered.length} ${listTitle} websites designed and built by Sonykun Design in Vancouver.`
-      : `Browse ${items.length}+ small business websites designed and built by Sonykun Design in Vancouver, BC.`;
+    const pageSuffix = pagination.page > 1 ? (zh ? `（第 ${pagination.page} 頁）` : ` — Page ${pagination.page}`) : "";
+    // Keep in sync with scripts/prerenderPlugin.ts (portfolioPages).
+    const title = zh
+      ? listTitle
+        ? `${listTitle}網站設計作品${pageSuffix}｜Sonykun Design`
+        : `網站設計作品集${pageSuffix}｜Sonykun Design 溫哥華`
+      : listTitle
+        ? `${listTitle} Website Design Portfolio${pageSuffix} | Sonykun Design`
+        : `Website Design Portfolio${pageSuffix} | Sonykun Design Vancouver`;
+    const description = zh
+      ? listTitle
+        ? `瀏覽 Sonykun Design 為${listTitle}產業打造的 ${filtered.length} 個網站作品。`
+        : `瀏覽 Sonykun Design 在溫哥華為中小企業打造的 ${items.length}+ 個網站作品。`
+      : listTitle
+        ? `Browse ${filtered.length} ${listTitle} websites designed and built by Sonykun Design in Vancouver.`
+        : `Browse ${items.length}+ small business websites designed and built by Sonykun Design in Vancouver, BC.`;
     document.title = title;
     document.head.querySelector('meta[name="description"]')?.setAttribute("content", description);
     document.head.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
     document.head.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
-  }, [listTitle, loading, pagination.page, filtered.length, items.length]);
+  }, [listTitle, loading, pagination.page, filtered.length, items.length, zh]);
   const rowClass = (active: boolean) => `flex items-center justify-between gap-3 border-l-2 py-2.5 pl-4 pr-3 text-sm ${active ? "border-primary bg-primary/5 font-medium text-foreground" : "border-transparent text-muted-foreground hover:border-border"}`;
   const invalid = resolved.kind === "not-found" || (resolved.kind === "detail" && pageParam !== undefined) || !pagination.valid;
   return (
@@ -49,9 +60,9 @@ const Work = () => {
             <section className="section-padding"><div className="container-wide">
               <nav aria-label={zh ? "麵包屑導覽" : "Breadcrumb"} className="mb-8 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                 <Link to="/">{zh ? "首頁" : "Home"}</Link><span aria-hidden="true">›</span><Link to="/portfolio">{zh ? "作品集" : "Portfolio"}</Link>
-                {category && <><span aria-hidden="true">›</span><span aria-current="page">{category.name}</span></>}
+                {category && <><span aria-hidden="true">›</span><span aria-current="page">{catLabel(category.name, lang)}</span></>}
               </nav>
-              <h1 className="heading-hero mb-6">{category ? (zh ? `${category.name} 作品集` : `${category.name} Portfolio`) : (zh ? "所有網站作品" : "All Portfolio Projects")}</h1>
+              <h1 className="heading-hero mb-6">{category ? (zh ? `${catLabel(category.name, lang)} 作品集` : `${category.name} Portfolio`) : (zh ? "所有網站作品" : "All Portfolio Projects")}</h1>
               <p className="text-body max-w-2xl">{zh ? "依產業瀏覽 Sonykun Design 的所有客戶網站。" : "Browse every Sonykun Design client website by industry."}</p>
             </div></section>
             <section className="section-padding pt-0"><div className="mx-auto w-full max-w-[1880px] px-6 sm:px-8 md:px-12 lg:px-20">
@@ -60,7 +71,7 @@ const Work = () => {
                   <p className="mb-4 text-xs uppercase text-muted-foreground">{zh ? "作品集" : "Portfolio"}</p>
                   <nav aria-label={zh ? "作品分類" : "Portfolio categories"}>
                     <Link to="/portfolio" aria-current={!category ? "page" : undefined} className={rowClass(!category)}><span>{zh ? "全部作品" : "All Projects"}</span><span>{items.length}</span></Link>
-                    {categories.map((entry) => <Link key={entry.slug} to={`/portfolio/${entry.slug}`} aria-current={category?.slug === entry.slug ? "page" : undefined} className={rowClass(category?.slug === entry.slug)}><span>{entry.name}</span><span>{entry.count}</span></Link>)}
+                    {categories.map((entry) => <Link key={entry.slug} to={`/portfolio/${entry.slug}`} aria-current={category?.slug === entry.slug ? "page" : undefined} className={rowClass(category?.slug === entry.slug)}><span>{catLabel(entry.name, lang)}</span><span>{entry.count}</span></Link>)}
                   </nav>
                 </aside>
                 <div className="min-w-0">

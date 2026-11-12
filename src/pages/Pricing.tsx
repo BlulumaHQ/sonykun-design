@@ -8,7 +8,7 @@ import FaqAccordion from "@/components/FaqAccordion";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { pricingContent, pageMeta } from "@/i18n/pageContent";
+import { pricingContent, pageMeta, pageMetaZh } from "@/i18n/pageContent";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
 const fadeUp = {
@@ -49,9 +49,8 @@ const Pricing = () => {
   const { lang } = useLanguage();
   const c = pricingContent;
   usePageMeta({
-    title: pageMeta.pricing.title,
-    description: pageMeta.pricing.description,
-    canonical: "https://sonykundesign.com/pricing",
+    title: (lang === "zh" ? pageMetaZh : pageMeta).pricing.title,
+    description: (lang === "zh" ? pageMetaZh : pageMeta).pricing.description,
   });
 
   return (

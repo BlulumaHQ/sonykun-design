@@ -8,7 +8,7 @@ import FaqAccordion from "@/components/FaqAccordion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { servicesContent, pageMeta } from "@/i18n/pageContent";
+import { servicesContent, pageMeta, pageMetaZh } from "@/i18n/pageContent";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
 const fadeUp = {
@@ -22,9 +22,8 @@ const Services = () => {
   const { lang } = useLanguage();
   const c = servicesContent;
   usePageMeta({
-    title: pageMeta.services.title,
-    description: pageMeta.services.description,
-    canonical: "https://sonykundesign.com/services",
+    title: (lang === "zh" ? pageMetaZh : pageMeta).services.title,
+    description: (lang === "zh" ? pageMetaZh : pageMeta).services.description,
   });
 
   const ServiceBlock = ({

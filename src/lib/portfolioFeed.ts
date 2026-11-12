@@ -24,12 +24,13 @@ export interface FeedItem {
   project_year: string | null;
   category: string | null;
   categories: string[] | null;
+  categories_zh?: string[] | null;
   homepage_full_url: string | null;
   gallery: GalleryItem[] | null;
 }
 
 export const categorySlug = (name: string) => name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const COLS = "id,title,slug,excerpt,featured_image_url,is_featured,sort_order,show_on,publish_date,live_url,services,project_year,category,categories,homepage_full_url,gallery";
+const COLS = "id,title,slug,excerpt,featured_image_url,is_featured,sort_order,show_on,publish_date,live_url,services,project_year,category,categories,categories_zh,homepage_full_url,gallery";
 export const PORTFOLIO_PAGE_SIZE = 20;
 let feedPromise: Promise<FeedItem[]> | undefined;
 

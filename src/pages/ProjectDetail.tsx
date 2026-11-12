@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import PortfolioScreenshotViewport from "@/components/PortfolioScreenshotViewport";
 import { Button } from "@/components/ui/button";
 import { categorySlug, usePortfolioFeed, type FeedItem } from "@/lib/portfolioFeed";
+import { serviceLabel } from "@/lib/feedLabels";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 export const PortfolioProjectContent = ({ item }: { item: FeedItem }) => {
@@ -14,11 +15,13 @@ export const PortfolioProjectContent = ({ item }: { item: FeedItem }) => {
   const pages = (item.gallery ?? []).filter((image) => image.type === "page_screenshot");
   const mobiles = (item.gallery ?? []).filter((image) => image.type === "mobile_screenshot");
   useEffect(() => {
-    const title = `${item.title} — Website Design | Sonykun Design Portfolio`;
-    const services = (item.services ?? []).filter(Boolean).join(", ") || "Website Design";
-    const description =
-      item.excerpt?.trim() ||
-      `${item.title} website designed and built by Sonykun Design${item.category ? ` (${item.category})` : ""}. Services: ${services}.`;
+    // Keep in sync with scripts/prerenderPlugin.ts (portfolioPages).
+    const cat = zh ? item.categories_zh?.[0] ?? item.category : item.categories?.[0] ?? item.category;
+    const svc = (item.services ?? []).filter(Boolean).map((sv) => serviceLabel(sv, lang));
+    const title = zh ? `${item.title}｜網站設計作品｜Sonykun Design` : `${item.title} — Website Design | Sonykun Design Portfolio`;
+    const description = zh
+      ? `Sonykun Design 為 ${item.title} 打造的網站作品${cat ? `（${cat}）` : ""}。服務內容：${svc.join("、") || "網站設計"}。`
+      : item.excerpt?.trim() || `${item.title} website designed and built by Sonykun Design${cat ? ` (${cat})` : ""}. Services: ${svc.join(", ") || "Website Design"}.`;
     document.title = title;
     const set = (attr: "name" | "property", key: string, value: string) => {
       let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -34,7 +37,7 @@ export const PortfolioProjectContent = ({ item }: { item: FeedItem }) => {
     set("property", "og:description", description);
     const image = item.featured_image_url || item.homepage_full_url;
     if (image) set("property", "og:image", image);
-  }, [item]);
+  }, [item, zh, lang]);
   return (
     <>
       <section className="section-padding">
@@ -42,13 +45,13 @@ export const PortfolioProjectContent = ({ item }: { item: FeedItem }) => {
           <nav aria-label={zh ? "麵包屑導覽" : "Breadcrumb"} className="mb-8 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <Link to="/">{zh ? "首頁" : "Home"}</Link><span aria-hidden="true">›</span>
             <Link to="/portfolio">{zh ? "作品集" : "Portfolio"}</Link>
-            {item.category && <><span aria-hidden="true">›</span><Link to={`/portfolio/${categorySlug(item.category)}`}>{item.category}</Link></>}
+            {item.category && <><span aria-hidden="true">›</span><Link to={`/portfolio/${categorySlug(item.category)}`}>{zh ? item.categories_zh?.[0] ?? item.category : item.category}</Link></>}
             <span aria-hidden="true">›</span><span aria-current="page">{item.title}</span>
           </nav>
           <div className="grid items-start gap-10 lg:grid-cols-[1fr,1.3fr]">
             <div className="min-w-0">
               <h1 className="heading-hero mb-6">{item.title}</h1>
-              <div className="mb-8 flex flex-wrap gap-2">{(item.services ?? []).map((service) => <span key={service} className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">{service}</span>)}</div>
+              <div className="mb-8 flex flex-wrap gap-2">{(item.services ?? []).map((service) => <span key={service} className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">{serviceLabel(service, lang)}</span>)}</div>
               {item.live_url && <Button asChild><a href={item.live_url} target="_blank" rel="noopener noreferrer">{zh ? "瀏覽網站" : "Visit Website"}<ExternalLink /></a></Button>}
             </div>
             {item.featured_image_url && <img src={item.featured_image_url} alt={item.title} decoding="async" className="block h-auto w-full rounded-xl border border-border shadow-md" />}

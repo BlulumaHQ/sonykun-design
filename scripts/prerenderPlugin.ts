@@ -6,14 +6,17 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Plugin, ResolvedConfig } from "vite";
 import { NOINDEX, ROUTE_META, SITE } from "../src/lib/seoRoutes";
-import { pageMeta } from "../src/i18n/pageContent";
+import { pageMeta, pageMetaZh } from "../src/i18n/pageContent";
+import { HREFLANG, localizePath, type UrlLang as Lang } from "../src/lib/locale";
 
 const CMS_URL = "https://uzdjwpkgldzhnoxjeyrw.supabase.co";
 const CMS_KEY = "sb_publishable_ifsg2zxajGqu19GsJ2X4RQ_KHBHGIvi"; // public, read-only (RLS)
 const DEFAULT_IMAGE = `${SITE}/og/sonykun-og.jpg`;
 
 interface Page {
-  path: string;
+  path: string; // language-neutral
+  lang: Lang;
+  enOnly?: boolean; // English-only content: canonical to EN, no zh alternate
   title: string;
   description: string;
   image?: string;
@@ -25,12 +28,12 @@ interface Page {
 
 const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const abs = (p: string) => `${SITE}${p === "/" ? "/" : p}`;
+const abs = (p: string, lang: Lang = "en") => `${SITE}${localizePath(p, lang)}`;
 const catSlug = (name: string) =>
   name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-const crumbs = (items: { name: string; path: string }[]) => ({
+const crumbs = (lang: Lang, items: { name: string; path: string }[]) => ({
   "@type": "BreadcrumbList",
-  itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: abs(it.path) })),
+  itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: abs(it.path, lang) })),
 });
 
 const setTag = (html: string, re: RegExp, tag: string) =>
@@ -40,7 +43,8 @@ function render(template: string, p: Page) {
   const t = esc(p.title);
   const d = esc(p.description);
   const img = esc(p.image ?? DEFAULT_IMAGE);
-  let html = template;
+  const canonical = abs(p.path, p.enOnly ? "en" : p.lang);
+  let html = template.replace(/<html lang="[^"]*">/, `<html lang="${p.lang === "zh" ? "zh-Hant" : "en"}">`);
   html = setTag(html, /<title>[\s\S]*?<\/title>/, `<title>${t}</title>`);
   html = setTag(html, /<meta name="description"[^>]*>/, `<meta name="description" content="${d}">`);
   html = setTag(html, /<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${t}">`);
@@ -49,8 +53,15 @@ function render(template: string, p: Page) {
   html = setTag(html, /<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${d}">`);
   html = setTag(html, /<meta property="og:image"[^>]*>/, `<meta property="og:image" content="${img}">`);
   html = setTag(html, /<meta name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${img}">`);
-  html = setTag(html, /<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${abs(p.path)}">`);
-  html = setTag(html, /<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${abs(p.path)}">`);
+  html = setTag(html, /<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${canonical}">`);
+  html = setTag(html, /<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${canonical}">`);
+  const alternates = [
+    `<link rel="alternate" hreflang="${HREFLANG.en}" href="${abs(p.path, "en")}">`,
+    ...(p.enOnly ? [] : [`<link rel="alternate" hreflang="${HREFLANG.zh}" href="${abs(p.path, "zh")}">`]),
+    `<link rel="alternate" hreflang="x-default" href="${abs(p.path, "en")}">`,
+    `<meta property="og:locale" content="${p.lang === "zh" ? "zh_TW" : "en_CA"}">`,
+  ].join("\n  ");
+  html = html.replace("</head>", `  ${alternates}\n</head>`);
   if (p.jsonLd?.length) {
     const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": p.jsonLd }).replace(/</g, "\\u003c");
     html = html.replace("</head>", `  <script type="application/ld+json">${ld}</script>\n</head>`);
@@ -60,33 +71,35 @@ function render(template: string, p: Page) {
 }
 
 function staticPages(root: string): Page[] {
-  const pages: Page[] = [
-    { path: "/", ...pageMeta.home, priority: 1 },
-    { path: "/services", ...pageMeta.services, priority: 0.8 },
-    { path: "/pricing", ...pageMeta.pricing, priority: 0.8 },
-    {
-      path: "/portfolio",
-      title: "Website Design Portfolio | Sonykun Design Vancouver",
-      description: "Browse small business websites designed and built by Sonykun Design in Vancouver, BC.",
-      priority: 0.9,
-    },
-  ];
-  for (const [p, m] of Object.entries(ROUTE_META)) {
-    if (!NOINDEX.has(p)) pages.push({ path: p, ...m, priority: p === "/contact" ? 0.8 : 0.4 });
+  const pages: Page[] = [];
+  for (const lang of ["en", "zh"] as Lang[]) {
+    const pm = lang === "zh" ? pageMetaZh : pageMeta;
+    pages.push(
+      { path: "/", lang, ...pm.home, priority: 1 },
+      { path: "/services", lang, ...pm.services, priority: 0.8 },
+      { path: "/pricing", lang, ...pm.pricing, priority: 0.8 },
+    );
+    for (const [p, m] of Object.entries(ROUTE_META)) {
+      if (NOINDEX.has(p)) continue;
+      pages.push({ path: p, lang, ...m[lang], priority: p === "/portfolio" ? 0.9 : p === "/contact" ? 0.8 : 0.4 });
+    }
   }
-  // Case studies: read slug/name/subtitle/overview from the data file (it imports images, so parse it).
+  // Case studies (English-only content): read slug/name/subtitle/overview from the data file.
   const src = fs.readFileSync(path.join(root, "src/data/caseStudies.ts"), "utf8");
   const re = /slug:\s*"([^"]+)",\s*name:\s*"([^"]+)",\s*subtitle:\s*"([^"]+)",[\s\S]*?overview:\s*\n?\s*"([^"]+)"/g;
   for (const m of src.matchAll(re)) {
     const [, slug, name, subtitle, raw] = m;
     const overview = raw.replace(/\\n/g, " ").replace(/\s+/g, " ").trim();
     const description = overview.length > 160 ? `${overview.slice(0, 157).trimEnd()}…` : overview;
+    const p = `/case-study/${slug}`;
     pages.push({
-      path: `/case-study/${slug}`,
+      path: p,
+      lang: "en",
+      enOnly: true,
       title: `${name} Case Study — ${subtitle} | Sonykun Design`,
       description,
       priority: 0.7,
-      jsonLd: [crumbs([{ name: "Home", path: "/" }, { name: "Case Studies", path: "/case-study" }, { name, path: `/case-study/${slug}` }])],
+      jsonLd: [crumbs("en", [{ name: "Home", path: "/" }, { name: "Case Studies", path: "/case-study" }, { name, path: p }])],
     });
   }
   return pages;
@@ -100,6 +113,7 @@ interface FeedRow {
   homepage_full_url: string | null;
   services: string[] | null;
   categories: string[] | null;
+  categories_zh: string[] | null;
   category: string | null;
   publish_date: string | null;
 }
@@ -107,67 +121,98 @@ interface FeedRow {
 async function fetchPortfolio(): Promise<FeedRow[]> {
   const file = process.env.PRERENDER_PORTFOLIO_FILE; // local testing hook
   if (file) return JSON.parse(fs.readFileSync(file, "utf8")) as FeedRow[];
-  const cols = "title,slug,excerpt,featured_image_url,homepage_full_url,services,categories,category,publish_date";
+  const cols = "title,slug,excerpt,featured_image_url,homepage_full_url,services,categories,categories_zh,category,publish_date";
   const url = `${CMS_URL}/rest/v1/portfolio_feed?select=${cols}&show_on=cs.%7Bsonykun%7D&order=sort_order.asc.nullslast,publish_date.desc.nullslast`;
   const res = await fetch(url, { headers: { apikey: CMS_KEY, Authorization: `Bearer ${CMS_KEY}` }, signal: AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error(`portfolio_feed ${res.status}`);
   return (await res.json()) as FeedRow[];
 }
 
+const SERVICE_ZH: Record<string, string> = {
+  "Website Design": "網站設計",
+  "Logo Design": "Logo 設計",
+  Branding: "品牌設計",
+  "Marketing Materials": "行銷物料",
+};
+
 function portfolioPages(rows: FeedRow[]): Page[] {
   const pages: Page[] = [];
-  const cats = new Map<string, { name: string; items: FeedRow[] }>();
+  const cats = new Map<string, { name: string; zh: string; items: FeedRow[] }>();
+  const names = (r: FeedRow) => (r.categories?.length ? [...new Set(r.categories)] : r.category ? [r.category] : []);
   for (const r of rows) {
-    const names = r.categories?.length ? [...new Set(r.categories)] : r.category ? [r.category] : [];
-    for (const name of names) {
+    for (const name of names(r)) {
       const slug = catSlug(name);
-      const c = cats.get(slug) ?? { name, items: [] };
+      const i = r.categories?.indexOf(name) ?? -1;
+      const c = cats.get(slug) ?? { name, zh: (i >= 0 && r.categories_zh?.[i]) || name, items: [] };
       c.items.push(r);
       cats.set(slug, c);
     }
-    if (!r.slug) continue;
-    const cat = names[0];
-    const services = (r.services ?? []).filter(Boolean).join(", ") || "Website Design";
-    const description =
-      r.excerpt?.trim() || `${r.title} website designed and built by Sonykun Design${cat ? ` (${cat})` : ""}. Services: ${services}.`;
-    const p = `/portfolio/${r.slug}`;
-    const image = r.featured_image_url ?? r.homepage_full_url ?? undefined;
-    pages.push({
-      path: p,
-      title: `${r.title} — Website Design | Sonykun Design Portfolio`,
-      description,
-      image,
-      priority: 0.5,
-      lastmod: r.publish_date?.slice(0, 10),
-      body: `<main><h1>${esc(r.title)}</h1><p>${esc(description)}</p></main>`,
-      jsonLd: [
-        { "@type": "CreativeWork", name: r.title, description, url: abs(p), ...(image ? { image } : {}), creator: { "@type": "Organization", name: "Sonykun Design", url: SITE } },
-        crumbs([{ name: "Home", path: "/" }, { name: "Portfolio", path: "/portfolio" }, { name: r.title, path: p }]),
-      ],
-    });
   }
-  for (const [slug, c] of cats) {
-    const p = `/portfolio/${slug}`;
-    const links = c.items.map((r) => `<li><a href="/portfolio/${r.slug}">${esc(r.title)}</a></li>`).join("");
-    pages.push({
-      path: p,
-      title: `${c.name} Website Design Portfolio | Sonykun Design`,
-      description: `Browse ${c.items.length} ${c.name} websites designed and built by Sonykun Design in Vancouver.`,
-      priority: 0.6,
-      body: `<main><h1>${esc(c.name)} Website Design Portfolio</h1><ul>${links}</ul></main>`,
-      jsonLd: [crumbs([{ name: "Home", path: "/" }, { name: "Portfolio", path: "/portfolio" }, { name: c.name, path: p }])],
-    });
+  for (const lang of ["en", "zh"] as Lang[]) {
+    const zh = lang === "zh";
+    for (const r of rows) {
+      if (!r.slug) continue;
+      const cat = zh ? r.categories_zh?.[0] ?? names(r)[0] : names(r)[0];
+      const svc = (r.services ?? []).filter(Boolean).map((sv) => (zh ? SERVICE_ZH[sv] ?? sv : sv));
+      // Keep in sync with src/pages/ProjectDetail.tsx.
+      const title = zh ? `${r.title}｜網站設計作品｜Sonykun Design` : `${r.title} — Website Design | Sonykun Design Portfolio`;
+      const description = zh
+        ? `Sonykun Design 為 ${r.title} 打造的網站作品${cat ? `（${cat}）` : ""}。服務內容：${svc.join("、") || "網站設計"}。`
+        : r.excerpt?.trim() || `${r.title} website designed and built by Sonykun Design${cat ? ` (${cat})` : ""}. Services: ${svc.join(", ") || "Website Design"}.`;
+      const p = `/portfolio/${r.slug}`;
+      const image = r.featured_image_url ?? r.homepage_full_url ?? undefined;
+      pages.push({
+        path: p,
+        lang,
+        title,
+        description,
+        image,
+        priority: 0.5,
+        lastmod: r.publish_date?.slice(0, 10),
+        body: `<main><h1>${esc(r.title)}</h1><p>${esc(description)}</p></main>`,
+        jsonLd: [
+          { "@type": "CreativeWork", name: r.title, description, inLanguage: HREFLANG[lang], url: abs(p, lang), ...(image ? { image } : {}), creator: { "@type": "Organization", name: "Sonykun Design", url: SITE } },
+          crumbs(lang, [{ name: zh ? "首頁" : "Home", path: "/" }, { name: zh ? "作品集" : "Portfolio", path: "/portfolio" }, { name: r.title, path: p }]),
+        ],
+      });
+    }
+    for (const [slug, c] of cats) {
+      const p = `/portfolio/${slug}`;
+      const name = zh ? c.zh : c.name;
+      const links = c.items.map((r) => `<li><a href="${localizePath(`/portfolio/${r.slug}`, lang)}">${esc(r.title)}</a></li>`).join("");
+      const title = zh ? `${name}網站設計作品｜Sonykun Design` : `${name} Website Design Portfolio | Sonykun Design`;
+      pages.push({
+        path: p,
+        lang,
+        title,
+        description: zh
+          ? `瀏覽 Sonykun Design 為${name}產業打造的 ${c.items.length} 個網站作品。`
+          : `Browse ${c.items.length} ${name} websites designed and built by Sonykun Design in Vancouver.`,
+        priority: 0.6,
+        body: `<main><h1>${esc(title)}</h1><ul>${links}</ul></main>`,
+        jsonLd: [crumbs(lang, [{ name: zh ? "首頁" : "Home", path: "/" }, { name: zh ? "作品集" : "Portfolio", path: "/portfolio" }, { name, path: p }])],
+      });
+    }
   }
   return pages;
 }
 
 function sitemap(pages: Page[]) {
   const urls = pages.map((p) =>
-    ["  <url>", `    <loc>${abs(p.path)}</loc>`, p.lastmod ? `    <lastmod>${p.lastmod}</lastmod>` : "", `    <priority>${p.priority.toFixed(1)}</priority>`, "  </url>"]
+    [
+      "  <url>",
+      `    <loc>${abs(p.path, p.lang)}</loc>`,
+      `    <xhtml:link rel="alternate" hreflang="${HREFLANG.en}" href="${abs(p.path, "en")}"/>`,
+      p.enOnly ? "" : `    <xhtml:link rel="alternate" hreflang="${HREFLANG.zh}" href="${abs(p.path, "zh")}"/>`,
+      `    <xhtml:link rel="alternate" hreflang="x-default" href="${abs(p.path, "en")}"/>`,
+      p.lastmod ? `    <lastmod>${p.lastmod}</lastmod>` : "",
+      `    <priority>${p.priority.toFixed(1)}</priority>`,
+      "  </url>",
+    ]
       .filter(Boolean)
       .join("\n"),
   );
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join("\n")}\n</urlset>\n`;
 }
 
 export default function prerenderPlugin(): Plugin {
@@ -193,7 +238,8 @@ export default function prerenderPlugin(): Plugin {
       }
       for (const p of pages) {
         // /contact -> contact.html: served at /contact on Netlify and Cloudflare Pages without a trailing-slash redirect.
-        const file = p.path === "/" ? indexFile : path.join(outDir, `${p.path.slice(1)}.html`);
+        const rel = localizePath(p.path, p.lang);
+        const file = rel === "/" ? indexFile : path.join(outDir, `${rel.slice(1)}.html`);
         fs.mkdirSync(path.dirname(file), { recursive: true });
         fs.writeFileSync(file, render(template, p));
       }

@@ -34,15 +34,15 @@ export const homeContent = {
   hero: {
     eyebrow: { en: "Vancouver Web Designer", zh: "溫哥華網站設計師" },
     headline: {
-      en: "Get a Professional Website\nin 3 Business Days.",
+      en: "Get a Professional Website in 3 Business Days.",
       zh: "3 個工作天內\n獲得專業網站。",
     },
     subhead: {
       en: "You see your website preview before you pay — then we launch it. Websites starting at $349 CAD. No surprises, no hidden fees.",
       zh: "付款前先看到網站預覽，確認後我們上線。網站起價 $349 加幣。沒有意外、沒有隱藏費用。",
     },
-    ctaPrimary: { en: "See Website Packages", zh: "查看網站方案" },
-    ctaSecondary: { en: "View Our Work", zh: "查看作品集" },
+    ctaPrimary: { en: "Get Your Free Preview", zh: "取得免費預覽" },
+    ctaSecondary: { en: "See Website Packages", zh: "查看網站方案" },
     trust: {
       en: "500+ websites built · Since 2005 · Based in Vancouver, BC · 3-day delivery",
       zh: "500+ 網站完成 · 自 2005 年起 · 位於溫哥華 BC · 3 天交付",
@@ -214,7 +214,7 @@ export const homeContent = {
       en: "Tell us about your business and we'll build you a free preview.",
       zh: "告訴我們您的業務，我們會為您打造免費預覽。",
     },
-    cta: { en: "Get Your Free Preview", zh: "獲取免費預覽" },
+    cta: { en: "Get Your Free Preview", zh: "取得免費預覽" },
   },
 } as const;
 
@@ -452,7 +452,7 @@ export const servicesContent = {
       en: "We'll build you a free preview so you can see your website before you commit.",
       zh: "我們會為您打造免費預覽，讓您在決定前先看到網站。",
     },
-    cta: { en: "Get Your Free Preview", zh: "獲取免費預覽" },
+    cta: { en: "Get Your Free Preview", zh: "取得免費預覽" },
   },
 } as const;
 
@@ -733,7 +733,7 @@ export const pricingContent = {
       en: "Fill out a short brief and we'll build you a free preview. No commitment required.",
       zh: "填寫簡短需求，我們會打造免費預覽。完全沒有任何承諾。",
     },
-    cta: { en: "Get Your Free Preview", zh: "獲取免費預覽" },
+    cta: { en: "Get Your Free Preview", zh: "取得免費預覽" },
   },
 } as const;
 
@@ -752,6 +752,22 @@ export const pageMeta = {
     title: "Web Design Pricing Vancouver | Sonykun Design",
     description:
       "Transparent web design and logo pricing in CAD. Websites from $349, logos from $375, bundles from $599. No hidden fees. Free preview before you pay.",
+  },
+};
+
+/** Traditional Chinese (Taiwan usage) versions of pageMeta. */
+export const pageMetaZh: typeof pageMeta = {
+  home: {
+    title: "溫哥華網站設計｜中小企業網站與 Logo 設計｜Sonykun Design",
+    description: "專業網站與 Logo 設計，$349 加幣起。付款前先看網站預覽。位於溫哥華，自 2005 年起服務 BC 中小企業。",
+  },
+  services: {
+    title: "網站設計與品牌識別服務｜Sonykun Design 溫哥華",
+    description: "為中小企業提供網站設計、Logo 設計、品牌識別與套裝方案。價格透明，$349 加幣起，付款前免費預覽。",
+  },
+  pricing: {
+    title: "溫哥華網站設計價格｜Sonykun Design",
+    description: "以加幣標示的透明價格：網站 $349 起、Logo $375 起、套裝 $599 起。沒有隱藏費用，付款前免費預覽。",
   },
 };
 

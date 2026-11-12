@@ -5,13 +5,15 @@ import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
 import HomeFeaturedWork from "@/components/HomeFeaturedWork";
+import HeroCollage from "@/components/HeroCollage";
+import GoogleRating from "@/components/GoogleRating";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqAccordion from "@/components/FaqAccordion";
 import ImageMarquee from "@/components/ImageMarquee";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Globe, Diamond, Package, Server } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { homeContent, pageMeta, localBusinessJsonLd } from "@/i18n/pageContent";
+import { homeContent, pageMeta, pageMetaZh, localBusinessJsonLd } from "@/i18n/pageContent";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
 const fadeUp = {
@@ -24,9 +26,8 @@ const fadeUp = {
 const Index = () => {
   const { lang } = useLanguage();
   usePageMeta({
-    title: pageMeta.home.title,
-    description: pageMeta.home.description,
-    canonical: "https://sonykundesign.com/",
+    title: (lang === "zh" ? pageMetaZh : pageMeta).home.title,
+    description: (lang === "zh" ? pageMetaZh : pageMeta).home.description,
     jsonLd: localBusinessJsonLd,
   });
 
@@ -39,7 +40,7 @@ const Index = () => {
       <main>
         {/* HERO */}
         <section className="relative bg-background pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
-          <div className="container-wide relative z-10">
+          <div className="container-wide relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
             <div className="max-w-4xl">
               <motion.span
                 initial={{ opacity: 0, y: 12 }}
@@ -53,7 +54,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="heading-hero mb-6"
+                className="heading-hero mb-6 lg:!text-[60px] xl:!text-[66px]"
               >
                 {c.hero.headline[lang]}
               </motion.h1>
@@ -71,7 +72,7 @@ const Index = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-3 mb-8"
               >
-                <Link to="/pricing">
+                <Link to="/contact">
                   <Button
                     size="lg"
                     className="h-12 px-7 text-sm font-medium tracking-wide btn-cta btn-fill rounded-full w-full sm:w-auto"
@@ -79,7 +80,7 @@ const Index = () => {
                     {c.hero.ctaPrimary[lang]}
                   </Button>
                 </Link>
-                <Link to="/portfolio">
+                <Link to="/pricing">
                   <Button
                     size="lg"
                     variant="outline"
@@ -97,7 +98,15 @@ const Index = () => {
               >
                 {c.hero.trust[lang]}
               </motion.p>
+              <GoogleRating className="mt-4" />
             </div>
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <HeroCollage />
+            </motion.div>
           </div>
         </section>
 

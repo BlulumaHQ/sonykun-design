@@ -552,3 +552,18 @@ body::before {
   .feed-portfolio-card, .portfolio-screenshot--card, .feed-portfolio-arrow, .portfolio-scroll-hint { transition: none; }
   .feed-portfolio-card:hover, .feed-portfolio-card:hover .feed-portfolio-arrow { transform: none; }
 }
+
+/* Homepage hero collage (large screens only) */
+.hero-collage { position: relative; display: none; min-height: 460px; }
+@media (min-width: 1024px) { .hero-collage { display: block; } }
+.hero-frame { position: absolute; overflow: hidden; border-radius: 12px; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); box-shadow: 0 24px 60px -24px rgb(15 23 42 / 0.28); }
+.hero-frame-bar { display: flex; gap: 5px; padding: 8px 10px; border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted)); }
+.hero-frame-bar span { width: 7px; height: 7px; border-radius: 999px; background: hsl(var(--foreground) / 0.18); }
+.hero-frame-screen { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: hsl(var(--muted)); }
+.hero-frame-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s ease; }
+.hero-frame:hover .hero-frame-screen img { transform: scale(1.03); }
+.hero-frame-screen--empty { animation: hero-pulse 1.6s ease-in-out infinite; }
+@keyframes hero-pulse { 50% { opacity: .55; } }
+.hero-frame--main { left: 0; top: 70px; width: 78%; z-index: 2; }
+.hero-frame--top { right: 0; top: 0; width: 46%; z-index: 1; }
+.hero-frame--bottom { right: 4%; bottom: 0; width: 44%; z-index: 3; }

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import type { Lang } from "./translations";
+import { langFromPath, localizePath } from "@/lib/locale";
 
 interface LanguageContextType {
   lang: Lang;
@@ -16,25 +17,23 @@ const LanguageContext = createContext<LanguageContextType>({
 export const useLanguage = () => useContext(LanguageContext);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [lang, setLangState] = useState<Lang>(() => {
-    try {
-      const stored = localStorage.getItem("sonykun-lang");
-      if (stored === "zh" || stored === "en") return stored;
-    } catch {}
-    return "en";
-  });
+  // Language comes from the URL (/zh/... = Chinese); switching navigates to the counterpart URL.
+  const [lang] = useState<Lang>(() =>
+    typeof window !== "undefined" ? langFromPath(window.location.pathname) : "en",
+  );
 
   useEffect(() => {
-    try {
-      localStorage.setItem("sonykun-lang", lang);
-    } catch {}
     if (typeof document !== "undefined") {
       document.documentElement.lang = lang === "zh" ? "zh-Hant" : "en";
     }
   }, [lang]);
 
-  const setLang = (l: Lang) => setLangState(l);
-  const toggle = () => setLangState((prev) => (prev === "en" ? "zh" : "en"));
+  const setLang = (l: Lang) => {
+    if (l === lang) return;
+    const { pathname, search, hash } = window.location;
+    window.location.assign(localizePath(pathname, l) + search + hash);
+  };
+  const toggle = () => setLang(lang === "en" ? "zh" : "en");
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, toggle }}>
