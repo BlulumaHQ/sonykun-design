@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,6 +13,17 @@ import ScrollablePreview from "@/components/ScrollablePreview";
 const CaseStudy = () => {
   const { slug } = useParams();
   const study = slug ? caseStudies[slug] : undefined;
+
+  useEffect(() => {
+    if (!study) return;
+    const title = `${study.name} Case Study — ${study.subtitle} | Sonykun Design`;
+    const overview = study.overview.replace(/\s+/g, " ").trim();
+    const description = overview.length > 160 ? `${overview.slice(0, 157).trimEnd()}…` : overview;
+    document.title = title;
+    document.head.querySelector('meta[name="description"]')?.setAttribute("content", description);
+    document.head.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
+    document.head.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
+  }, [study]);
 
   if (!study) {
     return (

@@ -14,10 +14,27 @@ export const PortfolioProjectContent = ({ item }: { item: FeedItem }) => {
   const pages = (item.gallery ?? []).filter((image) => image.type === "page_screenshot");
   const mobiles = (item.gallery ?? []).filter((image) => image.type === "mobile_screenshot");
   useEffect(() => {
-    const previous = document.title;
-    document.title = `${item.title} | Sonykun Design Portfolio`;
-    return () => { document.title = previous; };
-  }, [item.title]);
+    const title = `${item.title} — Website Design | Sonykun Design Portfolio`;
+    const services = (item.services ?? []).filter(Boolean).join(", ") || "Website Design";
+    const description =
+      item.excerpt?.trim() ||
+      `${item.title} website designed and built by Sonykun Design${item.category ? ` (${item.category})` : ""}. Services: ${services}.`;
+    document.title = title;
+    const set = (attr: "name" | "property", key: string, value: string) => {
+      let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", value);
+    };
+    set("name", "description", description);
+    set("property", "og:title", title);
+    set("property", "og:description", description);
+    const image = item.featured_image_url || item.homepage_full_url;
+    if (image) set("property", "og:image", image);
+  }, [item]);
   return (
     <>
       <section className="section-padding">

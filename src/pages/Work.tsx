@@ -21,6 +21,21 @@ const Work = () => {
   const base = category ? `/portfolio/${category.slug}` : "/portfolio";
   const pageUrl = (page: number) => page === 1 ? base : `${base}/page/${page}`;
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, [segment, pageParam]);
+  const listTitle = resolved.kind === "list" ? (category ? category.name : "") : null;
+  useEffect(() => {
+    if (listTitle === null || loading) return;
+    const pageSuffix = pagination.page > 1 ? ` — Page ${pagination.page}` : "";
+    const title = listTitle
+      ? `${listTitle} Website Design Portfolio${pageSuffix} | Sonykun Design`
+      : `Website Design Portfolio${pageSuffix} | Sonykun Design Vancouver`;
+    const description = listTitle
+      ? `Browse ${filtered.length} ${listTitle} websites designed and built by Sonykun Design in Vancouver.`
+      : `Browse ${items.length}+ small business websites designed and built by Sonykun Design in Vancouver, BC.`;
+    document.title = title;
+    document.head.querySelector('meta[name="description"]')?.setAttribute("content", description);
+    document.head.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
+    document.head.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
+  }, [listTitle, loading, pagination.page, filtered.length, items.length]);
   const rowClass = (active: boolean) => `flex items-center justify-between gap-3 border-l-2 py-2.5 pl-4 pr-3 text-sm ${active ? "border-primary bg-primary/5 font-medium text-foreground" : "border-transparent text-muted-foreground hover:border-border"}`;
   const invalid = resolved.kind === "not-found" || (resolved.kind === "detail" && pageParam !== undefined) || !pagination.valid;
   return (

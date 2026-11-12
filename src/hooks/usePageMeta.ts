@@ -22,7 +22,6 @@ export function usePageMeta({
   jsonLd,
 }: PageMeta) {
   useEffect(() => {
-    const prevTitle = document.title;
     document.title = title;
 
     const setMeta = (selector: string, attr: "name" | "property", key: string, value: string) => {
@@ -61,7 +60,6 @@ export function usePageMeta({
     }
 
     return () => {
-      document.title = prevTitle;
       if (jsonLdEl && jsonLdEl.parentNode) jsonLdEl.parentNode.removeChild(jsonLdEl);
     };
   }, [title, description, ogTitle, ogDescription, canonical, JSON.stringify(jsonLd)]);

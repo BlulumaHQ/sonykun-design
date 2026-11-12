@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
-import PortfolioGrid from "@/components/PortfolioGrid";
+import HomeFeaturedWork from "@/components/HomeFeaturedWork";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqAccordion from "@/components/FaqAccordion";
 import ImageMarquee from "@/components/ImageMarquee";
@@ -186,7 +186,7 @@ const Index = () => {
               <h2 className="heading-section">{c.portfolio.title[lang]}</h2>
             </motion.div>
           </div>
-          <PortfolioGrid />
+          <HomeFeaturedWork />
           <div className="container-wide pb-16 md:pb-24 -mt-6 text-center">
             <Link to="/portfolio">
               <Button

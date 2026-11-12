@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import PageTransition from "./PageTransition";
+import SiteHead from "./SiteHead";
 import Index from "@/pages/Index";
 import Work, { LegacyPortfolioRedirect } from "@/pages/Work";
 import CaseStudyIndex from "@/pages/CaseStudyIndex";
@@ -19,6 +20,8 @@ const wrap = (el: JSX.Element) => <PageTransition>{el}</PageTransition>;
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
+    <>
+    <SiteHead />
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={wrap(<Index />)} />
@@ -40,6 +43,7 @@ const AnimatedRoutes = () => {
         <Route path="*" element={wrap(<NotFound />)} />
       </Routes>
     </AnimatePresence>
+    </>
   );
 };
 
