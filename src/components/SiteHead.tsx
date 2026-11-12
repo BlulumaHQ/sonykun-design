@@ -4,6 +4,10 @@ import { NOINDEX, ROUTE_META, SITE } from "@/lib/seoRoutes";
 import { HREFLANG, localizePath } from "@/lib/locale";
 import { useLanguage } from "@/i18n/LanguageContext";
 
+const PLATFORM_HOST = /(^|\.)(lovable\.app|workers\.dev|pages\.dev|netlify\.app)$/i;
+/** Preview/platform hosts stay noindex (set by index.html); never override that. */
+const onPlatformHost = () => PLATFORM_HOST.test(window.location.hostname.replace(/\.$/, ""));
+
 const upsert = (selector: string, create: () => HTMLElement, attrs: Record<string, string>) => {
   let el = document.head.querySelector<HTMLElement>(selector);
   if (!el) {
@@ -43,7 +47,7 @@ export default function SiteHead() {
     link('link[rel="alternate"][hreflang="x-default"]', { rel: "alternate", hreflang: "x-default", href: url("en") });
     meta("property", "og:url", url(lang));
     meta("property", "og:locale", lang === "zh" ? "zh_TW" : "en_CA");
-    meta("name", "robots", NOINDEX.has(clean) ? "noindex, follow" : "index, follow, max-image-preview:large");
+    if (!onPlatformHost()) meta("name", "robots", NOINDEX.has(clean) ? "noindex, follow" : "index, follow, max-image-preview:large");
     const m = ROUTE_META[clean]?.[lang];
     if (m) {
       document.title = m.title;
