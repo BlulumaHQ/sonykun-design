@@ -14,6 +14,7 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
   const [focused, setFocused] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [formLoadedAt] = useState(() => String(Date.now()));
   const navigate = useNavigate();
   const { lang } = useLanguage();
   const ct = translations.contact;
@@ -71,6 +72,11 @@ const ContactSection = ({ source = "sonykun.ca home form" }: ContactSectionProps
           <ScrollReveal delay={0.15}>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="hidden" name="source" value={source} />
+              <input type="hidden" name="_t" value={formLoadedAt} />
+              <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}>
+                <label htmlFor="website_hp">Leave this field empty</label>
+                <input type="text" id="website_hp" name="website_hp" tabIndex={-1} autoComplete="off" defaultValue="" />
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
