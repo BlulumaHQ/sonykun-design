@@ -98,3 +98,17 @@ export function paginatePortfolio(items: FeedItem[], pageParam?: string) {
   const valid = Number.isInteger(page) && page >= 1 && page <= totalPages;
   return { page, totalPages, valid, items: valid ? items.slice((page - 1) * PORTFOLIO_PAGE_SIZE, page * PORTFOLIO_PAGE_SIZE) : [] };
 }
+/** Screenshots for one CMS project (used by the case studies, which have no images of their own). */
+export function useProjectShots(slug: string | undefined) {
+  const { items, loading } = usePortfolioFeed();
+  const item = slug ? items.find((entry) => entry.slug === slug) : undefined;
+  const gallery = item?.gallery ?? [];
+  return {
+    loading,
+    item,
+    full: item?.homepage_full_url || item?.featured_image_url || null,
+    desktop: item?.featured_image_url || item?.homepage_full_url || null,
+    mobile: gallery.find((g) => g.type === "mobile_screenshot")?.url ?? null,
+    page: gallery.find((g) => g.type === "page_screenshot")?.url ?? null,
+  };
+}

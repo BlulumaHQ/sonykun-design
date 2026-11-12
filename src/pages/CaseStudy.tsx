@@ -9,10 +9,13 @@ import { Button } from "@/components/ui/button";
 import { caseStudies } from "@/data/caseStudies";
 import { ExternalLink } from "lucide-react";
 import ScrollablePreview from "@/components/ScrollablePreview";
+import PortfolioScreenshotViewport from "@/components/PortfolioScreenshotViewport";
+import { useProjectShots } from "@/lib/portfolioFeed";
 
 const CaseStudy = () => {
   const { slug } = useParams();
   const study = slug ? caseStudies[slug] : undefined;
+  const shots = useProjectShots(study?.cmsSlug);
 
   useEffect(() => {
     if (!study) return;
@@ -53,12 +56,11 @@ const CaseStudy = () => {
             <h1 className="heading-hero mb-2">{study.name}</h1>
             <p className="text-lg text-muted-foreground mb-8">{study.subtitle}</p>
             <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-border shadow-sm">
-              <ScrollablePreview
-                src={study.heroImage}
-                alt={study.heroAlt}
-                shape="wide"
-                className="rounded-2xl"
-              />
+              {shots.full ? (
+                <ScrollablePreview src={shots.full} alt={study.heroAlt} shape="wide" className="rounded-2xl" />
+              ) : (
+                <div className="portfolio-preview-box portfolio-preview-box--wide animate-pulse bg-muted" />
+              )}
             </div>
           </div>
         </section>
@@ -92,13 +94,14 @@ const CaseStudy = () => {
                       {section.title}
                     </h3>
                     <p className="text-body text-lg mb-6">{section.content}</p>
-                    {section.image && (
+                    {section.image === "mobile" && shots.mobile && (
+                      <div className="mx-auto max-w-[320px]">
+                        <PortfolioScreenshotViewport src={shots.mobile} alt={section.imageAlt || ""} variant="phone" />
+                      </div>
+                    )}
+                    {section.image === "page" && shots.page && (
                       <div className="rounded-lg overflow-hidden border border-border">
-                        <ScrollablePreview
-                          src={section.image}
-                          alt={section.imageAlt || ""}
-                          shape="wide"
-                        />
+                        <ScrollablePreview src={shots.page} alt={section.imageAlt || ""} shape="wide" />
                       </div>
                     )}
                   </div>

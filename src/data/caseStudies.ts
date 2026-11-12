@@ -1,14 +1,9 @@
-import oneParkHero from "@/assets/casestudies/one-park-home-hero.jpg";
-import oneParkMobile from "@/assets/casestudies/one-park-home-mobile.jpg";
-import presoteaHero from "@/assets/casestudies/presotea-hero.jpg";
-import presoteaMobile from "@/assets/casestudies/presotea-mobile.jpg";
-import btnHero from "@/assets/casestudies/btn-hero.jpg";
-import btnBrand from "@/assets/casestudies/btn-brand.jpg";
 
 export interface CaseStudySection {
   title: string;
   content: string;
-  image?: string;
+  /** Which CMS screenshot to show with this section. */
+  image?: "mobile" | "page";
   imageAlt?: string;
 }
 
@@ -16,7 +11,8 @@ export interface CaseStudy {
   slug: string;
   name: string;
   subtitle: string;
-  heroImage: string;
+  /** Portfolio slug in the central CMS; all screenshots come from there. */
+  cmsSlug: string;
   heroAlt: string;
   liveUrl: string;
   overview: string;
@@ -29,7 +25,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     slug: "one-park-home",
     name: "One Park Home",
     subtitle: "Corporate Website + Marketing Design",
-    heroImage: oneParkHero,
+    cmsSlug: "one-park-home-a",
     heroAlt: "One Park Home real estate website displayed on laptop in modern architectural office",
     liveUrl: "https://one-park-home.bluluma.com/",
     overview:
@@ -39,7 +35,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "Architectural Visual Language",
         content:
           "Real estate buyers respond strongly to visual presentation. The layout uses large photography, generous white space, and a structured grid system to reflect the feeling of modern architecture and premium living environments.",
-        image: oneParkMobile,
+        image: "mobile",
         imageAlt: "One Park Home responsive website design on mobile and tablet devices",
       },
       {
@@ -60,7 +56,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     slug: "presotea",
     name: "Presotea",
     subtitle: "Corporate Website + Marketing Design",
-    heroImage: presoteaHero,
+    cmsSlug: "presotea-a",
     heroAlt: "Presotea bubble tea brand website displayed on laptop in modern cafe environment",
     liveUrl: "https://presotea.bluluma.com/",
     overview:
@@ -70,7 +66,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "Brand Driven Visual Identity",
         content:
           "The design extends Presotea's physical brand environment into the digital space through bold colors, dynamic photography, and energetic layouts.",
-        image: presoteaMobile,
+        image: "mobile",
         imageAlt: "Presotea brand marketing materials and mobile website design",
       },
       {
@@ -91,7 +87,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     slug: "btn-real-estate",
     name: "BTN Real Estate",
     subtitle: "Brand Identity + Corporate Website + Marketing Design",
-    heroImage: btnHero,
+    cmsSlug: "btn-a",
     heroAlt: "BTN Real Estate corporate website displayed on laptop in luxury office",
     liveUrl: "https://btn.bluluma.com/",
     overview:
@@ -101,7 +97,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "Professional Brand Identity",
         content:
           "The logo and identity system were designed to communicate stability and trust, essential qualities in the real estate advisory sector.",
-        image: btnBrand,
+        image: "page",
         imageAlt: "BTN Real Estate brand identity system including business cards and stationery",
       },
       {

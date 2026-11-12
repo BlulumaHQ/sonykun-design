@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContactButton from "@/components/FloatingContactButton";
 import ScrollToTop from "@/components/ScrollToTop";
-import PortfolioGrid from "@/components/PortfolioGrid";
+import HomeFeaturedWork from "@/components/HomeFeaturedWork";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import { CheckCircle, Eye, Phone, Check } from "lucide-react";
@@ -134,7 +134,7 @@ const Craigslist = () => {
           </div>
         </section>
 
-        <PortfolioGrid />
+        <HomeFeaturedWork />
         <TestimonialsSection />
 
         {/* Pricing Summary */}

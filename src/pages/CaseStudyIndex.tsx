@@ -1,3 +1,4 @@
+import { useProjectShots } from "@/lib/portfolioFeed";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import Header from "@/components/Header";
@@ -9,6 +10,15 @@ import { Button } from "@/components/ui/button";
 import { caseStudies } from "@/data/caseStudies";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/i18n/LanguageContext";
+
+const CaseStudyThumb = ({ cmsSlug, alt }: { cmsSlug: string; alt: string }) => {
+  const { desktop } = useProjectShots(cmsSlug);
+  return desktop ? (
+    <img src={desktop} alt={alt} loading="lazy" className="w-full h-full object-cover object-top" />
+  ) : (
+    <div className="w-full h-full animate-pulse bg-muted" />
+  );
+};
 
 const CaseStudyIndex = () => {
   const { lang } = useLanguage();
@@ -60,12 +70,7 @@ const CaseStudyIndex = () => {
                       aria-label={`${isZh ? "查看案例" : "View case study"}: ${project.name}`}
                     >
                       <div className="aspect-[4/3] w-full overflow-hidden">
-                        <img
-                          src={study.heroImage}
-                          alt={study.heroAlt}
-                          loading="lazy"
-                          className="w-full h-full object-cover"
-                        />
+                        <CaseStudyThumb cmsSlug={study.cmsSlug} alt={study.heroAlt} />
                       </div>
                     </Link>
 

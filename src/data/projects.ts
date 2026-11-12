@@ -1,15 +1,3 @@
-import oneParkHome from "@/assets/projects/one-park-home.jpg";
-import btnRealEstate from "@/assets/projects/btn-real-estate.jpg";
-import helenLam from "@/assets/projects/helen-lam.jpg";
-import presotea from "@/assets/projects/presotea.jpg";
-import littleMountainDental from "@/assets/projects/little-mountain-dental.jpg";
-import friendlyDental from "@/assets/projects/friendly-dental.jpg";
-import yangHealth from "@/assets/projects/yang-health.jpg";
-import unityTattoo from "@/assets/projects/unity-tattoo.jpg";
-import nueraNutra from "@/assets/projects/nuera-nutra.jpg";
-import vitaEnvironmental from "@/assets/projects/vita-environmental.jpg";
-import vancouverWineSchool from "@/assets/projects/vancouver-wine-school.jpg";
-import calinClub from "@/assets/projects/calin-club.jpg";
 
 export type ProjectCategory = "Web Design" | "Branding" | "Ecommerce" | "AI Automation";
 
@@ -120,8 +108,7 @@ export interface Project {
   services: string[];
   /** Standardised filterable service tags (every project must have ≥1). */
   serviceCategories: ServiceCategory[];
-  image: string;
-  alt: string;
+  /** Legacy fake-image fields removed; screenshots come from the CMS. */
   type: "client" | "wordpress";
   description?: string;
   category: ProjectCategory[];
@@ -141,8 +128,6 @@ export const projects: Project[] = [
     industry: "Real Estate & Construction",
     services: ["Corporate Website", "Marketing Design"],
     serviceCategories: ["Corporate Website", "Marketing Design"],
-    image: oneParkHome,
-    alt: "Corporate website design for One Park Home real estate development",
     type: "client",
     description: "A digital presence that communicates trust, elegance, and architectural sophistication for a modern residential development brand.",
     category: ["Web Design"],
@@ -158,8 +143,6 @@ export const projects: Project[] = [
     industry: "Food & Retail",
     services: ["Corporate Website", "Marketing Design"],
     serviceCategories: ["Corporate Website", "Marketing Design"],
-    image: presotea,
-    alt: "Corporate website and marketing design for Presotea bubble tea brand",
     type: "client",
     description: "A vibrant digital platform reflecting the brand's youthful energy with strong visual consistency across marketing materials.",
     category: ["Web Design"],
@@ -175,8 +158,6 @@ export const projects: Project[] = [
     industry: "Real Estate & Construction",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
     serviceCategories: ["Logo Design", "Corporate Website", "Marketing Design", "Branding Design"],
-    image: btnRealEstate,
-    alt: "Brand identity and corporate website design for BTN Real Estate",
     type: "client",
     description: "Complete brand identity system with a corporate website reflecting professionalism, expertise, and industry credibility.",
     category: ["Web Design", "Branding"],
@@ -193,8 +174,6 @@ export const projects: Project[] = [
     industry: "Real Estate & Construction",
     services: ["Corporate Website", "Marketing Design"],
     serviceCategories: ["Corporate Website", "Marketing Design"],
-    image: helenLam,
-    alt: "Corporate website and marketing design for Helen Lam Real Estate",
     type: "client",
     category: ["Web Design"],
     year: 2025,
@@ -207,8 +186,6 @@ export const projects: Project[] = [
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
     serviceCategories: ["Logo Design", "Corporate Website", "Marketing Design", "Branding Design"],
-    image: littleMountainDental,
-    alt: "Brand logo and website design for Little Mountain Dental clinic",
     type: "client",
     category: ["Web Design", "Branding"],
     year: 2025,
@@ -221,8 +198,6 @@ export const projects: Project[] = [
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website", "Marketing Design"],
     serviceCategories: ["Logo Design", "Corporate Website", "Marketing Design", "Branding Design"],
-    image: friendlyDental,
-    alt: "Brand identity and website design for Friendly Dental clinic",
     type: "client",
     category: ["Web Design", "Branding"],
     year: 2025,
@@ -235,8 +210,6 @@ export const projects: Project[] = [
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website"],
     serviceCategories: ["Logo Design", "Corporate Website", "Branding Design"],
-    image: yangHealth,
-    alt: "Brand logo and corporate website for Yang Health Therapeutic Clinic",
     type: "client",
     category: ["Web Design", "Branding"],
     year: 2025,
@@ -249,8 +222,6 @@ export const projects: Project[] = [
     industry: "Medical & Healthcare",
     services: ["Brand Logo", "Corporate Website"],
     serviceCategories: ["Logo Design", "Corporate Website", "Branding Design"],
-    image: unityTattoo,
-    alt: "Brand logo and corporate website for Unity Tattoo studio",
     type: "client",
     category: ["Web Design", "Branding"],
     year: 2024,
@@ -263,8 +234,6 @@ export const projects: Project[] = [
     industry: "Biotechnology & Environmental",
     services: ["Corporate Website"],
     serviceCategories: ["Corporate Website"],
-    image: nueraNutra,
-    alt: "Corporate website design for NuEra Nutra biotechnology company",
     type: "client",
     category: ["Web Design"],
     year: 2024,
@@ -277,8 +246,6 @@ export const projects: Project[] = [
     industry: "Biotechnology & Environmental",
     services: ["Corporate Website"],
     serviceCategories: ["Corporate Website"],
-    image: vitaEnvironmental,
-    alt: "Corporate website design for Vita Environmental services",
     type: "client",
     category: ["Web Design"],
     year: 2024,
@@ -292,8 +259,6 @@ export const projects: Project[] = [
     industry: "Education",
     services: ["Website Design"],
     serviceCategories: ["Website Design"],
-    image: vancouverWineSchool,
-    alt: "WordPress website design for Vancouver Wine School",
     type: "wordpress",
     category: ["Web Design"],
     year: 2023,
@@ -306,8 +271,6 @@ export const projects: Project[] = [
     industry: "Lifestyle",
     services: ["Website Design"],
     serviceCategories: ["Website Design"],
-    image: calinClub,
-    alt: "WordPress website design for Calin Club",
     type: "wordpress",
     category: ["Web Design"],
     year: 2023,
