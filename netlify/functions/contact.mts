@@ -11,6 +11,30 @@ const esc = (s: string) =>
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
 
+const MIN_FILL_MS = 3000;
+const MAX_FORM_AGE_MS = 24 * 60 * 60 * 1000;
+
+// Random-string names like "rlqSkDcAEwXpMUSoImD"
+function looksLikeGibberish(name: string): boolean {
+  const n = name.trim();
+  if (!n || /\s/.test(n) || n.length < 10) return false;
+  const innerCaps = (n.slice(1).match(/[A-Z]/g) || []).length;
+  const vowels = (n.match(/[aeiouAEIOU]/g) || []).length;
+  return innerCaps >= 2 || vowels / n.length < 0.2;
+}
+
+function spamReason(f: Record<string, string>): string | null {
+  if (f._gotcha || f["bot-field"] || f.website_hp) return "honeypot";
+  const t = Number(f._t);
+  if (!t) return "no_timestamp";
+  const age = Date.now() - t;
+  if (age < MIN_FILL_MS) return "too_fast";
+  if (age > MAX_FORM_AGE_MS) return "stale_form";
+  const name = f.name || [f.firstName, f.lastName].filter(Boolean).join(" ");
+  if (looksLikeGibberish(name)) return "gibberish_name";
+  return null;
+}
+
 export default async (req: Request) => {
   if (req.method !== "POST") return json(405, { ok: false });
   const key = Netlify.env.get("RESEND_API_KEY");
@@ -26,12 +50,16 @@ export default async (req: Request) => {
   } catch {
     return json(400, { ok: false, error: "invalid_body" });
   }
-  if (fields._gotcha || fields["bot-field"] || fields.website_hp) return json(200, { ok: true });
+  const reason = spamReason(fields);
+  if (reason) {
+    console.log("Blocked spam submission:", reason, (fields.name || "").slice(0, 40), (fields.email || "").slice(0, 60));
+    return json(200, { ok: true });
+  }
 
   const email = (fields.email || "").trim();
   const name = (fields.name || [fields.firstName, fields.lastName].filter(Boolean).join(" ") || "Website visitor").trim();
   const rows = Object.entries(fields)
-    .filter(([k, v]) => v && !k.startsWith("_"))
+    .filter(([k, v]) => v && !k.startsWith("_") && k !== "website_hp")
     .map(([k, v]) => `<tr><td style="padding:6px 14px 6px 0;font-weight:bold;vertical-align:top">${esc(k)}</td><td style="padding:6px 0;white-space:pre-wrap">${esc(v.slice(0, 5000))}</td></tr>`)
     .join("");
 
