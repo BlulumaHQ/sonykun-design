@@ -72,9 +72,9 @@ const TransparentPricing = () => {
               </h3>
             </div>
             <p className="text-3xl font-bold text-foreground mb-1">
-              $16.50<span className="text-base font-normal text-muted-foreground">{isZh ? "/月" : "/month"}</span>
+              $18<span className="text-base font-normal text-muted-foreground">{isZh ? "/月" : "/month"}</span>
             </p>
-            <p className="text-sm text-muted-foreground mb-4">{isZh ? "或 $165/年（省 $33）" : "or $165/year (save $33)"}</p>
+            <p className="text-sm text-muted-foreground mb-4">{isZh ? "或 $165/年（省 $51）" : "or $165/year (save $51)"}</p>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="text-secondary mt-0.5">•</span> {isZh ? "託管管理" : "Hosting management"}
@@ -83,7 +83,7 @@ const TransparentPricing = () => {
                 <span className="text-secondary mt-0.5">•</span> {isZh ? "基本維護" : "Basic maintenance"}
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-secondary mt-0.5">•</span> {isZh ? "小幅修改支援" : "Small revision support"}
+                <span className="text-secondary mt-0.5">•</span> {isZh ? "每月一次小幅修改" : "One small revision per month"}
               </li>
             </ul>
           </motion.div>

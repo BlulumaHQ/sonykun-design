@@ -238,6 +238,26 @@ const Pricing = () => {
           </div>
         </section>
 
+        {/* GRAPHIC DESIGN */}
+        <section className="section-padding pt-0">
+          <div className="container-wide">
+            <motion.h2 {...fadeUp} className="heading-section text-center mb-12">
+              {c.graphic.title[lang]}
+            </motion.h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+              {c.graphic.cards.map((card, i) => (
+                <CardShell key={i} delay={(i % 4) * 0.1}>
+                  <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title[lang]}</h3>
+                  <p className="font-display text-2xl font-bold text-foreground mb-4">
+                    {typeof card.price === "string" ? card.price : card.price[lang]}
+                  </p>
+                  <p className="text-sm text-muted-foreground leading-[1.7] flex-1">{card.body[lang]}</p>
+                </CardShell>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="section-padding bg-muted">
           <div className="container-wide">

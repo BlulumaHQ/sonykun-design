@@ -50,11 +50,11 @@ export const ROUTE_META: Record<string, { en: Meta; zh: Meta }> = {
   },
   "/craigslist": {
     en: {
-      title: "Small Business Websites from $349 | Sonykun Design",
+      title: "Small Business Websites from $375 | Sonykun Design",
       description: "Website and logo design for Vancouver small businesses. See a live preview before you pay.",
     },
     zh: {
-      title: "中小企業網站 $349 起｜Sonykun Design",
+      title: "中小企業網站 $375 起｜Sonykun Design",
       description: "為溫哥華中小企業提供網站與 Logo 設計，付款前先看即時預覽。",
     },
   },
