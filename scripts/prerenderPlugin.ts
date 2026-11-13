@@ -96,7 +96,7 @@ function staticPages(root: string): Page[] {
       path: p,
       lang: "en",
       enOnly: true,
-      title: `${name} Case Study — ${subtitle} | Sonykun Design`,
+      title: `${name} Case Study | Sonykun Design`,
       description,
       priority: 0.7,
       jsonLd: [crumbs("en", [{ name: "Home", path: "/" }, { name: "Case Studies", path: "/case-study" }, { name, path: p }])],

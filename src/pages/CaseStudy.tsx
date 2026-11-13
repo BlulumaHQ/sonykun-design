@@ -19,7 +19,7 @@ const CaseStudy = () => {
 
   useEffect(() => {
     if (!study) return;
-    const title = `${study.name} Case Study — ${study.subtitle} | Sonykun Design`;
+    const title = `${study.name} Case Study | Sonykun Design`;
     const overview = study.overview.replace(/\s+/g, " ").trim();
     const description = overview.length > 160 ? `${overview.slice(0, 157).trimEnd()}…` : overview;
     document.title = title;
