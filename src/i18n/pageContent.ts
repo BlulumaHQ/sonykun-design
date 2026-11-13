@@ -403,8 +403,8 @@ export const servicesContent = {
       },
     },
     note: {
-      en: "Already have hosting with GoDaddy, Squarespace, Wix, or another provider? No problem — we'll transfer your domain and migrate your site for free as part of your project.",
-      zh: "已經在 GoDaddy、Squarespace、Wix 或其他供應商有主機？沒問題 — 我們會在專案中免費為您轉移網域與網站。",
+      en: "Already have hosting with GoDaddy, Squarespace, Wix, or another provider? No problem — we'll migrate your site for free as part of your project. Domain setup is a one-time $25.",
+      zh: "已經在 GoDaddy、Squarespace、Wix 或其他供應商有主機？沒問題 — 我們會在專案中免費為您轉移網站。網域設定為一次性 $25。",
     },
   },
   faq: {
@@ -765,10 +765,10 @@ export const pricingContent = {
         },
       },
       {
-        q: { en: "Do you charge extra for domain setup or hosting transfers?", zh: "網域設定或主機轉移會額外收費嗎？" },
+        q: { en: "Do you charge for domain setup or hosting transfers?", zh: "網域設定或主機轉移要收費嗎？" },
         a: {
-          en: "No. Domain and DNS setup, as well as transfers from your existing hosting provider, are included in your project at no extra cost.",
-          zh: "不會。網域與 DNS 設定，以及從現有主機商轉移，全部包含在專案中，不額外收費。",
+          en: "Domain and DNS setup is a one-time $25. Moving your website from your existing hosting provider is included in your project at no extra cost.",
+          zh: "網域與 DNS 設定為一次性 $25。從現有主機商轉移網站則包含在專案中，不額外收費。",
         },
       },
     ],
